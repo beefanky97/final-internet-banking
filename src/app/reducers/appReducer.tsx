@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
+import { postReducer } from 'src/app/reducers/postReducer';
 //Import some reducer to combine
 
 const appReducer = combineReducers({
     //structure:  [name state]: [reducer's imported]
-    exampleSate: () => {return {trash: 1}}
+    postState: postReducer
 })
 
 export default appReducer;

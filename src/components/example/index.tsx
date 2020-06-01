@@ -1,18 +1,22 @@
-import React from "react";
-import { exampleService } from "src/api/exampleService";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { getAllPost } from 'src/app/actions/postActions';
+import { Dispatch } from 'redux';
 
 interface Props {
   title: string;
   example?: any; //props's get in store must be option (can be null)
+  getAllPost(): void
 }
 
-const Myfunc: React.FC<Props> = ({ title, example }) => {
-  const posts = exampleService.getAllPost();
+const Myfunc: React.FC<Props> = ({ title, example, getAllPost }) => {
 
-  console.log("example selector", example)
+  useEffect(() => {
+    getAllPost();
+  }, [])
 
-  console.log("posts", posts);
+  console.log("over", example);
+
   return (
     <div>
       hello! {title}
@@ -23,12 +27,12 @@ const Myfunc: React.FC<Props> = ({ title, example }) => {
 
 //defined Type of State
 const mapStateToProps = (state: any) => ({ 
-  example: state.exampleSate 
+  example: state.postState 
 });
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {};
-// };
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  getAllPost: () => dispatch(getAllPost())
+});
 
 //connect to the appStore
-export default connect(mapStateToProps, null)(Myfunc);
+export default connect(mapStateToProps, mapDispatchToProps)(Myfunc);
