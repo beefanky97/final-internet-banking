@@ -6,14 +6,15 @@ import { Dispatch } from 'redux';
 interface Props {
   title: string;
   example?: any; //props's get in store must be option (can be null)
-  getAllPost(): void
+  getAllPostProps(): void
 }
 
-const Myfunc: React.FC<Props> = ({ title, example, getAllPost }) => {
+const Myfunc: React.FC<Props> = ({ title, example, getAllPostProps }) => {
 
   useEffect(() => {
-    getAllPost();
-  }, [])
+    const x = getAllPostProps();
+    console.log("x", x);
+  }, [getAllPostProps])
 
   console.log("over", example);
 
@@ -31,7 +32,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getAllPost: () => dispatch(getAllPost())
+  getAllPostProps: () => dispatch(getAllPost())
 });
 
 //connect to the appStore
