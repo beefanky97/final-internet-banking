@@ -231,18 +231,15 @@ const Header: React.FC<Props> = ({}) => {
         </div>
       </header>
       {/* <!-- ##### Header Area End ##### --> */}
-
-      {/* <!-- ##### Hero Area Start ##### --> */}
+{/* 
       <div className="hero-area">
         <div className="hero-slideshow owl-carousel">
-          {/* <!-- Single Slide --> */}
           <div className="single-slide bg-img">
-            {/* <!-- Background Image--> */}
             <img
               className="slide-bg-img bg-img bg-overlay"
               src="img/bg-img/1.jpg"
+              alt=""
             />
-            {/* <!-- Welcome Text --> */}
             <div className="container h-100">
               <div className="row h-100 align-items-center justify-content-center">
                 <div className="col-12 col-lg-9">
@@ -270,18 +267,15 @@ const Header: React.FC<Props> = ({}) => {
                 </div>
               </div>
             </div>
-            {/* <!-- Slide Duration Indicator --> */}
             <div className="slide-du-indicator"></div>
           </div>
 
-          {/* <!-- Single Slide --> */}
           <div className="single-slide bg-img">
-            {/* <!-- Background Image--> */}
             <img
               className="slide-bg-img bg-img bg-overlay"
               src="img/bg-img/1.jpg"
+              alt=""
             />
-            {/* <!-- Welcome Text --> */}
             <div className="container h-100">
               <div className="row h-100 align-items-center justify-content-center">
                 <div className="col-12 col-lg-9">
@@ -309,18 +303,14 @@ const Header: React.FC<Props> = ({}) => {
                 </div>
               </div>
             </div>
-            {/* <!-- Slide Duration Indicator --> */}
             <div className="slide-du-indicator"></div>
           </div>
 
-          {/* <!-- Single Slide --> */}
           <div className="single-slide bg-img">
-            {/* <!-- Background Image--> */}
             <img
               className="slide-bg-img bg-img bg-overlay"
               src="img/bg-img/5.jpg"
             />
-            {/* <!-- Welcome Text --> */}
             <div className="container h-100">
               <div className="row h-100 align-items-center justify-content-center">
                 <div className="col-12 col-lg-9">
@@ -348,18 +338,14 @@ const Header: React.FC<Props> = ({}) => {
                 </div>
               </div>
             </div>
-            {/* <!-- Slide Duration Indicator --> */}
             <div className="slide-du-indicator"></div>
           </div>
 
-          {/* <!-- Single Slide --> */}
           <div className="single-slide bg-img">
-            {/* <!-- Background Image--> */}
             <img
               className="slide-bg-img bg-img bg-overlay"
               src="img/bg-img/5.jpg"
             />
-            {/* <!-- Welcome Text --> */}
             <div className="container h-100">
               <div className="row h-100 align-items-center justify-content-center">
                 <div className="col-12 col-lg-9">
@@ -387,12 +373,10 @@ const Header: React.FC<Props> = ({}) => {
                 </div>
               </div>
             </div>
-            {/* <!-- Slide Duration Indicator --> */}
             <div className="slide-du-indicator"></div>
           </div>
         </div>
-      </div>
-      {/* <!-- ##### Hero Area End ##### --> */}
+      </div> */}
     </div>
   );
 };
