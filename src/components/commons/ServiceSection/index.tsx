@@ -25,7 +25,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
           {/* <!-- Single Service Area --> */}
           <div className="col-12 col-md-6 col-lg-4">
             <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-100 wow fadeInUp"
+              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
               data-wow-delay="200ms"
             >
               <div className="icon">
@@ -44,7 +44,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
           {/* <!-- Single Service Area --> */}
           <div className="col-12 col-md-6 col-lg-4">
             <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-100 wow fadeInUp"
+              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
               data-wow-delay="300ms"
             >
               <div className="icon">
@@ -63,7 +63,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
           {/* <!-- Single Service Area --> */}
           <div className="col-12 col-md-6 col-lg-4">
             <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-100 wow fadeInUp"
+              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
               data-wow-delay="400ms"
             >
               <div className="icon">
@@ -82,7 +82,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
           {/* <!-- Single Service Area --> */}
           <div className="col-12 col-md-6 col-lg-4">
             <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-100 wow fadeInUp"
+              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
               data-wow-delay="500ms"
             >
               <div className="icon">
@@ -101,7 +101,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
           {/* <!-- Single Service Area --> */}
           <div className="col-12 col-md-6 col-lg-4">
             <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-100 wow fadeInUp"
+              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
               data-wow-delay="600ms"
             >
               <div className="icon">
@@ -120,7 +120,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
           {/* <!-- Single Service Area --> */}
           <div className="col-12 col-md-6 col-lg-4">
             <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-100 wow fadeInUp"
+              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
               data-wow-delay="700ms"
             >
               <div className="icon">
