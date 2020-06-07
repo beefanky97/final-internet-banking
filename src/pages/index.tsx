@@ -5,6 +5,7 @@ import Login from "src/components/Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { About } from "src/components/About";
 import Header from 'src/components/commons/Header';
+import Footer from 'src/components/commons/Footer';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <About />
         </Route>
       </Switch>
-      <h1>Footer</h1>
+      <Footer />
     </Router>
   );
 }
