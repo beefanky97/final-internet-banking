@@ -64,10 +64,7 @@ const Login: React.FC<Props> = () => {
           </div>
           <div className="card-footer">
             <div className="d-flex justify-content-center links">
-              Don't have an account?<a href="#">Sign Up</a>
-            </div>
-            <div className="d-flex justify-content-center">
-              <a href="#">Forgot your password?</a>
+              You forgot your password?<a href="#">Click here!</a>
             </div>
           </div>
         </div>
