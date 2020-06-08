@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { login } from "src/app/actions/accountActions";
 
-interface Props {}
 
-const Login: React.FC<Props> = () => {
+interface Props {
+  login:(username: string, password: string) => void;
+}
+
+const Login: React.FC<Props> = (props) => {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e: any) => {
+    console.log(username + " & " + password);
+    props.login(username, password);
+  }
+
   return (
     <div className="loign-ctn">
       <div className="d-flex justify-content-center h-100">
@@ -24,7 +37,7 @@ const Login: React.FC<Props> = () => {
             </div>
           </div>
           <div className="card-body">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="input-group form-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text">
@@ -35,6 +48,7 @@ const Login: React.FC<Props> = () => {
                   type="text"
                   className="form-control"
                   placeholder="username"
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="input-group form-group">
@@ -47,6 +61,7 @@ const Login: React.FC<Props> = () => {
                   type="password"
                   className="form-control"
                   placeholder="password"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="row align-items-center remember">
@@ -76,7 +91,9 @@ const Login: React.FC<Props> = () => {
 //defined Type of State
 const mapStateToProps = (state: any) => ({});
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({});
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  login:(username: string, password: string) => dispatch(login(username, password))
+});
 
 //connect to the appStore
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
