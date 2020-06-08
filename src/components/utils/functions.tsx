@@ -15,12 +15,18 @@ interface ITokenInfo {
   token_expire: string
 }
 
-export function saveTokenExpire(token: string) {
+export const saveTokenExpire = (token: string) => {
   if (token && typeof sessionStorage !== 'undefined') {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const decodedJwt: any = jwtDecode(token);
     if (decodedJwt && decodedJwt.exp && typeof decodedJwt.exp !== 'undefined' && +decodedJwt.exp) {
       sessionStorage.setItem('token_expire', `${decodedJwt.exp}`);
     }
+  }
+}
+
+export const clearTokenInfo = () => {
+  if(sessionStorage) {
+    sessionStorage.removeItem("token_expire");
   }
 }
