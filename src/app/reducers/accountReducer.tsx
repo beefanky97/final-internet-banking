@@ -1,4 +1,4 @@
-import { postActionType } from "src/app/actions/postActions";
+import { accountActionTypes } from "src/app/actions/accountActions";
 import { AnyAction } from "redux";
 
 const initialAccountState = {
@@ -7,7 +7,7 @@ const initialAccountState = {
 
 export const accountReducer = (state = initialAccountState, action: AnyAction) => {
   switch (action.type) {
-    case postActionType.GET_ALL_POST_SUCCESS: {
+    case accountActionTypes.LOGIN_SUCCESS: {
       return {
         ...state,
         isAuthenticated: true

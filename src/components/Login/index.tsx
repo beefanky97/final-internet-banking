@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { login } from "src/app/actions/accountActions";
@@ -6,6 +6,7 @@ import { login } from "src/app/actions/accountActions";
 
 interface Props {
   login:(username: string, password: string) => void;
+  isAuthenticated: boolean
 }
 
 const Login: React.FC<Props> = (props) => {
@@ -13,8 +14,14 @@ const Login: React.FC<Props> = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    if(props.isAuthenticated) {
+      window.location.href = "/";
+    }
+  }, [props.isAuthenticated])
+
   const handleSubmit = (e: any) => {
-    console.log(username + " & " + password);
+    e.preventDefault();
     props.login(username, password);
   }
 
@@ -89,7 +96,9 @@ const Login: React.FC<Props> = (props) => {
 };
 
 //defined Type of State
-const mapStateToProps = (state: any) => ({});
+const mapStateToProps = (state: any) => ({
+  isAuthenticated: state.accountState.isAuthenticated
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   login:(username: string, password: string) => dispatch(login(username, password))
