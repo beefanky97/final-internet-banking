@@ -1,16 +1,17 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useAuth } from "src/app/context/auth";
+import { isValidToken } from "src/components/utils/functions";
 
 interface Props {
   ComposedComp: any;
   path: string;
-  exact: boolean;
+  exact?: boolean;
 }
 
-const PrivateRoute: React.FC<Props> = ({ ComposedComp, path, exact, ...rest }) => {
-  const isAuthenticated = useAuth();
-  console.log("over");
+const PrivateRoute: React.FC<Props> = ({ ComposedComp, path, exact = false, ...rest }) => {
+
+  const isAuthenticated = isValidToken();
+
   return (
     <Route
     path={path}

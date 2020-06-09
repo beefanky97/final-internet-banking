@@ -10,29 +10,18 @@ import Login from "src/components/Login";
 import Top from "src/components/Top";
 import PrivateRoute from "src/components/hocs/PrivateRoute";
 
-import { AuthContext } from "src/app/context/auth";
-import { isValidToken } from "src/components/utils/functions";
-
 function App() {
-  //Get token
-  const [isAuthenticated, setIsAuth] = useState(true);
-
-  useEffect(() => {
-    setIsAuth(isValidToken());
-  }, [])
   
   return (
-    <AuthContext.Provider value={ isAuthenticated }>
       <Router>
         <Header />
           <PrivateRoute exact={true} path="/" ComposedComp={Top} />
           <Route path="/login">
             <Login />
           </Route>
-          <PrivateRoute exact={false} path="/about" ComposedComp={About} />
+          <PrivateRoute path="/about" ComposedComp={About} />
         <Footer />
       </Router>
-    </AuthContext.Provider>
   );
 }
 
