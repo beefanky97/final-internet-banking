@@ -1,8 +1,54 @@
 import React from "react";
+import ServiceItem from "src/components/commons/ServiceItem";
 
 interface Props {}
 
 const ServiceSection: React.FC<Props> = ({}) => {
+  const service_info = [
+    {
+      id: "1",
+      name: "Tài khoản/Thẻ",
+      des: "Các dịch vụ liên quan đến thẻ và tài khoản tiết kiệm.",
+      icon: "icon-profits",
+      url: "",
+    },
+    {
+      id: "2",
+      name: "Danh bạ thụ hưởng",
+      des: "Quản lý danh sách phụ hưởng, đối tượng giao dịch.",
+      icon: "icon-profits",
+      url: "",
+    },
+    {
+      id: "3",
+      name: "Chuyển tiền",
+      des: "Các dịch vụ liên quan đến chuyển tiền.",
+      icon: "icon-money-1",
+      url: "",
+    },
+    {
+      id: "4",
+      name: "Quản lý nhắc nợ",
+      des: "Các dịch vụ liên quan đến nhắc nợ.",
+      icon: "icon-profits",
+      url: "",
+    },
+    {
+      id: "5",
+      name: "Lịch sử giao dịch",
+      des: "Tra cứu và quản lý lịch sử giao dịch.",
+      icon: "icon-profits",
+      url: "",
+    },
+    {
+      id: "6",
+      name: "Quản lý cài đặt.",
+      des: "Các cài đặt về tài khoản ứng dụng.",
+      icon: "icon-profits",
+      url: "",
+    },
+  ];
+
   return (
     // <!-- ##### Services Area Start ###### -->
     <section className="services-area section-padding-100-0">
@@ -22,119 +68,14 @@ const ServiceSection: React.FC<Props> = ({}) => {
         </div>
 
         <div className="row">
-          {/* <!-- Single Service Area --> */}
-          <div className="col-12 col-md-6 col-lg-4">
-            <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
-              data-wow-delay="200ms"
-            >
-              <div className="icon">
-                <i className="icon-profits"></i>
-              </div>
-              <div className="text mt-3">
-                <h5>All the loans</h5>
-                <p>
-                  Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris.
-                  Integer ut ultricies orci, lobortis egestas sem.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* <!-- Single Service Area --> */}
-          <div className="col-12 col-md-6 col-lg-4">
-            <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
-              data-wow-delay="300ms"
-            >
-              <div className="icon">
-                <i className="icon-money-1"></i>
-              </div>
-              <div className="text mt-3">
-                <h5>Easy and fast answer</h5>
-                <p>
-                  Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris.
-                  Integer ut ultricies orci, lobortis egestas sem.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* <!-- Single Service Area --> */}
-          <div className="col-12 col-md-6 col-lg-4">
-            <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
-              data-wow-delay="400ms"
-            >
-              <div className="icon">
-                <i className="icon-coin"></i>
-              </div>
-              <div className="text mt-3">
-                <h5>No additional papers</h5>
-                <p>
-                  Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris.
-                  Integer ut ultricies orci, lobortis egestas sem.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* <!-- Single Service Area --> */}
-          <div className="col-12 col-md-6 col-lg-4">
-            <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
-              data-wow-delay="500ms"
-            >
-              <div className="icon">
-                <i className="icon-smartphone-1"></i>
-              </div>
-              <div className="text mt-3">
-                <h5>Secure financial services</h5>
-                <p>
-                  Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris.
-                  Integer ut ultricies orci, lobortis egestas sem.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* <!-- Single Service Area --> */}
-          <div className="col-12 col-md-6 col-lg-4">
-            <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
-              data-wow-delay="600ms"
-            >
-              <div className="icon">
-                <i className="icon-diamond"></i>
-              </div>
-              <div className="text mt-3">
-                <h5>Good investments</h5>
-                <p>
-                  Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris.
-                  Integer ut ultricies orci, lobortis egestas sem.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* <!-- Single Service Area --> */}
-          <div className="col-12 col-md-6 col-lg-4">
-            <div
-              className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5"
-              data-wow-delay="700ms"
-            >
-              <div className="icon">
-                <i className="icon-piggy-bank"></i>
-              </div>
-              <div className="text mt-3">
-                <h5>Accumulation goals</h5>
-                <p>
-                  Morbi ut dapibus dui. Sed ut iaculis elit, quis varius mauris.
-                  Integer ut ultricies orci, lobortis egestas sem.
-                </p>
-              </div>
-            </div>
-          </div>
+          {service_info.map((service) => (
+            <ServiceItem 
+              icon={service.icon}
+              name={service.name}
+              des={service.des}
+              url={service.url} 
+            />
+          ))}
         </div>
       </div>
     </section>
