@@ -209,7 +209,7 @@ const Header: React.FC<Props> = ({}) => {
                         </div>
                       </li>
                       <li>
-                        <a href="post.html">Blog</a>
+                        <a href="./transfer">Tranfer</a>
                       </li>
                       <li>
                         <a href="contact.html">Contact</a>

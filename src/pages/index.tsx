@@ -9,6 +9,7 @@ import Footer from "src/components/commons/Footer";
 import Login from "src/components/Login";
 import Top from "src/components/Top";
 import PrivateRoute from "src/components/hocs/PrivateRoute";
+import Transfer from "src/components/Transfer";
 
 function App() {
   
@@ -20,6 +21,7 @@ function App() {
             <Login />
           </Route>
           <PrivateRoute path="/about" ComposedComp={About} />
+          <PrivateRoute path="/transfer" ComposedComp={Transfer} />
         <Footer />
       </Router>
   );
