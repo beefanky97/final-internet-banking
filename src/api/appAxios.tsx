@@ -15,7 +15,7 @@ export const sourceCancel = CancelToken.source();
 // }
 
 const instanceAppAxios = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com",
+  baseURL: "http://localhost:3000",
   cancelToken: sourceCancel.token,
 })
 
