@@ -17,14 +17,17 @@ export const sourceCancel = CancelToken.source();
 const instanceAppAxios = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com",
   cancelToken: sourceCancel.token,
-//   httpsAgent: agent // This agent prevent ERR_TLS_CERT_ALTNAME_INVALID issue when in SSR development enviroment
 })
+
+const existed_access_token = sessionStorage ? sessionStorage.getItem('access_token') : '';
+
 export const setHeaderAppAxios = (token: string) => {
+  alert("over axios");
   instanceAppAxios.defaults.headers.common = {
     Authorization: "Bearer " + token
   };
 };
 
-// setHeaderAppAxios(jwt);
+setHeaderAppAxios(existed_access_token as string);
 
 export { instanceAppAxios as appAxios };

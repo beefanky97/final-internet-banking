@@ -7,7 +7,7 @@ import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions"
 function* loginSaga(action: any) {
   const { data }: AxiosResponse = yield call(accountService.login, action.username, action.password);
   console.log("data saga", data);
-  yield call(saveTokenExpire, data.token);
+  yield call(saveTokenExpire, data);
   yield put(loginSuccsess(data));
 }
 
