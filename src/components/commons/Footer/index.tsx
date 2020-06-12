@@ -4,7 +4,6 @@ interface Props {}
 
 const Footer: React.FC<Props> = ({}) => {
   return (
-    // <!-- ##### Footer Area Start ##### -->
     <footer className="footer-area section-padding-100-0">
         <div className="container">
             <div className="row">

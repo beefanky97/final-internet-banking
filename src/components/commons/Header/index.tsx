@@ -5,7 +5,6 @@ interface Props {}
 const Header: React.FC<Props> = ({}) => {
   return (
     <div>
-      {/* <!-- ##### Header Area Start ##### --> */}
       <header className="header-area">
         {/* <!-- Top Header Area --> */}
         <div className="top-header-area">

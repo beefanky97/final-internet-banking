@@ -50,7 +50,6 @@ const ServiceSection: React.FC<Props> = ({}) => {
   ];
 
   return (
-    // <!-- ##### Services Area Start ###### -->
     <section className="services-area section-padding-100-0">
       <div className="container">
         <div className="row">

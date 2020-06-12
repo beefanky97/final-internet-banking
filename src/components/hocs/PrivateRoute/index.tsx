@@ -15,7 +15,6 @@ const PrivateRoute: React.FC<Props> = ({ ComposedComp, path, exact = false, ...r
   return (
     <Route
     path={path}
-    //Just redirect when correct path only
     exact={exact}
     { ...rest }
       render={() =>
