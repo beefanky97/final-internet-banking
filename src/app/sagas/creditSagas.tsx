@@ -19,12 +19,23 @@ function* transferSaga(action: any) {
   }
 }
 
+function* getCardInfoSaga(action: any) {
+  console.log("saga card info", action.card_number);
+  const { data }: AxiosResponse = yield call(creditService.getCardInfo, action.card_number);
+  console.log("card info", data);
+}
+
+function* watchGetCardInfo() {
+  yield takeLatest(creditActionTypes.GET_CARD_INFO, getCardInfoSaga);
+}
+
 function* watchTransfer() {
   yield takeLatest(creditActionTypes.TRANSFER, transferSaga);
 }
 
 export function* creditSaga() {
   yield all([
-    watchTransfer()
+    watchTransfer(),
+    watchGetCardInfo()
   ]);
 }

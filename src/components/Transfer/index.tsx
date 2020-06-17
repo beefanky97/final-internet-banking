@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { show } from 'redux-modal';
+
 import ConfirmCardModal from 'src/components/Transfer/modals/ConfirmCardModal';
+import { getCardInfo } from "src/app/actions/creditActions";
 
 interface Props {
   openModal: (name: string) => void
+  getCardInfo: (card_number: string) => void
 }
 
 const Transfer: React.FC<Props> = (props) => {
@@ -14,13 +17,9 @@ const Transfer: React.FC<Props> = (props) => {
   const [amount, setAmount] = useState(0);
   const [content, setContent] = useState("");
 
-  const getCardInfo = (cardNumber: string) => {
-    console.log("Send a api to Confirm card!");
-
-  }
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    props.getCardInfo(cardNumber);
     props.openModal("CONFIRM_CARD_MODAL");
     const transferInfo = {bank, cardNumber, amount, content};
     console.log("tranfer what?", transferInfo);
@@ -102,7 +101,8 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  openModal: (name: string) => dispatch(show(name))
+  openModal: (name: string) => dispatch(show(name)),
+  getCardInfo: (card_number: string) => dispatch(getCardInfo(card_number))
 });
 
 //connect to the appStore
