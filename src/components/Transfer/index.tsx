@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { login, logout } from "src/app/actions/accountActions";
+import { show } from 'redux-modal';
+import ConfirmCardModal from 'src/components/Transfer/modals/ConfirmCardModal';
 
 interface Props {
-  login: (username: string, password: string) => void;
-  logout: () => void;
-  isAuthenticated: boolean;
+  openModal: (name: string) => void
 }
 
 const Transfer: React.FC<Props> = (props) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [bank, setBank] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [content, setContent] = useState("");
 
-  useEffect(() => {
-    if (props.isAuthenticated) {
-      window.location.href = "/";
-    }
-  }, [props.isAuthenticated]);
+  const getCardInfo = (cardNumber: string) => {
+    console.log("Send a api to Confirm card!");
+
+  }
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    props.login(username, password);
+    props.openModal("CONFIRM_CARD_MODAL");
+    const transferInfo = {bank, cardNumber, amount, content};
+    console.log("tranfer what?", transferInfo);
   };
 
   return (
@@ -31,7 +33,7 @@ const Transfer: React.FC<Props> = (props) => {
           <div className="card-header">
             <h3>Sign In</h3>
             <div className="d-flex justify-content-end social_icon">
-              <span onClick={props.logout}>
+              <span>
                 <i className="fab fa-facebook-square"></i>
               </span>
               <span>
@@ -43,31 +45,23 @@ const Transfer: React.FC<Props> = (props) => {
             </div>
           </div>
           <div className="card-body">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <div className="form-group col-md-12">
                   <label htmlFor="inputState">Chọn ngân hàng</label>
-                  <select id="inputState" className="form-control">
-                    <option selected>Chuyển tiền nội bộ</option>
-                    <option>Chuyển liên ngân hàng</option>
+                  <select onChange={e => setBank(e.target.value)} className="form-control">
+                    <option defaultValue="3tbank">Chuyển nội bộ 3TBank</option>
+                    <option value="nh1bank">Ngân hàng khác 1</option>
+                    <option value="nh2bank">Ngân hàng khác 2</option>
+                    <option value="nh3bank">Ngân hàng khác 3</option>
                   </select>
-                </div>
-                <div className="form-group col-md-12">
-                  <label htmlFor="inputEmail4">Tài khoản nguồn</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="inputEmail4"
-                    readOnly
-                    placeholder="9999999999999"
-                  />
                 </div>
                 <div className="form-group col-md-12">
                   <label htmlFor="inputEmail4">Tài khoản người nhận</label>
                   <input
-                    type="email"
+                    type="text"
                     className="form-control"
-                    id="inputEmail4"
+                    onChange={e => setCardNumber(e.target.value)}
                     placeholder="Nhập số tài khoản"
                   />
                 </div>
@@ -76,27 +70,28 @@ const Transfer: React.FC<Props> = (props) => {
                   <input
                     type="number"
                     className="form-control"
-                    id="inputEmail4"
+                    onChange={e => setAmount(+e.target.value)}
                     placeholder="Số tiền"
                   />
                 </div>
                 <div className="form-group col-md-12">
                   <label htmlFor="inputEmail4">Lời nhắn</label>
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
-                    id="inputEmail4"
+                    onChange={e => setContent(e.target.value)}
                     placeholder="Nội dung"
                   />
                 </div>
               </div>
               <button type="submit" className="btn round-5 btn-primary">
-                Sign in
+                Chuyển tiền
               </button>
             </form>
           </div>
         </div>
       </div>
+      <ConfirmCardModal />
     </div>
   );
 };
@@ -107,9 +102,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  login: (username: string, password: string) =>
-    dispatch(login(username, password)),
-  logout: () => dispatch(logout()),
+  openModal: (name: string) => dispatch(show(name))
 });
 
 //connect to the appStore

@@ -22,7 +22,6 @@ const instanceAppAxios = axios.create({
 const existed_access_token = sessionStorage ? sessionStorage.getItem('access_token') : '';
 
 export const setHeaderAppAxios = (token: string) => {
-  alert("over axios");
   instanceAppAxios.defaults.headers.common = {
     Authorization: "Bearer " + token
   };
