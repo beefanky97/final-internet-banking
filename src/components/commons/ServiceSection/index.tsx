@@ -67,8 +67,9 @@ const ServiceSection: React.FC<Props> = ({}) => {
         </div>
 
         <div className="row">
-          {service_info.map((service) => (
+          {service_info.map((service, index) => (
             <ServiceItem 
+              key={index}
               icon={service.icon}
               name={service.name}
               des={service.des}

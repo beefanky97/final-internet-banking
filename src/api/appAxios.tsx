@@ -15,7 +15,7 @@ export const sourceCancel = CancelToken.source();
 // }
 
 const instanceAppAxios = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: "https://internet-banking-api-17.herokuapp.com",
   cancelToken: sourceCancel.token,
 })
 
@@ -26,7 +26,7 @@ export const setHeaderAppAxios = (token: string) => {
     Authorization: "Bearer " + token
   };
 };
-
+console.log("access", existed_access_token);
 setHeaderAppAxios(existed_access_token as string);
 
 export { instanceAppAxios as appAxios };
