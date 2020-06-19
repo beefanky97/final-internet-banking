@@ -1,8 +1,15 @@
 import React from "react";
+import { appAxios } from 'src/api/appAxios';
 
 interface Props {}
 
 const HeroSection: React.FC<Props> = ({}) => {
+
+  appAxios.get("/cards/customer")
+    .then(res => {
+      console.log("ress", res);
+    })
+
   return (
     <div>
       <div className="hero-area">

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 // import https from 'https';
 
 // const { publicRuntimeConfig = {} } = getConfig() || {}
@@ -17,16 +17,20 @@ export const sourceCancel = CancelToken.source();
 const instanceAppAxios = axios.create({
   baseURL: "https://internet-banking-api-17.herokuapp.com",
   cancelToken: sourceCancel.token,
-})
+});
 
-const existed_access_token = sessionStorage ? sessionStorage.getItem('access_token') : '';
+const existed_access_token = sessionStorage ? sessionStorage.getItem("access_token") : "";
+const existed_refresh_token = sessionStorage ? sessionStorage.getItem("refresh_token") : "";
 
-export const setHeaderAppAxios = (token: string) => {
-  instanceAppAxios.defaults.headers.common = {
-    Authorization: "Bearer " + token
+export const setHeaderAppAxios = (access_token: string, refresh_token: string) => {
+  instanceAppAxios.defaults.headers = {
+    access_token,
+    refresh_token
   };
 };
 console.log("access", existed_access_token);
-setHeaderAppAxios(existed_access_token as string);
+console.log("refresh", existed_refresh_token);
+
+setHeaderAppAxios(existed_access_token as string, existed_refresh_token as string);
 
 export { instanceAppAxios as appAxios };
