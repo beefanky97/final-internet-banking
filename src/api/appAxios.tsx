@@ -24,8 +24,8 @@ const existed_refresh_token = sessionStorage ? sessionStorage.getItem("refresh_t
 
 export const setHeaderAppAxios = (access_token: string, refresh_token: string) => {
   instanceAppAxios.defaults.headers = {
-    access_token,
-    refresh_token
+    x_access_token: access_token,
+    x_refresh_token: refresh_token
   };
 };
 console.log("access", existed_access_token);
