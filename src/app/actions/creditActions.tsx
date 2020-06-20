@@ -8,7 +8,6 @@ export const creditActionTypes = {
 //asign type for each action => identify
 //Define structure of data when dispatch
 export const transfer = () => {
-  console.log("action over transfer");
   return {
     type: creditActionTypes.TRANSFER
   };
@@ -20,7 +19,6 @@ export const transferSuccsess = (tokkenInfo: any) => ({
 });
 
 export const getCardInfo = (card_number: string) => {
-  console.log("action over transfer", card_number);
   return {
     type: creditActionTypes.GET_CARD_INFO,
     card_number

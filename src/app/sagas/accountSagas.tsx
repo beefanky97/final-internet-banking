@@ -6,10 +6,9 @@ import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions"
 
 function* loginSaga(action: any) {
   const { data }: AxiosResponse = yield call(accountService.login, action.username, action.password);
-  console.log("data saga login", data);
   if(data.authenticated === false) {
-    console.log("login fail!");
     yield put(loginFail());
+    yield call(clearTokenInfo);
     return;
   }
   yield call(saveTokenExpire, data);
@@ -24,10 +23,7 @@ function* logout() {
 function* refreshTokenSaga() {
   const access_token = sessionStorage ? sessionStorage.getItem("access_token") : "x";
   const refresh_token = sessionStorage ? sessionStorage.getItem("refresh_token") : "x";
-  console.log("access saga", access_token);
-  console.log("refresh saga", refresh_token);
   const { status, data } = yield call(accountService.refreshToken, access_token as string, refresh_token as string);
-  console.log("refresh saga", data, status);
 
   if(status === 400) {
     yield put(logoutSuccsess());

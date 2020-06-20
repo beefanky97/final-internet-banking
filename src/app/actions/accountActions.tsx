@@ -10,7 +10,6 @@ export const accountActionTypes = {
 //asign type for each action => identify
 //Define structure of data when dispatch
 export const login = (username: string, password: string) => {
-  console.log("action over", username);
   return {
     type: accountActionTypes.LOGIN,
     username,
@@ -36,7 +35,6 @@ export const logoutSuccsess = () => ({
 });
 
 export const refreshToken = () => {
-  console.log("refresh over action");
   return {
   type: accountActionTypes.REFRESH_TOKEN
 }};
