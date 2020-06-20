@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { login, logout } from "src/app/actions/accountActions";
-import { transfer } from "src/app/actions/creditActions";
 
 
 interface Props {
   login:(username: string, password: string) => void;
   logout:() => void;
-  transfer:() => void;
   isAuthenticated: boolean
 }
 
@@ -38,7 +36,7 @@ const Login: React.FC<Props> = (props) => {
               <span onClick={props.logout}>
                 <i className="fab fa-facebook-square"></i>
               </span>
-              <span onClick={props.transfer}>
+              <span>
                 <i className="fab fa-google-plus-square"></i>
               </span>
               <span>
@@ -106,7 +104,6 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   login:(username: string, password: string) => dispatch(login(username, password)),
   logout: () => dispatch(logout()),
-  transfer: () => dispatch(transfer())
 });
 
 //connect to the appStore

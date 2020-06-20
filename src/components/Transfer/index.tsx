@@ -1,28 +1,35 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { show } from 'redux-modal';
+import { show, hide } from 'redux-modal';
 
 import ConfirmCardModal from 'src/components/Transfer/modals/ConfirmCardModal';
-import { getCardInfo } from "src/app/actions/creditActions";
+import { getCardInfo, transfer } from "src/app/actions/creditActions";
 
 interface Props {
   openModal: (name: string) => void
-  getCardInfo: (card_number: string) => void
+  getCardInfo: (card_number: number) => void
+  transfer:(transferInfo: Object) => void
+  closeModal: () => void
 }
 
 const Transfer: React.FC<Props> = (props) => {
   const [bank, setBank] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
+  const [cardNumber, setCardNumber] = useState(5678900008);
   const [amount, setAmount] = useState(0);
   const [content, setContent] = useState("");
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     props.getCardInfo(cardNumber);
-    props.openModal("CONFIRM_CARD_MODAL");
-    const transferInfo = {bank, cardNumber, amount, content};
-    console.log("tranfer what?", transferInfo);
+    const transferInfo = {
+      card_number: cardNumber,
+      money: amount,
+      message: content,
+      type_paid: 2
+    }
+
+    props.transfer(transferInfo);
   };
 
   return (
@@ -58,9 +65,9 @@ const Transfer: React.FC<Props> = (props) => {
                 <div className="form-group col-md-12">
                   <label htmlFor="inputEmail4">Tài khoản người nhận</label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
-                    onChange={e => setCardNumber(e.target.value)}
+                    onChange={e => setCardNumber(+e.target.value)}
                     placeholder="Nhập số tài khoản"
                   />
                 </div>
@@ -83,14 +90,14 @@ const Transfer: React.FC<Props> = (props) => {
                   />
                 </div>
               </div>
-              <button type="submit" className="btn round-5 btn-primary">
+              <button type="submit" className="btn round-5 btn-primary" onClick={() => props.openModal("CONFIRM_CARD_MODAL")}>
                 Chuyển tiền
               </button>
             </form>
           </div>
         </div>
       </div>
-      <ConfirmCardModal />
+      <ConfirmCardModal closeModal={props.closeModal} continuteTransfer={handleSubmit}/>
     </div>
   );
 };
@@ -102,7 +109,9 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   openModal: (name: string) => dispatch(show(name)),
-  getCardInfo: (card_number: string) => dispatch(getCardInfo(card_number))
+  getCardInfo: (card_number: number) => dispatch(getCardInfo(card_number)),
+  transfer: (transferInfo: Object) => dispatch(transfer(transferInfo)),
+  closeModal: () => dispatch(hide("CONFIRM_CARD_MODAL"))
 });
 
 //connect to the appStore
