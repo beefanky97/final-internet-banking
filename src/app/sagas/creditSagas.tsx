@@ -9,14 +9,14 @@ import { creditService } from "src/api/creditService";
 function* transferSaga(action: any) {
   const { status = 401, data }: AxiosResponse = yield call(creditService.transfer);
   console.log("data saga", data);
-  if(status === 401 && sessionStorage) {
-    // refresh token
-    const newToken =  yield call(accountService.refreshToken, JSON.stringify(sessionStorage.getItem("refresh_token")));
-    // save new token info
-    yield call(saveTokenExpire, newToken.data);
-    // transfer again
-    yield put(transfer());
-  }
+  // if(status === 401 && sessionStorage) {
+  //   // refresh token
+  //   const newToken =  yield call(accountService.refreshToken, JSON.stringify(sessionStorage.getItem("refresh_token")));
+  //   // save new token info
+  //   yield call(saveTokenExpire, newToken.data);
+  //   // transfer again
+  //   yield put(transfer());
+  // }
 }
 
 function* getCardInfoSaga(action: any) {

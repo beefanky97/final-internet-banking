@@ -24,7 +24,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
       name: "Chuyển tiền",
       des: "Các dịch vụ liên quan đến chuyển tiền.",
       icon: "icon-money-1",
-      url: "",
+      url: "/transfer",
     },
     {
       id: "4",

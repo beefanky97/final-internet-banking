@@ -11,9 +11,16 @@ export const accountReducer = (
 ) => {
   switch (action.type) {
     case accountActionTypes.LOGIN_SUCCESS: {
+      console.log("login success!");
       return {
         ...state,
         isAuthenticated: true,
+      };
+    }
+    case accountActionTypes.LOGIN_FAIL: {
+      return {
+        ...state,
+        isAuthenticated: false,
       };
     }
     case accountActionTypes.LOGOUT_SUCCESS: {

@@ -1,8 +1,10 @@
 export const accountActionTypes = {
   LOGIN: "LOGIN",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  LOGIN_FAIL: "LOGIN_FAIL",
   LOGOUT: "LOGOUT",
   LOGOUT_SUCCESS: "LOGOUT_SUCCESS",
+  REFRESH_TOKEN: "REFRESH_TOKEN",
 };
 
 //asign type for each action => identify
@@ -21,6 +23,10 @@ export const loginSuccsess = (tokkenInfo: any) => ({
   tokkenInfo,
 });
 
+export const loginFail = () => ({
+  type: accountActionTypes.LOGIN_FAIL,
+});
+
 export const logout = () => ({
   type: accountActionTypes.LOGOUT
 });
@@ -28,3 +34,9 @@ export const logout = () => ({
 export const logoutSuccsess = () => ({
   type: accountActionTypes.LOGOUT_SUCCESS,
 });
+
+export const refreshToken = () => {
+  console.log("refresh over action");
+  return {
+  type: accountActionTypes.REFRESH_TOKEN
+}};
