@@ -3,10 +3,17 @@ import { connectModal } from "redux-modal";
 
 interface Props {
   closeModal: () => void;
-  continuteTransfer?: () => void;
+  continuteTransfer: () => void;
 }
 
 const ConfirmCardModal:React.FunctionComponent<Props> = (props) => {
+
+  const handleTransfer = (e: any) => {
+    e.preventDefault();
+    props.continuteTransfer();
+    props.closeModal();
+  }
+
   return (
     <div
       className="modal-center"
@@ -36,7 +43,7 @@ const ConfirmCardModal:React.FunctionComponent<Props> = (props) => {
             >
               Close
             </button>
-            <button type="button" className="btn btn-primary" onClick={props.continuteTransfer}>
+            <button type="button" className="btn btn-primary" onClick={handleTransfer}>
               Save changes
             </button>
           </div>

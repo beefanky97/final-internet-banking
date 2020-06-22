@@ -15,13 +15,13 @@ export const creditService = {
         }
         return res;
       })
-      .catch((err: AxiosError) => {
-        console.log("stop here!", err.toJSON());
-        if(err.response && +err.response.status === 400) {
-          console.log("stop here!");
-          return;
-        }
-      });
+      // .catch((err: AxiosError) => {
+      //   console.log("stop here!", err.toJSON());
+      //   if(err.response && +err.response.status === 400) {
+      //     console.log("stop here!");
+      //     return;
+      //   }
+      // });
   },
   getCardInfo: async (card_number: string) => {
     return {
