@@ -28,11 +28,12 @@ export const creditService = {
       data: {
         name: "Lê Thanh Tâm",
         card_number: "999999999",
-        bank: "3TBank"
+        bank: "3TBank",
+        is_error: false
       }
     }
     // return await appAxios
-    //   .post("/cards/info", card_number)
+    //   .post("cards/customer", card_number)
     //   .then((res: AxiosResponse) => {
     //     return res;
     //   })

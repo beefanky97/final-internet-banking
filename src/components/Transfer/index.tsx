@@ -7,6 +7,7 @@ import ConfirmCardModal from 'src/components/Transfer/modals/ConfirmCardModal';
 import { getCardInfo, transfer } from "src/app/actions/creditActions";
 
 interface Props {
+  cardInfo: any
   openModal: (name: string) => void
   getCardInfo: (card_number: number) => void
   transfer:(transferInfo: Object) => void
@@ -15,22 +16,24 @@ interface Props {
 
 const Transfer: React.FC<Props> = (props) => {
   const [bank, setBank] = useState("");
-  const [cardNumber, setCardNumber] = useState(5678900008);
+  const [cardNumber, setCardNumber] = useState(0);
   const [amount, setAmount] = useState(0);
   const [content, setContent] = useState("");
 
   const handleSubmit = (e: any) => {
-    e.preventDefault();
-    props.getCardInfo(cardNumber);
     const transferInfo = {
       card_number: cardNumber,
       money: amount,
       message: content,
       type_paid: 2
     }
-
     props.transfer(transferInfo);
   };
+
+  const handleOpenModal = async () => {
+    await props.getCardInfo(cardNumber);
+    props.openModal("CONFIRM_CARD_MODAL");
+  }
 
   return (
     <div className="transfer-ctn">
@@ -51,7 +54,7 @@ const Transfer: React.FC<Props> = (props) => {
             </div>
           </div>
           <div className="card-body">
-            <form onSubmit={handleSubmit}>
+            <div>
               <div className="form-group">
                 <div className="form-group col-md-12">
                   <label htmlFor="inputState">Chọn ngân hàng</label>
@@ -90,14 +93,14 @@ const Transfer: React.FC<Props> = (props) => {
                   />
                 </div>
               </div>
-              <button type="submit" className="btn round-5 btn-primary" onClick={() => props.openModal("CONFIRM_CARD_MODAL")}>
+              <button type="submit" className="btn round-5 btn-primary" onClick={handleOpenModal}>
                 Chuyển tiền
               </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
-      <ConfirmCardModal closeModal={props.closeModal} continuteTransfer={handleSubmit}/>
+      <ConfirmCardModal closeModal={props.closeModal} continuteTransfer={handleSubmit} cardInfo={props.cardInfo} isErrorGetInfo={props.cardInfo.is_error}/>
     </div>
   );
 };
@@ -105,6 +108,7 @@ const Transfer: React.FC<Props> = (props) => {
 //defined Type of State
 const mapStateToProps = (state: any) => ({
   isAuthenticated: state.accountState.isAuthenticated,
+  cardInfo: state.creditState.cardInfo
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
