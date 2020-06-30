@@ -10,6 +10,7 @@ import Login from "src/components/Login";
 import Top from "src/components/Top";
 import PrivateRoute from "src/components/hocs/PrivateRoute";
 import Transfer from "src/components/Transfer";
+import AddCustomer from "src/components/Teller/AddCustomer";
 
 function App() {
   
@@ -22,6 +23,12 @@ function App() {
           </Route>
           <PrivateRoute path="/about" ComposedComp={About} />
           <PrivateRoute path="/transfer" ComposedComp={Transfer} />
+          <Route path="/teller/add-customer">
+            <AddCustomer />
+          </Route>
+          <Route path="/admin/history-transaction-interbank">
+            <AddCustomer />
+          </Route>
         <Footer />
       </Router>
   );
