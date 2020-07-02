@@ -14,8 +14,9 @@ function* transferSaga(action: any) {
 }
 
 function* getCardInfoSaga(action: any) {
-  const { data }: AxiosResponse = yield call(creditService.getCardInfo, action.card_number);
-  yield put(getCardInfoSuccess(data))
+  const data = yield call(creditService.getCardInfo, action.card_number);
+  console.log("info getting", data);
+  yield put(getCardInfoSuccess(data));
 }
 
 function* watchGetCardInfo() {

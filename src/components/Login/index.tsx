@@ -3,28 +3,26 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { login, logout } from "src/app/actions/accountActions";
 
-
 interface Props {
-  login:(username: string, password: string) => void;
-  logout:() => void;
-  isAuthenticated: boolean
+  login: (username: string, password: string) => void;
+  logout: () => void;
+  isAuthenticated: boolean;
 }
 
 const Login: React.FC<Props> = (props) => {
-
-  const [username, setUsername] = useState('customer1');
-  const [password, setPassword] = useState('123456');
+  const [username, setUsername] = useState("customer1");
+  const [password, setPassword] = useState("123456");
 
   useEffect(() => {
-    if(props.isAuthenticated) {
+    if (props.isAuthenticated) {
       window.location.href = "/";
     }
-  }, [props.isAuthenticated])
+  }, [props.isAuthenticated]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     props.login(username, password);
-  }
+  };
 
   return (
     <div className="loign-ctn">
@@ -92,17 +90,22 @@ const Login: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
+      <iframe
+        src="http://10.28.74.115:8081/index.html"
+        title="W3Schools Free Online Web Tutorials"
+      ></iframe>
     </div>
   );
 };
 
 //defined Type of State
 const mapStateToProps = (state: any) => ({
-  isAuthenticated: state.accountState.isAuthenticated
+  isAuthenticated: state.accountState.isAuthenticated,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  login:(username: string, password: string) => dispatch(login(username, password)),
+  login: (username: string, password: string) =>
+    dispatch(login(username, password)),
   logout: () => dispatch(logout()),
 });
 

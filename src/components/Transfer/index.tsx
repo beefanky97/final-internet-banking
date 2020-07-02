@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { show, hide } from 'redux-modal';
@@ -30,8 +30,9 @@ const Transfer: React.FC<Props> = (props) => {
     props.transfer(transferInfo);
   };
 
-  const handleOpenModal = async () => {
-    await props.getCardInfo(cardNumber);
+  const handleOpenModal = () => {
+    console.log("card", cardNumber);
+    props.getCardInfo(cardNumber);
     props.openModal("CONFIRM_CARD_MODAL");
   }
 
@@ -100,7 +101,7 @@ const Transfer: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
-      <ConfirmCardModal closeModal={props.closeModal} continuteTransfer={handleSubmit} cardInfo={props.cardInfo} isErrorGetInfo={props.cardInfo.is_error}/>
+      <ConfirmCardModal closeModal={props.closeModal} continuteTransfer={handleSubmit} cardInfo={props.cardInfo} isErrorGetInfo={false}/>
     </div>
   );
 };

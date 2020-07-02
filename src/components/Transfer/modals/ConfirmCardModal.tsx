@@ -20,9 +20,9 @@ const ConfirmCardModal: React.FunctionComponent<Props> = (props) => {
   const cardInfoModal = (cardInfo: any) => {
     return (
       <>
-        <span>Số tài khoản: {cardInfo.card_number}</span>
+        <span>Số tài khoản: {cardInfo && cardInfo.card_number}</span>
         <br />
-        <span>Tên người nhận: {cardInfo.name}</span>
+        <span>Tên người nhận: {cardInfo && cardInfo.name}</span>
       </>
     );
   };
