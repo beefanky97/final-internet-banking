@@ -1,8 +1,9 @@
 export const recieverActionTypes = {
   GET_RECIVER: "GET_RECIVER",
   GET_RECIVER_SUCCESS: "GET_RECIVER_SUCCESS",
+  EDIT_RECIVER: "GET_RECIVEEDIT_RECIVERR",
+  EDIT_RECIVER_SUCCESS: "EDIT_RECIVER_SUCCESS",
   DELETE_RECIEVER: "DELETE_RECIEVER",
-  DELETE_RECIEVER_SUCCESS: "DELETE_RECIEVER_SUCCESS",
 };
 
 //asign type for each action => identify
@@ -15,6 +16,19 @@ export const getReciever = () => {
 
 export const getRecieverSuccsess = (data: any) => ({
   type: recieverActionTypes.GET_RECIVER_SUCCESS,
+  data,
+});
+
+export const editReciever = (id: string, card_number: number) => {
+  return {
+    type: recieverActionTypes.EDIT_RECIVER,
+    id,
+    card_number
+  };
+};
+
+export const editRecieverSuccsess = (data: any) => ({
+  type: recieverActionTypes.EDIT_RECIVER_SUCCESS,
   data,
 });
 

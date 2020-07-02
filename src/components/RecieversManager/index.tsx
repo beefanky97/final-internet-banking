@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { login, logout } from "src/app/actions/accountActions";
-import { getReciever, deleteReciever } from "src/app/actions/recieverActions";
+import { getReciever, deleteReciever, editReciever } from "src/app/actions/recieverActions";
 import { commonActionTypes } from "src/app/actions/commonActions";
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
   isLoading: boolean;
   getReciever: () => void;
   deleteReciever: any
+  editReciever: any
 }
 
 const RecieversManager: React.FC<Props> = (props) => {
@@ -19,8 +20,8 @@ const RecieversManager: React.FC<Props> = (props) => {
     console.log("isLoading", props.isLoading);
   }, [props.isLoading]);
 
-  const handleEditReciever = () => {
-
+  const handleEditReciever = (id: string, card_number: number) => {
+    props.editReciever(id, card_number);
   }
 
   const handleDeleteReciever = (id_customer: string) => {
@@ -54,7 +55,7 @@ const RecieversManager: React.FC<Props> = (props) => {
                   <td>{card_number}</td>
                   <td>{reminiscent_name}</td>
                   <td className="text-center">
-                    <button onClick={handleEditReciever} className="btn btn-info btn-xs">
+                    <button onClick={() => handleEditReciever(_id, card_number)} className="btn btn-info btn-xs">
                       <span className="glyphicon glyphicon-edit"></span> Edit
                     </button>{" "}
                     <button onClick={() => handleDeleteReciever(_id)} className="btn btn-danger btn-xs">
@@ -79,7 +80,8 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getReciever: () => dispatch(getReciever()),
-  deleteReciever: (id_customer: string) => dispatch(deleteReciever(id_customer))
+  deleteReciever: (id_customer: string) => dispatch(deleteReciever(id_customer)),
+  editReciever: (id: string, card_number: number) => dispatch(editReciever(id, card_number))
 });
 
 //connect to the appStore

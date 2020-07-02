@@ -17,6 +17,14 @@ function* deleteRecieverSaga(action: any) {
   }
 }
 
+function* editRecieverSaga(action: any) {
+  yield put(onLoading());
+  const { data }: AxiosResponse = yield call(receiverService.editReciever, action.id, action.card_number);
+  if(data) {
+    yield put(offLoading());
+  }
+}
+
 function* watchGetAllReciver() {
   //this mean listen  had this type, and do this function after
   yield takeLatest(recieverActionTypes.GET_RECIVER, getAllRecieverSaga);
@@ -26,9 +34,14 @@ function* watchDeleteReciver() {
   yield takeLatest(recieverActionTypes.DELETE_RECIEVER, deleteRecieverSaga);
 }
 
+function* watchEditReciver() {
+  yield takeLatest(recieverActionTypes.EDIT_RECIVER, editRecieverSaga);
+}
+
 export function* recieverSaga() {
   yield all([
     watchGetAllReciver(),
-    watchDeleteReciver()
+    watchDeleteReciver(),
+    watchEditReciver()
   ]);
 }

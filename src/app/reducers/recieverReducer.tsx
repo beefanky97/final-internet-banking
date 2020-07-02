@@ -13,6 +13,13 @@ export const recieverReducer = (state = initialRecieverState, action: AnyAction)
                 recievers: action.data
             }
         }
+        
+        case recieverActionTypes.EDIT_RECIVER_SUCCESS: {
+            return {
+                ...state,
+                recievers: action.data
+            }
+        }
 
         default:
           return state;
