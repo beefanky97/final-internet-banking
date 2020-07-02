@@ -16,7 +16,7 @@ interface Props {
 
 const Transfer: React.FC<Props> = (props) => {
   const [bank, setBank] = useState("");
-  const [cardNumber, setCardNumber] = useState(0);
+  const [cardNumber, setCardNumber] = useState(5678900008);
   const [amount, setAmount] = useState(0);
   const [content, setContent] = useState("");
 

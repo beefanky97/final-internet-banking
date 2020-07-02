@@ -11,6 +11,7 @@ import Top from "src/components/Top";
 import PrivateRoute from "src/components/hocs/PrivateRoute";
 import Transfer from "src/components/Transfer";
 import AddCustomer from "src/components/Teller/AddCustomer";
+import RecieversManager from "src/components/RecieversManager";
 
 function App() {
   
@@ -29,6 +30,7 @@ function App() {
           <Route path="/admin/history-transaction-interbank">
             <AddCustomer />
           </Route>
+          <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
         <Footer />
       </Router>
   );

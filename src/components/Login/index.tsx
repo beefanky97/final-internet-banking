@@ -11,7 +11,7 @@ interface Props {
 
 const Login: React.FC<Props> = (props) => {
   const [username, setUsername] = useState("customer1");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("1234567");
 
   useEffect(() => {
     if (props.isAuthenticated) {
