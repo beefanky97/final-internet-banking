@@ -15,7 +15,14 @@ const ShowAllCustomers: React.FC<Props> = (props) => {
         props.showAllCustomers();
     }, [])
 
-    const listCustomers = (customers: []) => customers.map((c: any, i) => <p key={i}>{c.username}</p>)
+    const listCustomers = (customers: []) => customers.map((c: any, i) => (
+        <tr key={i}>
+            <td>{i + 1}</td>
+            <td>{c.username}</td>
+            <td>{c.full_name}</td>
+            <td>{c.email}</td>
+        </tr>
+    ))
 
     return(
         <div>
@@ -28,10 +35,21 @@ const ShowAllCustomers: React.FC<Props> = (props) => {
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-10">
-                                {/* <!-- Contact Area --> */}
                                 <div className="contact-form-area contact-page">
                                     <h4 className="mb-50">Customers</h4>
-                                    {listCustomers(props.customers)}
+                                    <table className="table table-light table-hover table-striped">
+                                        <thead>
+                                            <tr className="table-warning">
+                                                <th>STT</th>
+                                                <th>Username</th>
+                                                <th>Full name</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {listCustomers(props.customers)}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
