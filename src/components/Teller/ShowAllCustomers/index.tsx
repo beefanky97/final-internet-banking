@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Dispatch } from "redux";
+import { connect } from 'react-redux';
 
 import HeaderBody from 'src/components/commons/HeaderBody';
-import { connect } from 'react-redux';
 import { actShowAllCustomersRequest } from 'src/app/actions/tellerActions';
 
 interface Props {
@@ -27,7 +27,7 @@ const ShowAllCustomers: React.FC<Props> = (props) => {
     return(
         <div>
             {/* <!-- ##### Breadcrumb Area Start ##### --> */}
-            <HeaderBody namePage='Customers' />
+            <HeaderBody namePage='Khách hàng' />
             {/* <!-- ##### Breadcrumb Area End ##### --> */}
 
             <div className="map-area">
@@ -36,13 +36,13 @@ const ShowAllCustomers: React.FC<Props> = (props) => {
                         <div className="row justify-content-center">
                             <div className="col-10">
                                 <div className="contact-form-area contact-page">
-                                    <h4 className="mb-50">Customers</h4>
+                                    <h4 className="mb-50">Danh sách khách hàng</h4>
                                     <table className="table table-light table-hover table-striped">
                                         <thead>
                                             <tr className="table-warning">
                                                 <th>STT</th>
-                                                <th>Username</th>
-                                                <th>Full name</th>
+                                                <th>Tên đăng nhập</th>
+                                                <th>Tên đầy đủ</th>
                                                 <th>Email</th>
                                             </tr>
                                         </thead>
@@ -61,7 +61,7 @@ const ShowAllCustomers: React.FC<Props> = (props) => {
 }
 
 const mapStateToProps = (state: any) => ({
-    customers: state.tellerState
+    customers: state.tellerState.customers
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

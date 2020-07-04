@@ -22,6 +22,7 @@ interface Props {
 
 const App: React.FC<Props> = (props) => {
 import ShowAllCustomers from "src/components/Teller/ShowAllCustomers";
+import CustomerDetail from "src/components/Teller/CustomerDetail";
 
   console.log("isLoading!!!!", props.isLoading)
   
@@ -36,6 +37,9 @@ import ShowAllCustomers from "src/components/Teller/ShowAllCustomers";
           <PrivateRoute path="/transfer" ComposedComp={Transfer} />
           <Route path="/teller/add-customer">
             <AddCustomer />
+          </Route>
+          <Route path="/teller/customer/detail">
+            <CustomerDetail />
           </Route>
           <Route path="/teller/customers">
             <ShowAllCustomers />

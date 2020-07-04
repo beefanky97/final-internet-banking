@@ -14,6 +14,7 @@ export const tellerService = {
             })
     },
     addCustomer: async (entity: object) => {
+        console.log("service over", entity);
         return await appAxios
             .post("/customers/teller/add", entity)
             .then((res: AxiosResponse) => {
@@ -21,6 +22,18 @@ export const tellerService = {
                 return res;
             })
             .catch((err: AxiosError) => {
+                return err;
+            })
+    },
+    showDetailCustomer: async (_id: string) => {
+        return await appAxios
+            .get(`/customers/teller/detail/${_id}`)
+            .then((res: AxiosResponse) => {
+                console.log('res', res);
+                return res;
+            })
+            .catch((err: AxiosError) => {
+                console.log('err', err);
                 return err;
             })
     },
