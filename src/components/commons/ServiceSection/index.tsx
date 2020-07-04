@@ -17,7 +17,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
       name: "Danh bạ thụ hưởng",
       des: "Quản lý danh sách phụ hưởng, đối tượng giao dịch.",
       icon: "icon-profits",
-      url: "",
+      url: "/reciever",
     },
     {
       id: "3",

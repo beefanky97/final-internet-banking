@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { show, hide } from 'redux-modal';
@@ -7,6 +7,7 @@ import ConfirmCardModal from 'src/components/Transfer/modals/ConfirmCardModal';
 import { getCardInfo, transfer } from "src/app/actions/creditActions";
 
 interface Props {
+  cardInfo: any
   openModal: (name: string) => void
   getCardInfo: (card_number: number) => void
   transfer:(transferInfo: Object) => void
@@ -14,23 +15,27 @@ interface Props {
 }
 
 const Transfer: React.FC<Props> = (props) => {
-  const [bank, setBank] = useState("");
+  const [partnerCode, setPartnerCode] = useState(1);
   const [cardNumber, setCardNumber] = useState(5678900008);
   const [amount, setAmount] = useState(0);
   const [content, setContent] = useState("");
 
   const handleSubmit = (e: any) => {
-    e.preventDefault();
-    props.getCardInfo(cardNumber);
     const transferInfo = {
+      partner_code: partnerCode,
       card_number: cardNumber,
       money: amount,
       message: content,
       type_paid: 2
     }
-
     props.transfer(transferInfo);
   };
+
+  const handleOpenModal = () => {
+    console.log("card", cardNumber);
+    props.getCardInfo(cardNumber);
+    props.openModal("CONFIRM_CARD_MODAL");
+  }
 
   return (
     <div className="transfer-ctn">
@@ -51,15 +56,14 @@ const Transfer: React.FC<Props> = (props) => {
             </div>
           </div>
           <div className="card-body">
-            <form onSubmit={handleSubmit}>
+            <div>
               <div className="form-group">
                 <div className="form-group col-md-12">
                   <label htmlFor="inputState">Chọn ngân hàng</label>
-                  <select onChange={e => setBank(e.target.value)} className="form-control">
-                    <option defaultValue="3tbank">Chuyển nội bộ 3TBank</option>
-                    <option value="nh1bank">Ngân hàng khác 1</option>
-                    <option value="nh2bank">Ngân hàng khác 2</option>
-                    <option value="nh3bank">Ngân hàng khác 3</option>
+                  <select onChange={e => setPartnerCode(+e.target.value)} className="form-control">
+                    <option defaultValue="1">Chuyển nội bộ 3TBank</option>
+                    <option value="2">Ngân hàng khác 2</option>
+                    <option value="3">Ngân hàng khác 3</option>
                   </select>
                 </div>
                 <div className="form-group col-md-12">
@@ -90,14 +94,14 @@ const Transfer: React.FC<Props> = (props) => {
                   />
                 </div>
               </div>
-              <button type="submit" className="btn round-5 btn-primary" onClick={() => props.openModal("CONFIRM_CARD_MODAL")}>
+              <button type="submit" className="btn round-5 btn-primary" onClick={handleOpenModal}>
                 Chuyển tiền
               </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
-      <ConfirmCardModal closeModal={props.closeModal} continuteTransfer={handleSubmit}/>
+      <ConfirmCardModal closeModal={props.closeModal} continuteTransfer={handleSubmit} cardInfo={props.cardInfo} isErrorGetInfo={false}/>
     </div>
   );
 };
@@ -105,6 +109,7 @@ const Transfer: React.FC<Props> = (props) => {
 //defined Type of State
 const mapStateToProps = (state: any) => ({
   isAuthenticated: state.accountState.isAuthenticated,
+  cardInfo: state.creditState.cardInfo
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
