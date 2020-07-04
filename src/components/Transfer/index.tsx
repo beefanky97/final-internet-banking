@@ -15,13 +15,14 @@ interface Props {
 }
 
 const Transfer: React.FC<Props> = (props) => {
-  const [bank, setBank] = useState("");
+  const [partnerCode, setPartnerCode] = useState(1);
   const [cardNumber, setCardNumber] = useState(5678900008);
   const [amount, setAmount] = useState(0);
   const [content, setContent] = useState("");
 
   const handleSubmit = (e: any) => {
     const transferInfo = {
+      partner_code: partnerCode,
       card_number: cardNumber,
       money: amount,
       message: content,
@@ -59,11 +60,10 @@ const Transfer: React.FC<Props> = (props) => {
               <div className="form-group">
                 <div className="form-group col-md-12">
                   <label htmlFor="inputState">Chọn ngân hàng</label>
-                  <select onChange={e => setBank(e.target.value)} className="form-control">
-                    <option defaultValue="3tbank">Chuyển nội bộ 3TBank</option>
-                    <option value="nh1bank">Ngân hàng khác 1</option>
-                    <option value="nh2bank">Ngân hàng khác 2</option>
-                    <option value="nh3bank">Ngân hàng khác 3</option>
+                  <select onChange={e => setPartnerCode(+e.target.value)} className="form-control">
+                    <option defaultValue="1">Chuyển nội bộ 3TBank</option>
+                    <option value="2">Ngân hàng khác 2</option>
+                    <option value="3">Ngân hàng khác 3</option>
                   </select>
                 </div>
                 <div className="form-group col-md-12">
