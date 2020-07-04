@@ -23,6 +23,7 @@ const RecieversManager: React.FC<Props> = (props) => {
   const [indexEdit, setIndexEdit] = useState(-1);
   const [cardNumber, setCardNumber] = useState("");
   const [name, setName] = useState("");
+  const [nameEdit, setNameEdit] = useState("");
 
   useEffect(() => {
     props.getReciever();
@@ -34,6 +35,10 @@ const RecieversManager: React.FC<Props> = (props) => {
     setName("");
   };
 
+  const enableEdit = (index: number) => {
+    setIndexEdit(index);
+  };
+
   const handleAddReciever = () => {
     if (cardNumber && name) {
       props.addReciver(+cardNumber, name);
@@ -43,9 +48,9 @@ const RecieversManager: React.FC<Props> = (props) => {
     }
   };
 
-  const handleEditReciever = (id: string, card_number: number, index: number) => {
-    setIndexEdit(index);
-    props.editReciever(id, card_number);
+  const handleEditReciever = (id: string, card_number: number, reminiscent_name: string) => {
+    props.editReciever(id, card_number, reminiscent_name);
+    enableEdit(-1);
   };
 
   const handleDeleteReciever = (id_customer: string) => {
@@ -94,37 +99,61 @@ const RecieversManager: React.FC<Props> = (props) => {
           <tbody>
             {props.recievers.map((reciever: any, index: number) => {
               const { _id, card_number, reminiscent_name } = reciever;
-              return (
-                <tr key={index}>
-                  <td>{index}</td>
-                  {indexEdit === index ? (
-                    <>
-                      <td><input type="number" defaultValue={card_number} /></td>
-                      <td><input type="text" defaultValue={reminiscent_name} /></td>
-                    </>
-                  ) : (
-                    <>
-                      <td>{card_number}</td>
-                      <td>{reminiscent_name}</td>
-                    </>
-                  )}
-
-                  <td className="text-center">
-                    <button
-                      onClick={() => handleEditReciever(_id, card_number, index)}
-                      className="btn btn-info btn-xs"
-                    >
-                      <span className="glyphicon glyphicon-edit"></span> Edit
-                    </button>{" "}
-                    <button
-                      onClick={() => handleDeleteReciever(_id)}
-                      className="btn btn-danger btn-xs"
-                    >
-                      <span className="glyphicon glyphicon-remove"></span> Del
-                    </button>
-                  </td>
-                </tr>
-              );
+              if (indexEdit !== index) {
+                return (
+                  <tr key={index}>
+                    <td>{index}</td>
+                    <td>{card_number}</td>
+                    <td>{reminiscent_name}</td>
+                    <td className="text-center">
+                      <button
+                        onClick={() =>
+                          enableEdit(index)
+                        }
+                        className="btn btn-info btn-xs"
+                      >
+                        <span className="glyphicon glyphicon-edit"></span> Edit
+                      </button>{" "}
+                      <button
+                        onClick={() => handleDeleteReciever(_id)}
+                        className="btn btn-danger btn-xs"
+                      >
+                        <span className="glyphicon glyphicon-remove"></span> Del
+                      </button>
+                    </td>
+                  </tr>
+                );
+              } else {
+                return (
+                  <tr key={index}>
+                    <td>{index}</td>
+                    <td>{card_number}</td>
+                    <td>
+                      <input
+                        onChange={(e) => setNameEdit(e.target.value)}
+                        type="text"
+                        defaultValue={reminiscent_name}
+                      />
+                    </td>
+                    <td className="text-center">
+                      <button
+                        onClick={() =>
+                          handleEditReciever(_id, card_number, nameEdit)
+                        }
+                        className="btn btn-info btn-xs"
+                      >
+                        <span className="glyphicon glyphicon-edit">Xong</span>
+                      </button>{" "}
+                      <button
+                        onClick={() => enableEdit(-1)}
+                        className="btn btn-danger btn-xs"
+                      >
+                        <span className="glyphicon glyphicon-remove">Huỷ</span>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              }
             })}
           </tbody>
         </table>
@@ -143,8 +172,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   getReciever: () => dispatch(getReciever()),
   deleteReciever: (id_customer: string) =>
     dispatch(deleteReciever(id_customer)),
-  editReciever: (id: string, card_number: number) =>
-    dispatch(editReciever(id, card_number)),
+  editReciever: (id: string, card_number: number, reminiscent_name: string) =>
+    dispatch(editReciever(id, card_number, reminiscent_name)),
   addReciver: (card_number: number, reminiscent_name: string) =>
     dispatch(addReciever(card_number, reminiscent_name)),
 });

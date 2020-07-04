@@ -33,11 +33,12 @@ export const addRecieverSuccsess = (data: any) => ({
   data,
 });
 
-export const editReciever = (id: string, card_number: number) => {
+export const editReciever = (id: string, card_number: number, reminiscent_name: string) => {
   return {
     type: recieverActionTypes.EDIT_RECIVER,
     id,
-    card_number
+    card_number,
+    reminiscent_name
   };
 };
 

@@ -21,7 +21,7 @@ function* deleteRecieverSaga(action: any) {
 
 function* editRecieverSaga(action: any) {
   yield put(onLoading());
-  const { data }: AxiosResponse = yield call(receiverService.editReciever, action.id, action.card_number);
+  const { data }: AxiosResponse = yield call(receiverService.editReciever, action.id, action.card_number, action.reminiscent_name);
   if(data) {
     yield put(offLoading());
   }
