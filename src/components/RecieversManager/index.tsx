@@ -20,6 +20,7 @@ interface Props {
 }
 
 const RecieversManager: React.FC<Props> = (props) => {
+  const [indexEdit, setIndexEdit] = useState(-1);
   const [cardNumber, setCardNumber] = useState("");
   const [name, setName] = useState("");
 
@@ -28,13 +29,13 @@ const RecieversManager: React.FC<Props> = (props) => {
     console.log("isLoading", props.isLoading);
   }, [props.isLoading]);
 
-  const clearInput =() => {
+  const clearInput = () => {
     setCardNumber("");
     setName("");
-  }
+  };
 
   const handleAddReciever = () => {
-    if(cardNumber && name) {
+    if (cardNumber && name) {
       props.addReciver(+cardNumber, name);
       clearInput();
     } else {
@@ -42,7 +43,8 @@ const RecieversManager: React.FC<Props> = (props) => {
     }
   };
 
-  const handleEditReciever = (id: string, card_number: number) => {
+  const handleEditReciever = (id: string, card_number: number, index: number) => {
+    setIndexEdit(index);
     props.editReciever(id, card_number);
   };
 
@@ -55,15 +57,27 @@ const RecieversManager: React.FC<Props> = (props) => {
       <div className="row col-md-12 col-md-offset-2 custyle">
         <div className="input-group">
           <div className="input-group-prepend">
-              <button
-                onClick={handleAddReciever}
-                className="btn btn-primary btn-xs pull-right input-group-text"
-              >
-                <b>+</b> Thêm người nhận
-              </button>
+            <button
+              onClick={handleAddReciever}
+              className="btn btn-primary btn-xs pull-right input-group-text"
+            >
+              <b>+</b> Thêm người nhận
+            </button>
           </div>
-          <input onChange={(e) => setCardNumber(e.target.value)} type="number" placeholder="Số tài khoản" value={cardNumber} className="form-control" />
-          <input onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Tên gợi nhớ" className="form-control" />
+          <input
+            onChange={(e) => setCardNumber(e.target.value)}
+            type="number"
+            placeholder="Số tài khoản"
+            value={cardNumber}
+            className="form-control"
+          />
+          <input
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            type="text"
+            placeholder="Tên gợi nhớ"
+            className="form-control"
+          />
           <i onClick={clearInput} className="fa fa-delete"></i>
         </div>
         <table className="table table-striped custab">
@@ -83,11 +97,21 @@ const RecieversManager: React.FC<Props> = (props) => {
               return (
                 <tr key={index}>
                   <td>{index}</td>
-                  <td>{card_number}</td>
-                  <td>{reminiscent_name}</td>
+                  {indexEdit === index ? (
+                    <>
+                      <td><input type="number" defaultValue={card_number} /></td>
+                      <td><input type="text" defaultValue={reminiscent_name} /></td>
+                    </>
+                  ) : (
+                    <>
+                      <td>{card_number}</td>
+                      <td>{reminiscent_name}</td>
+                    </>
+                  )}
+
                   <td className="text-center">
                     <button
-                      onClick={() => handleEditReciever(_id, card_number)}
+                      onClick={() => handleEditReciever(_id, card_number, index)}
                       className="btn btn-info btn-xs"
                     >
                       <span className="glyphicon glyphicon-edit"></span> Edit
@@ -121,7 +145,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     dispatch(deleteReciever(id_customer)),
   editReciever: (id: string, card_number: number) =>
     dispatch(editReciever(id, card_number)),
-  addReciver: (card_number: number, reminiscent_name: string) => dispatch(addReciever(card_number, reminiscent_name))
+  addReciver: (card_number: number, reminiscent_name: string) =>
+    dispatch(addReciever(card_number, reminiscent_name)),
 });
 
 //connect to the appStore

@@ -6,7 +6,9 @@ import { receiverService } from "src/api/recieverService";
 
 function* getAllRecieverSaga() {
   const { data }: AxiosResponse = yield call(receiverService.getReciever);
-  yield put(getRecieverSuccsess(data));
+  if(data) {
+    yield put(getRecieverSuccsess(data));
+  }
 }
 
 function* deleteRecieverSaga(action: any) {

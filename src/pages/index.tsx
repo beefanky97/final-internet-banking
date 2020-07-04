@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "src/styles/_all.scss";
 
+import { connect } from "react-redux";
+
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { About } from "src/components/About";
 import Header from "src/components/commons/Header";
@@ -12,8 +14,15 @@ import PrivateRoute from "src/components/hocs/PrivateRoute";
 import Transfer from "src/components/Transfer";
 import AddCustomer from "src/components/Teller/AddCustomer";
 import RecieversManager from "src/components/RecieversManager";
+import { LoadingOverlay } from "src/components/commons/Loading";
 
-function App() {
+interface Props {
+  isLoading?: boolean;
+}
+
+const App: React.FC<Props> = (props) => {
+
+  console.log("isLoading!!!!", props.isLoading)
   
   return (
       <Router>
@@ -31,9 +40,14 @@ function App() {
             <AddCustomer />
           </Route>
           <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
+          {props.isLoading && <LoadingOverlay />}
         <Footer />
       </Router>
   );
 }
+const mapStateToProps = (state: any) => ({
+  isLoading: state.commonState.isLoading,
+});
 
-export default App;
+//connect to the appStore
+export default connect(mapStateToProps, null)(App);
