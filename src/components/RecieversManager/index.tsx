@@ -2,39 +2,70 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { login, logout } from "src/app/actions/accountActions";
-import { getReciever, deleteReciever, editReciever } from "src/app/actions/recieverActions";
+import {
+  getReciever,
+  deleteReciever,
+  editReciever,
+  addReciever,
+} from "src/app/actions/recieverActions";
 import { commonActionTypes } from "src/app/actions/commonActions";
 
 interface Props {
   recievers: any;
   isLoading: boolean;
   getReciever: () => void;
-  deleteReciever: any
-  editReciever: any
+  deleteReciever: any;
+  editReciever: any;
+  addReciver: any;
 }
 
 const RecieversManager: React.FC<Props> = (props) => {
+  const [cardNumber, setCardNumber] = useState("");
+  const [name, setName] = useState("");
 
   useEffect(() => {
     props.getReciever();
     console.log("isLoading", props.isLoading);
   }, [props.isLoading]);
 
+  const clearInput =() => {
+    setCardNumber("");
+    setName("");
+  }
+
+  const handleAddReciever = () => {
+    if(cardNumber && name) {
+      props.addReciver(+cardNumber, name);
+      clearInput();
+    } else {
+      console.log("fill and continute!");
+    }
+  };
+
   const handleEditReciever = (id: string, card_number: number) => {
     props.editReciever(id, card_number);
-  }
+  };
 
   const handleDeleteReciever = (id_customer: string) => {
     props.deleteReciever(id_customer);
-  }
-  console.log("rev", props.recievers);
+  };
 
   return (
     <div className="container">
       <div className="row col-md-12 col-md-offset-2 custyle">
-        <a href="#" className="btn btn-primary btn-xs pull-right">
-          <b>+</b> Thêm người nhận
-        </a>
+        <div className="input-group">
+          <div className="input-group-prepend">
+              <button
+                onClick={handleAddReciever}
+                className="btn btn-primary btn-xs pull-right input-group-text"
+              >
+                <b>+</b> Thêm người nhận
+              </button>
+          </div>
+          <input onChange={(e) => setCardNumber(e.target.value)} type="number" placeholder="Số tài khoản" value={cardNumber} className="form-control" />
+          <input onChange={(e) => setName(e.target.value)} value={name} type="text" placeholder="Tên gợi nhớ" className="form-control" />
+          <i onClick={clearInput} className="fa fa-delete"></i>
+        </div>
         <table className="table table-striped custab">
           <thead>
             <tr>
@@ -55,10 +86,16 @@ const RecieversManager: React.FC<Props> = (props) => {
                   <td>{card_number}</td>
                   <td>{reminiscent_name}</td>
                   <td className="text-center">
-                    <button onClick={() => handleEditReciever(_id, card_number)} className="btn btn-info btn-xs">
+                    <button
+                      onClick={() => handleEditReciever(_id, card_number)}
+                      className="btn btn-info btn-xs"
+                    >
                       <span className="glyphicon glyphicon-edit"></span> Edit
                     </button>{" "}
-                    <button onClick={() => handleDeleteReciever(_id)} className="btn btn-danger btn-xs">
+                    <button
+                      onClick={() => handleDeleteReciever(_id)}
+                      className="btn btn-danger btn-xs"
+                    >
                       <span className="glyphicon glyphicon-remove"></span> Del
                     </button>
                   </td>
@@ -75,13 +112,16 @@ const RecieversManager: React.FC<Props> = (props) => {
 //defined Type of State
 const mapStateToProps = (state: any) => ({
   recievers: state.recieverState.recievers,
-  isLoading: state.commonState.isLoading
+  isLoading: state.commonState.isLoading,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getReciever: () => dispatch(getReciever()),
-  deleteReciever: (id_customer: string) => dispatch(deleteReciever(id_customer)),
-  editReciever: (id: string, card_number: number) => dispatch(editReciever(id, card_number))
+  deleteReciever: (id_customer: string) =>
+    dispatch(deleteReciever(id_customer)),
+  editReciever: (id: string, card_number: number) =>
+    dispatch(editReciever(id, card_number)),
+  addReciver: (card_number: number, reminiscent_name: string) => dispatch(addReciever(card_number, reminiscent_name))
 });
 
 //connect to the appStore

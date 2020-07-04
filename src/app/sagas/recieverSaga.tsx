@@ -1,6 +1,6 @@
 import { all, takeLatest, put, call } from "redux-saga/effects";
 import { AxiosResponse } from "axios";
-import { recieverActionTypes, getRecieverSuccsess } from "src/app/actions/recieverActions";
+import { recieverActionTypes, getRecieverSuccsess, addRecieverSuccsess } from "src/app/actions/recieverActions";
 import { onLoading, offLoading } from "src/app/actions/commonActions";
 import { receiverService } from "src/api/recieverService";
 
@@ -25,6 +25,17 @@ function* editRecieverSaga(action: any) {
   }
 }
 
+function* addRecieverSaga(action: any) {
+  console.log("data input", action.card_number, action.reminiscent_name);
+
+  yield put(onLoading());
+  const { data }: AxiosResponse = yield call(receiverService.addReciever, action.card_number, action.reminiscent_name);
+  if(data) {
+    // yield put(addRecieverSuccsess(data));
+    yield put(offLoading());
+  }
+}
+
 function* watchGetAllReciver() {
   //this mean listen  had this type, and do this function after
   yield takeLatest(recieverActionTypes.GET_RECIVER, getAllRecieverSaga);
@@ -38,10 +49,15 @@ function* watchEditReciver() {
   yield takeLatest(recieverActionTypes.EDIT_RECIVER, editRecieverSaga);
 }
 
+function* watchAddReciver() {
+  yield takeLatest(recieverActionTypes.ADD_RECIVER, addRecieverSaga);
+}
+
 export function* recieverSaga() {
   yield all([
     watchGetAllReciver(),
     watchDeleteReciver(),
-    watchEditReciver()
+    watchEditReciver(),
+    watchAddReciver()
   ]);
 }

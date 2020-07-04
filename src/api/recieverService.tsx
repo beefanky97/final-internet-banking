@@ -29,4 +29,12 @@ export const receiverService = {
         return res;
       });
   },
+  addReciever: async (card_number: number, reminiscent_name: string) => {
+    return await appAxios
+      .post('/receivers/customer/add', {card_number, reminiscent_name})
+      .then((res: AxiosResponse) => {
+        console.log("recivers", res.data);
+        return res;
+      });
+  },
 };
