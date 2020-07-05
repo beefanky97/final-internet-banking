@@ -1,0 +1,102 @@
+.fdr {
+    display: flex;
+    flex-direction: row;
+}
+
+.tag-name {
+    color: #fff;
+}
+
+.fdr .keyword {
+    width: 300px;
+    height: 50px;
+
+    color: #000;
+    font-weight: bold;
+    background-color: #FFB300;
+    border: 0px solid #fff;
+
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fdr .input-info {
+    width: 700px;
+}
+
+.fdr .input-info input{
+    height: 50px;
+    border: 0px solid #fff;
+    background-color: #fff;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.btn-custom {
+    position: relative;
+
+    display: inline-block;
+    width: 70px;
+    height: 30px;
+
+    border-radius: 10%;
+    box-shadow: 0 5px 15px -5px #00000070;
+    border: 1px solid rgb(214, 167, 35);
+
+    background: #f1f1f1;
+    color: #3498db;
+
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.btn-custom span {
+    font-size: 14px;
+    transition: 0.2s linear;
+}
+
+.btn-custom:hover span{
+    position: relative;
+    z-index: 1000;
+    transform: scale(1.5);
+    color: #fff;
+}
+
+.btn-custom::before {
+    content: "";
+
+    position: absolute;
+    left: -130%;
+    top: 50%;
+
+    width: 180%;
+    height: 260%;
+
+    background: #3498db;
+
+    transform: rotate(45deg);
+}
+
+.btn-custom:hover::before {
+    animation: aaa 0.7s 1;
+
+    left: -10%;
+    top: -10%;
+}
+
+@keyframes aaa {
+    0%{
+        left: -110%;
+        top: -10%;
+    }50%{
+        left: 10%;
+        top: -30%;
+    }100%{
+        left: -10%;
+        top: -10%;
+    }
+}

@@ -3,6 +3,7 @@ import { postSaga } from 'src/app/sagas/postSagas';
 import { accountSaga } from 'src/app/sagas/accountSagas';
 import { creditSaga } from './creditSagas';
 import { recieverSaga } from './recieverSaga';
+import { tellerSaga } from './teller/tellerSagas';
 //import some generate func
 
 export default function* rootSaga() {
@@ -10,6 +11,7 @@ export default function* rootSaga() {
     postSaga(),
     accountSaga(),
     recieverSaga(),
-    creditSaga()
+    creditSaga(),
+    tellerSaga(),
   ]);
 }
