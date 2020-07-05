@@ -5,6 +5,7 @@ import { tellerService } from "src/api/teller/tellerService";
 import {
   tellerActionTypes,
   actShowDetailCustomer,
+  actShowInfoCards,
 } from "src/app/actions/tellerActions";
 import { actShowAllCustomers } from "../../actions/tellerActions";
 
@@ -30,6 +31,14 @@ function* showDetailCustomer(action: any) {
   yield put(actShowDetailCustomer(data));
 }
 
+function* showInfoCards(action: any) {
+    const { data }: AxiosResponse = yield call(
+        tellerService.showInfoCards,
+        action.id
+    )
+    yield put(actShowInfoCards(data));
+}
+
 function* watchAllCustomer() {
   yield takeLatest(tellerActionTypes.All_CUSTOMERS_REQUEST, showAllCustomers);
 }
@@ -46,10 +55,18 @@ function* watchShowDetailCustomer() {
   );
 }
 
+function* watchShowInfoCards() {
+  yield takeLatest(
+    tellerActionTypes.INFO_CARDS_REQUEST,
+    showInfoCards
+  );
+}
+
 export function* tellerSaga() {
   yield all([
     watchAllCustomer(),
     watchAddCustomer(),
     watchShowDetailCustomer(),
+    watchShowInfoCards(),
   ]);
 }

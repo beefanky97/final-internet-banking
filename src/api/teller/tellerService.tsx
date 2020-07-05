@@ -37,4 +37,16 @@ export const tellerService = {
                 return err;
             })
     },
+    showInfoCards: async (_id_customer: string) => {
+        return await appAxios
+            .get(`/customers/teller/cards/${_id_customer}`)
+            .then((res: AxiosResponse) => {
+                console.log('res', res);
+                return res;
+            })
+            .catch((err: AxiosError) => {
+                console.log('err', err);
+                return err;
+            })
+    },
 };

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 
 interface Props {
-  customer: Object
+  customer: Object;
 }
 
 interface Object {
@@ -25,95 +25,109 @@ const InfoCustomer: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className="col-6">
+    <div className="col-lg-6">
       <h4 className="mb-50">Sơ yếu lý lịch</h4>
       <form onSubmit={handleSubmit} method="post">
         <div className="row">
-          <div className="col-lg-10">
-            <div className="form-group">
+          <div className="col-lg-10 fdr">
+            <div className="keyword">
+              <span>#ID</span>
+            </div>
+            <div className="input-info">
               <input
                 type="text"
-                className="form-control text-dark"
-                id="phone_number"
+                className="col-12"
                 value={props.customer._id}
                 disabled
               />
             </div>
           </div>
-          <div className="col-lg-10">
-            <div className="form-group">
+          <div className="col-lg-10 fdr mt-15">
+            <div className="keyword">
+              <span>Tên đăng nhập</span>
+            </div>
+            <div className="input-info">
               <input
                 type="text"
-                className="form-control text-dark"
-                id="username"
+                className="col-12"
                 value={props.customer.username}
                 disabled={isNotEdit}
               />
             </div>
           </div>
-          <div className="col-lg-10">
-            <div className="form-group">
+          <div className="col-lg-10 fdr mt-15">
+            <div className="keyword">
+              <span>Tên đầy đủ</span>
+            </div>
+            <div className="input-info">
               <input
                 type="text"
-                className="form-control text-dark"
-                id="password"
+                className="col-12"
                 value={props.customer.full_name}
                 disabled={isNotEdit}
               />
             </div>
           </div>
-          <div className="col-lg-10">
-            <div className="form-group">
+          <div className="col-lg-10 fdr mt-15">
+            <div className="keyword">
+              <span>Email</span>
+            </div>
+            <div className="input-info">
               <input
                 type="text"
-                className="form-control text-dark"
-                id="full_name"
-                value={props.customer.address}
-                disabled={isNotEdit}
-              />
-            </div>
-          </div>
-          <div className="col-lg-10">
-            <div className="form-group">
-              <input
-                type="email"
-                className="form-control text-dark"
-                id="email"
+                className="col-12"
                 value={props.customer.email}
                 disabled={isNotEdit}
               />
             </div>
           </div>
-          <div className="col-lg-10">
-            <div className="form-group">
+          <div className="col-lg-10 fdr mt-15">
+            <div className="keyword">
+              <span>Địa chỉ</span>
+            </div>
+            <div className="input-info">
               <input
                 type="text"
-                className="form-control text-dark"
-                id="address"
+                className="col-12"
+                value={props.customer.address}
+                disabled={isNotEdit}
+              />
+            </div>
+          </div>
+          <div className="col-lg-10 fdr mt-15">
+            <div className="keyword">
+              <span>SĐT</span>
+            </div>
+            <div className="input-info">
+              <input
+                type="text"
+                className="col-12"
                 value={props.customer.phone_number}
                 disabled={isNotEdit}
               />
             </div>
           </div>
-          <div className="col-lg-10">
-            <div className="form-group">
+          <div className="col-lg-10 fdr mt-15">
+            <div className="keyword">
+              <span>Ngày sinh</span>
+            </div>
+            <div className="input-info">
               <input
                 type="date"
-                className="form-control text-dark"
-                id="date_of_birth"
+                className="col-12"
                 value={moment(props.customer.day_of_birth).format("YYYY-MM-DD")}
                 disabled={isNotEdit}
               />
             </div>
           </div>
           <div className="col-12">
-            <button className="btn credit-btn mt-30 mr-15" type="button">
+            {/* <button className="btn credit-btn mt-30 mr-15" type="button">
               <i className="fa fa-backward" aria-hidden="true"></i>
               &nbsp;&nbsp;&nbsp;Quay lại
-            </button>
+            </button> */}
             <button
               className="btn credit-btn mt-30"
-              type="button"
+              type={!isNotEdit ? "button" : "submit"}
               onClick={() => setIsNotEdit(!isNotEdit)}
             >
               {isNotEdit ? "Chỉnh sửa" : "Lưu"}
@@ -125,10 +139,8 @@ const InfoCustomer: React.FC<Props> = (props) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({
-});
+const mapStateToProps = (state: any) => ({});
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-});
+const mapDispatchToProps = (dispatch: Dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoCustomer);

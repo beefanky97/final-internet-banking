@@ -15,14 +15,14 @@ import Transfer from "src/components/Transfer";
 import AddCustomer from "src/components/Teller/AddCustomer";
 import RecieversManager from "src/components/RecieversManager";
 import { LoadingOverlay } from "src/components/commons/Loading";
+import ShowAllCustomers from "src/components/Teller/ShowAllCustomers";
+import CustomerDetail from "src/components/Teller/CustomerDetail";
 
 interface Props {
   isLoading?: boolean;
 }
 
 const App: React.FC<Props> = (props) => {
-import ShowAllCustomers from "src/components/Teller/ShowAllCustomers";
-import CustomerDetail from "src/components/Teller/CustomerDetail";
 
   console.log("isLoading!!!!", props.isLoading)
   

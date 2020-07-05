@@ -3,6 +3,7 @@ import { tellerActionTypes } from "src/app/actions/tellerActions";
 
 let initialtellerState: any = {
     customer: {},
+    cards: [],
     customers: []
 };
 
@@ -24,7 +25,10 @@ export const tellerReducer = (
             }
         }
         case tellerActionTypes.INFO_CARDS: {
-            return
+            return {
+                ...state,
+                cards: action.cards
+            }
         }
 
         default:
