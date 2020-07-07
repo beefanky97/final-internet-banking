@@ -10,11 +10,9 @@ export const adminService = {
       return await appAxios
         .get("/transactions/admin")
         .then((res: AxiosResponse) => {
-          console.log(res);
           return res;
         })
         .catch((err: AxiosError) => {
-          console.log(err);
           return err;
         });
     } else {

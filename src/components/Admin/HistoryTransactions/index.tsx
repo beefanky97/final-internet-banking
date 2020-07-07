@@ -25,6 +25,7 @@ const HistoryTransactions: React.FC<Props> = (props) => {
   const [partnerCode, setPartnerCode] = useState(1);
   const [dateStart, setDateStart] = useState("2020-01-01");
   const [dateEnd, setDateEnd] = useState(moment(moment()).format("YYYY-MM-DD"));
+  let totalMoney;
 
   useEffect(() => {
     props.getTransactions(partnerCode);
@@ -37,35 +38,44 @@ const HistoryTransactions: React.FC<Props> = (props) => {
 
   const showListTransactions = (transactions: []) => {
     // console.log("listTransactions", transactions);
-    // console.log("dateStart", moment(dateStart).format("x"));
 
-    transactions.sort(function (a: any, b: any) { // Sap xep tu moi toi cu
+    transactions.sort(function (a: any, b: any) {
+      // Sap xep tu moi toi cu
       const date_a = parseInt(moment(a.date_created).format("x"));
       const date_b = parseInt(moment(b.date_created).format("x"));
       return date_b - date_a;
     });
 
-    return transactions.map((t: any, i) => {
+    const list = transactions.filter((t: any) => {
       const date_created = moment(t.date_created).format("YYYY-MM-DD");
-
-      if ( // kiem tra ngay nguoi dung chon xem
+      // kiem tra ngay nguoi dung chon xem
+      return (
         moment(date_created).format("x") >= moment(dateStart).format("x") &&
         moment(date_created).format("x") <= moment(dateEnd).format("x")
-      ) {
-        return (
-          <tr key={i} onClick={() => handleOpenModal(t._id)}>
-            <td>{i + 1}</td>
-            <td>{t.bank_name}</td>
-            <td>{t.card_number_sender}</td>
-            <td>{t.card_number_receiver}</td>
-            <td>{t.money}</td>
-            <td>{t.message}</td>
-            <td>{moment(t.date_created).format("DD-MM-YYYY")}</td>
-          </tr>
-        );
-      }
+      );
+    });
+
+    totalMoney = list.reduce((sum, current: any) => sum + current.money, 0);
+
+    return list.map((t: any, i) => {
+      return (
+        <tr key={i} onClick={() => handleOpenModal(t._id)}>
+          <td>{i + 1}</td>
+          <td>{t.bank_name}</td>
+          <td>{t.card_number_sender}</td>
+          <td>{t.card_number_receiver}</td>
+          <td>{`${t.money} VND`}</td>
+          {/* <td>{t.message}</td> */}
+          <td>{moment(t.date_created).format("DD-MM-YYYY")}</td>
+        </tr>
+      );
     });
   };
+
+  // const showTotalMoney = () => {
+  //   setTotalMoney(money);
+  //   return <p>{totalMoney}</p>;
+  // };
 
   return (
     <div>
@@ -83,25 +93,27 @@ const HistoryTransactions: React.FC<Props> = (props) => {
 
                   {/* begin action */}
                   <div
-                    className="row justify-content-between"
-                    style={{ zIndex: -1 }}
+                    className="row justify-content-between mt-15 mb-15"
                   >
-                    <div className="col-lg-4">
-                      <div className="form-group">
+                    <div className="col-lg-4 fdr ">
+                      <div className="keyword">
+                        <span>Ngân Hàng</span>
+                      </div>
+                      <div className="input-info">
                         <select
-                          className="form-control text-dark"
+                          className="col-12 cn-dropdown"
                           id="partnerBank"
                           onChange={(e) => {
                             setPartnerCode(+e.target.value);
                           }}
                         >
-                          <option className="form-control text-dark" value="1">
+                          <option className="dropdown" value="1">
                             Tất Cả
                           </option>
-                          <option className="form-control text-dark" value="2">
+                          <option className="dropdown" value="2">
                             Ngân Hàng PGP
                           </option>
-                          <option className="form-control text-dark" value="3">
+                          <option className="dropdown" value="3">
                             Ngân Hàng RSA
                           </option>
                         </select>
@@ -109,11 +121,14 @@ const HistoryTransactions: React.FC<Props> = (props) => {
                     </div>
 
                     <div className="row col-lg-8 justify-content-end">
-                      <div className="col-lg-4">
-                        <div className="form-group">
+                      <div className="col-lg-4 fdr">
+                        <div className="keyword">
+                          <span>Từ</span>
+                        </div>
+                        <div className="input-info">
                           <input
                             type="date"
-                            className="form-control text-dark"
+                            className="text-right"
                             id="dateStart"
                             value={dateStart}
                             onChange={(e) => {
@@ -123,11 +138,14 @@ const HistoryTransactions: React.FC<Props> = (props) => {
                         </div>
                       </div>
 
-                      <div className="col-lg-4">
-                        <div className="form-group">
+                      <div className="col-lg-4 fdr">
+                        <div className="keyword">
+                          <span>Đến</span>
+                        </div>
+                        <div className="input-info">
                           <input
                             type="date"
-                            className="form-control text-dark"
+                            className="text-right"
                             id="dateEnd"
                             value={dateEnd}
                             onChange={(e) => {
@@ -149,7 +167,7 @@ const HistoryTransactions: React.FC<Props> = (props) => {
                         <th>STK Người Gửi</th>
                         <th>STK Người Nhận</th>
                         <th>Số Tiền</th>
-                        <th>Lời Nhắn</th>
+                        {/* <th>Lời Nhắn</th> */}
                         <th>Ngày Gửi</th>
                       </tr>
                     </thead>
@@ -157,10 +175,33 @@ const HistoryTransactions: React.FC<Props> = (props) => {
                   </table>
                   {/* end table list transactions */}
 
+                  {/* begin total money */}
+                  <div
+                    className="row justify-content-end mt-15"
+                  >
+                    <div className="col-lg-4 fdr">
+                      <div className="keyword">
+                        <span>Tổng Tiền</span>
+                      </div>
+                      <div className="input-info">
+                        <input
+                          type="text"
+                          className="col-12 text-right"
+                          id="totalMoney"
+                          value={`${totalMoney} VND`}
+                          disabled
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {/* end total money */}
+
+                  {/* begin modal detail transaction */}
                   <DetailTransactionModal
                     closeModal={props.closeModal}
                     info_transaction={props.info_transaction}
                   />
+                  {/* end modal detail transaction */}
                 </div>
               </div>
             </div>
