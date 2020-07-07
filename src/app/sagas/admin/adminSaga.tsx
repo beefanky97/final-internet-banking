@@ -1,15 +1,15 @@
 import { all, takeLatest, put, call } from "redux-saga/effects";
 import { AxiosResponse } from "axios";
 import { adminService } from "src/api/admin/adminService";
-import { adminActionTypes, actGetDetailTransactionSuccess, actShowAllTransactions } from "src/app/actions/admin/adminAction";
+import { adminActionTypes, actGetDetailTransactionSuccess, actGetTransactionsSuccess } from "src/app/actions/admin/adminAction";
 
-function* showAllTransactions() {
-    const { data }: AxiosResponse = yield call(adminService.showAllTransactions);
-    yield put(actShowAllTransactions(data));
+function* getTransactionsSaga(action: any) {
+    const { data }: AxiosResponse = yield call(adminService.getTransactions, action.partner_code);
+    yield put(actGetTransactionsSuccess(data));
 }
 
-function* watchAllTransactions() {
-    yield takeLatest(adminActionTypes.All_TRANSACTIONS_REQUEST, showAllTransactions);
+function* watchGetTransactions() {
+    yield takeLatest(adminActionTypes.GET_TRANSACTIONS, getTransactionsSaga);
 }
 
 export function* getDetailTransactionSaga(action: any) {
@@ -23,7 +23,7 @@ export function* watchGetDetailTransaction(){
 
 export function* adminSaga() {
     yield all([
-        watchAllTransactions(),
+        watchGetTransactions(),
         watchGetDetailTransaction()
     ]);
 }

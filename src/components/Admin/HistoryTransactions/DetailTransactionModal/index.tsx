@@ -160,7 +160,7 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
                       type="text"
                       className="col-12"
                       value={moment(props.info_transaction.date_created).format(
-                        "YYYY-MM-DD"
+                        "DD-MM-YYYY"
                       )}
                       disabled
                     />

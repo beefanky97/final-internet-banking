@@ -1,16 +1,17 @@
 export const adminActionTypes = {
-    ALL_TRANSACTIONS: "All_TRANSACTIONS",
-    All_TRANSACTIONS_REQUEST: "All_TRANSACTIONS_REQUEST",
+    GET_TRANSACTIONS: "GET_TRANSACTIONS",
+    GET_TRANSACTIONS_SUCCESS: "GET_TRANSACTIONS_SUCCESS",
     GET_DETAIL_TRANSACTION: "GET_DETAIL_TRANSACTION",
     GET_DETAIL_TRANSACTION_SUCCESS: "GET_DETAIL_TRANSACTION_SUCCESS"
 }
 
-export const actShowAllTransactionsRequest = () => ({
-    type: adminActionTypes.All_TRANSACTIONS_REQUEST,
+export const actGetTransactions = (partner_code: number) => ({
+    type: adminActionTypes.GET_TRANSACTIONS,
+    partner_code
 })
 
-export const actShowAllTransactions = (transactions: []) => ({
-    type: adminActionTypes.ALL_TRANSACTIONS,
+export const actGetTransactionsSuccess = (transactions: []) => ({
+    type: adminActionTypes.GET_TRANSACTIONS_SUCCESS,
     transactions
 })
 

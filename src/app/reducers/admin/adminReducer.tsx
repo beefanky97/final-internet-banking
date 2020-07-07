@@ -11,7 +11,7 @@ export const adminReducer = (
     action: AnyAction
 ) => {
     switch (action.type) {
-        case adminActionTypes.ALL_TRANSACTIONS: {
+        case adminActionTypes.GET_TRANSACTIONS_SUCCESS: {
             return {
                 ...state,
                 transactions: action.transactions
