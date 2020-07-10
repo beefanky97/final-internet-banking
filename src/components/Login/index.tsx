@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { login, logout } from "src/app/actions/accountActions";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface Props {
   login: (username: string, password: string) => void;
@@ -12,6 +13,9 @@ interface Props {
 const Login: React.FC<Props> = (props) => {
   const [username, setUsername] = useState("customer1");
   const [password, setPassword] = useState("1234567");
+  const [verified, setVerified] = useState(false);
+
+  const recaptchaRef = useRef(null);
 
   useEffect(() => {
     if (props.isAuthenticated) {
@@ -70,6 +74,12 @@ const Login: React.FC<Props> = (props) => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey="6Lc20q8ZAAAAAAHTjjGsongO0w1TL8-xPSJi479x"
+                onChange={(e: any) => setVerified(true)}
+              />
+              ,
               <div className="row align-items-center remember">
                 <input type="checkbox" />
                 Remember Me
@@ -78,6 +88,7 @@ const Login: React.FC<Props> = (props) => {
                 <input
                   type="submit"
                   value="Login"
+                  disabled={!verified}
                   className="btn float-right login_btn"
                 />
               </div>
