@@ -85,7 +85,7 @@ const Header: React.FC<Props> = ({}) => {
                         <a href="#">Pages</a>
                         <ul className="dropdown">
                           <li>
-                            <a href="index.html">Home</a>
+                            <a href="./">Trang chủ</a>
                           </li>
                           <li>
                             <a href="about.html">About Us</a>
@@ -100,7 +100,7 @@ const Header: React.FC<Props> = ({}) => {
                             <a href="single-post.html">Single Post</a>
                           </li>
                           <li>
-                            <a href="contact.html">Contact</a>
+                            <a href="/change-password">Đổi mật khẩu</a>
                           </li>
                           <li>
                             <a href="elements.html">Elements</a>
@@ -108,7 +108,7 @@ const Header: React.FC<Props> = ({}) => {
                         </ul>
                       </li>
                       <li>
-                        <a href="./login">Login</a>
+                        <a href="./login">Đăng nhập</a>
                       </li>
                       <li>
                         <a href="#">Portfolio</a>
@@ -208,10 +208,10 @@ const Header: React.FC<Props> = ({}) => {
                         </div>
                       </li>
                       <li>
-                        <a href="./transfer">Tranfer</a>
+                        <a href="./transfer">Chuyển tiền</a>
                       </li>
                       <li>
-                        <a href="contact.html">Contact</a>
+                        <a href="./change-password">Đổi mật khẩu</a>
                       </li>
                     </ul>
                   </div>

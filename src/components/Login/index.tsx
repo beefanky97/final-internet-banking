@@ -57,7 +57,7 @@ const Login: React.FC<Props> = (props) => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="username"
+                  placeholder="tài khoản"
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
@@ -70,7 +70,7 @@ const Login: React.FC<Props> = (props) => {
                 <input
                   type="password"
                   className="form-control"
-                  placeholder="password"
+                  placeholder="mật khẩu"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
@@ -79,24 +79,19 @@ const Login: React.FC<Props> = (props) => {
                 sitekey="6Lc20q8ZAAAAAAHTjjGsongO0w1TL8-xPSJi479x"
                 onChange={(e: any) => setVerified(true)}
               />
-              ,
-              <div className="row align-items-center remember">
-                <input type="checkbox" />
-                Remember Me
-              </div>
               <div className="form-group">
                 <input
                   type="submit"
-                  value="Login"
+                  value="Đăng nhập"
                   disabled={!verified}
-                  className="btn float-right login_btn"
+                  className="btn float-center login_btn"
                 />
               </div>
             </form>
           </div>
           <div className="card-footer">
             <div className="d-flex justify-content-center links">
-              You forgot your password?<a href="#">Click here!</a>
+              Nếu bạn quên mật khẩu?<a href="./forgot-password">Hãy nhấn vào đây!</a>
             </div>
           </div>
         </div>

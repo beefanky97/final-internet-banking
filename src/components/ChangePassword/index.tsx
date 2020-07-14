@@ -94,25 +94,15 @@ const ChangePassword: React.FC<Props> = (props) => {
                 sitekey="6Lc20q8ZAAAAAAHTjjGsongO0w1TL8-xPSJi479x"
                 onChange={(e: any) => setVerified(true)}
               />
-              ,
-              <div className="row align-items-center remember">
-                <input type="checkbox" />
-                Remember Me
-              </div>
               <div className="form-group">
                 <input
                   type="submit"
                   value="Đổi mật khẩu"
                   disabled={!verified}
-                  className="btn float-right login_btn"
+                  className="btn float-center login_btn"
                 />
               </div>
             </form>
-          </div>
-          <div className="card-footer">
-            <div className="d-flex justify-content-center links">
-              You forgot your password?<a href="#">Click here!</a>
-            </div>
           </div>
         </div>
       </div>
