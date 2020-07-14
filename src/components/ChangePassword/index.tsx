@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { login, logout } from "src/app/actions/accountActions";
+import { login, logout, changePassword } from "src/app/actions/accountActions";
 import ReCAPTCHA from "react-google-recaptcha";
 
 interface Props {
-  login: (username: string, password: string) => void;
-  logout: () => void;
+  changePassword: (current_password: string, new_password: string, confirm_password: string) => void;
   isAuthenticated: boolean;
 }
 
-const Login: React.FC<Props> = (props) => {
-  const [username, setUsername] = useState("customer1");
-  const [password, setPassword] = useState("1234567");
+const ChangePassword: React.FC<Props> = (props) => {
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [verified, setVerified] = useState(false);
 
   const recaptchaRef = useRef(null);
@@ -25,7 +25,9 @@ const Login: React.FC<Props> = (props) => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    props.login(username, password);
+    if(verified) {
+      props.changePassword(currentPassword, newPassword, confirmPassword);
+    }
   };
 
   return (
@@ -35,7 +37,7 @@ const Login: React.FC<Props> = (props) => {
           <div className="card-header">
             <h3>Sign In</h3>
             <div className="d-flex justify-content-end social_icon">
-              <span onClick={props.logout}>
+              <span>
                 <i className="fab fa-facebook-square"></i>
               </span>
               <span>
@@ -55,10 +57,10 @@ const Login: React.FC<Props> = (props) => {
                   </span>
                 </div>
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
-                  placeholder="username"
-                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="current password"
+                  onChange={(e) => setCurrentPassword(e.target.value)}
                 />
               </div>
               <div className="input-group form-group">
@@ -70,8 +72,21 @@ const Login: React.FC<Props> = (props) => {
                 <input
                   type="password"
                   className="form-control"
-                  placeholder="password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="new password"
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+              <div className="input-group form-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fas fa-key"></i>
+                  </span>
+                </div>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="confirm password"
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
               <ReCAPTCHA
@@ -87,7 +102,7 @@ const Login: React.FC<Props> = (props) => {
               <div className="form-group">
                 <input
                   type="submit"
-                  value="Login"
+                  value="Đổi mật khẩu"
                   disabled={!verified}
                   className="btn float-right login_btn"
                 />
@@ -115,10 +130,9 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  login: (username: string, password: string) =>
-    dispatch(login(username, password)),
-  logout: () => dispatch(logout()),
+  changePassword: (current_password: string, new_password: string, confirm_password: string) =>
+    dispatch(changePassword(current_password, new_password, confirm_password)),
 });
 
 //connect to the appStore
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);
