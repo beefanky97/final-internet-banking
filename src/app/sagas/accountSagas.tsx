@@ -34,7 +34,7 @@ function* refreshTokenSaga() {
 }
 
 function* changePasswpordSaga(action: any) {
-  const { status, data } = yield call(accountService.changePassword, action.current_password, action.new_password, action.confirm_password);
+  const { data } = yield call(accountService.changePassword, action.current_password, action.new_password, action.confirm_password);
   if(!data.is_error) {
     alert("Đổi mật khẩu thành công!");
     window.location.href = "./";
