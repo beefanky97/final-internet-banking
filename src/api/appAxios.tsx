@@ -52,7 +52,14 @@ instanceAppAxios.interceptors.response.use(
   function (error) {
     // Handle when not Auth
     if (error.response && +error.response.status === 401) {
-      alert("Process expired! Login please!");
+      alert("Tài khoản hết hạn, xin đăng nhập lại!");
+      window.location.href = "./login";
+      return;
+    }
+
+    // Handle when not Auth
+    if (error.response && +error.response.status === 400) {
+      alert("Có gì đó sai, hãy thử lại!");
       window.location.href = "./login";
       return;
     }
