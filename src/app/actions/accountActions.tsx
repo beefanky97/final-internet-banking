@@ -5,6 +5,9 @@ export const accountActionTypes = {
   LOGOUT: "LOGOUT",
   LOGOUT_SUCCESS: "LOGOUT_SUCCESS",
   REFRESH_TOKEN: "REFRESH_TOKEN",
+  CHANGE_PASSWORD: "CHANGE_PASSWORD",
+  CHANGE_PASSWORD_SUCCESS: "CHANGE_PASSWORD_SUCCESS",
+
 };
 
 //asign type for each action => identify
@@ -28,6 +31,13 @@ export const loginFail = () => ({
 
 export const logout = () => ({
   type: accountActionTypes.LOGOUT
+});
+
+export const changePassword = (current_password: string, new_password: string, confirm_password: string) => ({
+  type: accountActionTypes.CHANGE_PASSWORD,
+  current_password,
+  new_password,
+  confirm_password
 });
 
 export const logoutSuccsess = () => ({

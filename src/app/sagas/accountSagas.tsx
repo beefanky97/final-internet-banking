@@ -33,6 +33,17 @@ function* refreshTokenSaga() {
   yield call(saveTokenExpire, data);
 }
 
+function* changePasswpordSaga(action: any) {
+  const { status, data } = yield call(accountService.changePassword, action.current_password, action.new_password, action.confirm_password);
+  if(!data.is_error) {
+    alert("Đổi mật khẩu thành công!");
+    window.location.href = "./";
+  } else {
+    alert("Có điều gì đó không đúng, xin thao tác l!");
+    window.location.href = "./login";
+  }
+}
+
 function* watchLogin() {
   yield takeLatest(accountActionTypes.LOGIN, loginSaga);
 }
@@ -45,10 +56,15 @@ function* watchRefreshToken() {
   yield takeLatest(accountActionTypes.REFRESH_TOKEN, refreshTokenSaga);
 }
 
+function* watchChangePassword() {
+  yield takeLatest(accountActionTypes.CHANGE_PASSWORD, changePasswpordSaga);
+}
+
 export function* accountSaga() {
   yield all([
     watchLogin(),
     watchLogout(),
-    watchRefreshToken()
+    watchRefreshToken(),
+    watchChangePassword()
   ]);
 }
