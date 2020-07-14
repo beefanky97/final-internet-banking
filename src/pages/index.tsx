@@ -17,6 +17,7 @@ import RecieversManager from "src/components/RecieversManager";
 import { LoadingOverlay } from "src/components/commons/Loading";
 import ShowAllCustomers from "src/components/Teller/ShowAllCustomers";
 import CustomerDetail from "src/components/Teller/CustomerDetail";
+import ChangePassword from "src/components/ChangePassword";
 
 interface Props {
   isLoading?: boolean;
@@ -32,6 +33,9 @@ const App: React.FC<Props> = (props) => {
           <PrivateRoute exact={true} path="/" ComposedComp={Top} />
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/change-password">
+            <ChangePassword />
           </Route>
           <PrivateRoute path="/about" ComposedComp={About} />
           <PrivateRoute path="/transfer" ComposedComp={Transfer} />

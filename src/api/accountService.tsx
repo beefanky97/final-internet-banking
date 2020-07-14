@@ -19,4 +19,11 @@ export const accountService = {
         return res;
       });
   },
+  changePassword: async (current_password: string, new_password: string, confirm_password: string) => {
+    return await appAxios
+      .post("/customers/change-password", { current_password, new_password, confirm_password })
+      .then((res: AxiosResponse) => {
+        return res;
+      });
+  },
 };
