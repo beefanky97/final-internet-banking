@@ -1,21 +1,42 @@
 import { all, takeLatest, put, call } from "redux-saga/effects";
 import { AxiosResponse } from "axios";
-import { creditActionTypes, getCardInfoSuccess } from "src/app/actions/creditActions";
+import { creditActionTypes, getCardInfoSuccess, getRecivingTransactionSuccess, getSendingTransactionSuccess, getRemindingDebtTransactionSuccess } from "src/app/actions/creditActions";
 import { accountService } from "src/api/accountService";
 import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions";
 import { creditService } from "src/api/creditService";
-
+import { onLoading, offLoading } from "../actions/commonActions";
 
 function* transferSaga(action: any) {
-  console.log("input", action.transferInfo);
   const { status, data }: AxiosResponse = yield call(creditService.transfer, action.transferInfo);
-  console.log("status", status);
-  console.log("transfer saga", data, status);
 }
 
 function* getCardInfoSaga(action: any) {
-  const data = yield call(creditService.getCardInfo, action.card_number);
+  const { data } = yield call(creditService.getCardInfo, action.card_number);
   yield put(getCardInfoSuccess(data));
+}
+
+function* getHistoryTransaction(action: any) {
+  yield put(onLoading());
+  const { data } = yield call(creditService.getHistoryTransaction, action.type_transaction);
+  if (!data.is_error) {
+    switch (action.type_transaction) {
+      case "receiving":
+        yield put(getRecivingTransactionSuccess(data));
+        yield put(offLoading());
+        return;
+      case "sending":
+        yield put(getSendingTransactionSuccess(data));
+        yield put(offLoading());
+        return;
+      case "reminding-debt":
+        yield put(getRemindingDebtTransactionSuccess(data));
+        yield put(offLoading());
+        return;
+      default:
+        alert("Lấy dữ liệu giao dịch thất bại, xin thử lại!");
+        return;
+    }
+  }
 }
 
 function* watchGetCardInfo() {
@@ -26,9 +47,10 @@ function* watchTransfer() {
   yield takeLatest(creditActionTypes.TRANSFER, transferSaga);
 }
 
+function* watchGetHistorTransaction() {
+  yield takeLatest(creditActionTypes.GET_HISTORY_TRANSACTION, getHistoryTransaction);
+}
+
 export function* creditSaga() {
-  yield all([
-    watchTransfer(),
-    watchGetCardInfo()
-  ]);
+  yield all([watchTransfer(), watchGetCardInfo(), watchGetHistorTransaction()]);
 }

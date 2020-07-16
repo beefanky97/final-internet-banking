@@ -21,6 +21,28 @@ export const creditReducer = (
         cardInfo: action.cardInfo,
       };
     }
+    
+    case creditActionTypes.GET_RECIEVING_TRANSACTION_SUCCESS: {
+      return {
+        ...state,
+        recievingTransactions: action.recievingTransactions,
+      };
+    }
+    
+    case creditActionTypes.GET_SENDING_TRANSACTION_SUCCESS: {
+      return {
+        ...state,
+        sendingTransactions: action.sendingTransactions,
+      };
+    }
+    
+    case creditActionTypes.GET_REMINDING_DEBT_TRANSACTION_SUCCESS: {
+      return {
+        ...state,
+        remindingDebtTransactions: action.remindingDebtTransactions,
+      };
+    }
+
 
     default:
       return state;

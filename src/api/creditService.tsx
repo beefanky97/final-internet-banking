@@ -34,4 +34,14 @@ export const creditService = {
         console.log(err);
       });
   },
+  getHistoryTransaction: async (type: string) => {
+    return await appAxios
+      .get(`/transactions/customer/${type}`)
+      .then((res: AxiosResponse) => {
+        return res;
+      })
+      .catch((err: AxiosError) => {
+        console.log(err);
+      });
+  },
 };
