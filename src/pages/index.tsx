@@ -18,6 +18,7 @@ import { LoadingOverlay } from "src/components/commons/Loading";
 import ShowAllCustomers from "src/components/Teller/ShowAllCustomers";
 import CustomerDetail from "src/components/Teller/CustomerDetail";
 import ChangePassword from "src/components/ChangePassword";
+import HistoryTransaction from "src/components/HistoryTransaction";
 
 interface Props {
   isLoading?: boolean;
@@ -50,6 +51,9 @@ const App: React.FC<Props> = (props) => {
           </Route>
           <Route path="/admin/history-transaction-interbank">
             <AddCustomer />
+          </Route>
+          <Route path="/history-transaction">
+            <HistoryTransaction />
           </Route>
           <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
           {props.isLoading && <LoadingOverlay />}

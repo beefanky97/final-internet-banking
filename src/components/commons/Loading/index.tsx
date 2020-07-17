@@ -6,7 +6,7 @@ export const LoadingOverlay = () => {
       <div className="overlay"> </div>
       <div className="spanner">
         <div className="loader"></div>
-        <p>Uploading music file, please be patient.</p>
+        <p>Đang thao tác...</p>
       </div>
     </>
   );

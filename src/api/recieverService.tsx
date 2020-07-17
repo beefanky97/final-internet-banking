@@ -9,7 +9,6 @@ export const receiverService = {
     return await appAxios
       .get("/receivers/customer")
       .then((res: AxiosResponse) => {
-        console.log("recivers", res.data);
         return res;
       });
   },
@@ -17,16 +16,13 @@ export const receiverService = {
     return await appAxios
       .post(`/receivers/customer/delete/${id}`, {})
       .then((res: AxiosResponse) => {
-        console.log("recivers", res.data);
         return res;
       });
   },
   editReciever: async (id: string, card_number: number, reminiscent_name: string) => {
-    console.log("edit", id, card_number, reminiscent_name);
     return await appAxios
       .post(`/receivers/customer/edit/${id}`, {card_number, reminiscent_name})
       .then((res: AxiosResponse) => {
-        console.log("recivers", res.data);
         return res;
       });
   },
@@ -34,7 +30,6 @@ export const receiverService = {
     return await appAxios
       .post('/receivers/customer/add', {card_number, reminiscent_name})
       .then((res: AxiosResponse) => {
-        console.log("recivers", res.data);
         return res;
       });
   },

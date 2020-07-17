@@ -1,9 +1,11 @@
 import React from "react";
 import ServiceItem from "src/components/commons/ServiceItem";
+import { appAxios } from "src/api/appAxios";
 
 interface Props {}
 
 const ServiceSection: React.FC<Props> = ({}) => {
+  appAxios.get("https://internet-banking-api-17.herokuapp.com/cards/customer").then((res) => console.log("test", res.data));
   const service_info = [
     {
       id: "1",
@@ -55,10 +57,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
         <div className="row">
           <div className="col-12">
             {/* <!-- Section Heading --> */}
-            <div
-              className="section-heading text-center mb-100 wow fadeInUp"
-              data-wow-delay="100ms"
-            >
+            <div className="section-heading text-center mb-100 wow fadeInUp" data-wow-delay="100ms">
               <div className="line"></div>
               <p>Take look at our</p>
               <h2>Our services</h2>
@@ -68,13 +67,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
 
         <div className="row">
           {service_info.map((service, index) => (
-            <ServiceItem 
-              key={index}
-              icon={service.icon}
-              name={service.name}
-              des={service.des}
-              url={service.url} 
-            />
+            <ServiceItem key={index} icon={service.icon} name={service.name} des={service.des} url={service.url} />
           ))}
         </div>
       </div>

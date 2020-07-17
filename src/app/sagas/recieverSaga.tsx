@@ -28,8 +28,6 @@ function* editRecieverSaga(action: any) {
 }
 
 function* addRecieverSaga(action: any) {
-  console.log("data input", action.card_number, action.reminiscent_name);
-
   yield put(onLoading());
   const { data }: AxiosResponse = yield call(receiverService.addReciever, action.card_number, action.reminiscent_name);
   if(data) {
