@@ -7,7 +7,10 @@ const initialCeditReducer = {
     card_number: "",
     bank: "",
     is_error: false
-  }
+  },
+  sendingTransactions: [],
+  receivingTransactions: [],
+  remindingDebtTransactions: [],
 };
 
 export const creditReducer = (
@@ -22,10 +25,10 @@ export const creditReducer = (
       };
     }
     
-    case creditActionTypes.GET_RECIEVING_TRANSACTION_SUCCESS: {
+    case creditActionTypes.GET_RECEIVING_TRANSACTION_SUCCESS: {
       return {
         ...state,
-        recievingTransactions: action.recievingTransactions,
+        receivingTransactions: action.receivingTransactions,
       };
     }
     

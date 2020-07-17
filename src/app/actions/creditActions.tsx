@@ -4,7 +4,7 @@ export const creditActionTypes = {
   GET_CARD_INFO: 'GET_CARD_INFO',
   GET_CARD_INFO_SUCCESS: 'GET_CARD_INFO_SUCCESS',
   GET_HISTORY_TRANSACTION: 'GET_HISTORY_TRANSACTION',
-  GET_RECIEVING_TRANSACTION_SUCCESS: 'GET_RECIEVING_TRANSACTION_SUCCESS',
+  GET_RECEIVING_TRANSACTION_SUCCESS: 'GET_RECEIVING_TRANSACTION_SUCCESS',
   GET_SENDING_TRANSACTION_SUCCESS: 'GET_SENDING_TRANSACTION_SUCCESS',
   GET_REMINDING_DEBT_TRANSACTION_SUCCESS: 'GET_REMINDING_DEBT_TRANSACTION_SUCCESS',
 
@@ -40,9 +40,9 @@ export const getHistoryTransaction = (type: string) => ({
   type_transaction: type,
 });
 
-export const getRecivingTransactionSuccess = (data: any) => ({
-  type: creditActionTypes.GET_RECIEVING_TRANSACTION_SUCCESS,
-  recievingTransactions: data,
+export const getReceivingTransactionSuccess = (data: any) => ({
+  type: creditActionTypes.GET_RECEIVING_TRANSACTION_SUCCESS,
+  receivingTransactions: data,
 });
 
 export const getSendingTransactionSuccess = (data: any) => ({

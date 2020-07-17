@@ -1,6 +1,6 @@
 import { all, takeLatest, put, call } from "redux-saga/effects";
 import { AxiosResponse } from "axios";
-import { creditActionTypes, getCardInfoSuccess, getRecivingTransactionSuccess, getSendingTransactionSuccess, getRemindingDebtTransactionSuccess } from "src/app/actions/creditActions";
+import { creditActionTypes, getCardInfoSuccess, getReceivingTransactionSuccess, getSendingTransactionSuccess, getRemindingDebtTransactionSuccess } from "src/app/actions/creditActions";
 import { accountService } from "src/api/accountService";
 import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions";
 import { creditService } from "src/api/creditService";
@@ -21,7 +21,7 @@ function* getHistoryTransaction(action: any) {
   if (!data.is_error) {
     switch (action.type_transaction) {
       case "receiving":
-        yield put(getRecivingTransactionSuccess(data));
+        yield put(getReceivingTransactionSuccess(data));
         yield put(offLoading());
         return;
       case "sending":

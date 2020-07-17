@@ -35,6 +35,7 @@ export const creditService = {
       });
   },
   getHistoryTransaction: async (type: string) => {
+    console.log("overrrrr1");
     return await appAxios
       .get(`/transactions/customer/${type}`)
       .then((res: AxiosResponse) => {
