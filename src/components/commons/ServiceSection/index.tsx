@@ -38,7 +38,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
       name: "Lịch sử giao dịch",
       des: "Tra cứu và quản lý lịch sử giao dịch.",
       icon: "icon-profits",
-      url: "",
+      url: "/history-transaction",
     },
     {
       id: "6",
