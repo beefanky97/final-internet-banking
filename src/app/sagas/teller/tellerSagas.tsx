@@ -6,8 +6,12 @@ import {
   tellerActionTypes,
   actShowDetailCustomer,
   actShowInfoCards,
+  getReceivingTransactionSuccess,
+  getRemindingDebtTransactionSuccess,
+  getSendingTransactionSuccess,
 } from "src/app/actions/tellerActions";
 import { actShowAllCustomers } from "../../actions/tellerActions";
+import { onLoading, offLoading } from "src/app/actions/commonActions";
 
 function* showAllCustomers() {
   const { data }: AxiosResponse = yield call(tellerService.showAllCustomers);
@@ -39,6 +43,32 @@ function* showInfoCards(action: any) {
     yield put(actShowInfoCards(data));
 }
 
+function* getHistoryTransaction(action: any) {
+  yield put(onLoading());
+  const { data } = yield call(tellerService.getHistoryTransaction, action.type_transaction, action.card_number);
+  if (!data.is_error) {
+    switch (action.type_transaction) {
+      case "receiving":
+        yield put(getReceivingTransactionSuccess(data));
+        yield put(offLoading());
+        return;
+      case "sending":
+        yield put(getSendingTransactionSuccess(data));
+        yield put(offLoading());
+        return;
+      case "reminding-debt":
+        yield put(getRemindingDebtTransactionSuccess(data));
+        yield put(offLoading());
+        return;
+      default:
+        yield put(offLoading());
+        alert("Lấy dữ liệu giao dịch thất bại, xin thử lại!");
+        return;
+    }
+  }
+}
+
+
 function* watchAllCustomer() {
   yield takeLatest(tellerActionTypes.All_CUSTOMERS_REQUEST, showAllCustomers);
 }
@@ -62,11 +92,17 @@ function* watchShowInfoCards() {
   );
 }
 
+
+function* watchGetHistorTransaction() {
+  yield takeLatest(tellerActionTypes.GET_HISTORY_TRANSACTION, getHistoryTransaction);
+}
+
 export function* tellerSaga() {
   yield all([
     watchAllCustomer(),
     watchAddCustomer(),
     watchShowDetailCustomer(),
     watchShowInfoCards(),
+    watchGetHistorTransaction(),
   ]);
 }

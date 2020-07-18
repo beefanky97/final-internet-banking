@@ -6,6 +6,10 @@ export const tellerActionTypes = {
     DETAIL_CUSTOMER: "DETAIL_CUSTOMER",
     INFO_CARDS_REQUEST: "INFO_CARDS_REQUEST",
     INFO_CARDS: "INFO_CARDS",
+    GET_HISTORY_TRANSACTION: 'GET_HISTORY_TRANSACTION_TELLER',
+    GET_RECEIVING_TRANSACTION_SUCCESS: 'GET_RECEIVING_TRANSACTION_SUCCESS_TELLER',
+    GET_SENDING_TRANSACTION_SUCCESS: 'GET_SENDING_TRANSACTION_SUCCESS_TELLER',
+    GET_REMINDING_DEBT_TRANSACTION_SUCCESS: 'GET_REMINDING_DEBT_TRANSACTION_SUCCESS_TELLER',
 }
 
 export const actShowAllCustomersRequest = () => ({
@@ -41,3 +45,25 @@ export const actShowInfoCards = (cards: []) => ({
     type: tellerActionTypes.INFO_CARDS,
     cards
 })
+
+export const getHistoryTransaction = (type: string, card_number: number) => ({
+    type: tellerActionTypes.GET_HISTORY_TRANSACTION,
+    type_transaction: type,
+    card_number, 
+  });
+  
+  export const getReceivingTransactionSuccess = (data: any) => ({
+    type: tellerActionTypes.GET_RECEIVING_TRANSACTION_SUCCESS,
+    receivingTransactions: data,
+  });
+  
+  export const getSendingTransactionSuccess = (data: any) => ({
+    type: tellerActionTypes.GET_SENDING_TRANSACTION_SUCCESS,
+    sendingTransactions: data,
+  });
+  
+  export const getRemindingDebtTransactionSuccess = (data: any) => ({
+    type: tellerActionTypes.GET_REMINDING_DEBT_TRANSACTION_SUCCESS,
+    remindingDebtTransactions: data,
+  });
+  
