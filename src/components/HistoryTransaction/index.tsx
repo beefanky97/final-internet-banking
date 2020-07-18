@@ -4,34 +4,53 @@ import { connect } from "react-redux";
 
 import HeaderBody from "src/components/commons/HeaderBody";
 import { getHistoryTransaction } from "src/app/actions/creditActions";
+import { getHistoryTransaction as getHistoryTransactionTeller } from "src/app/actions/tellerActions";
+
+import * as qs from 'query-string';
 
 interface Props {
-  getHistoryTransaction: (type: string) => void;
+  getHistoryTransaction: any;
+  getHistoryTransactionTeller: any;
   remindingDebtTransactions: [];
   sendingTransactions: [];
   receivingTransactions: [];
+  remindingDebtTransactionsTeller: [];
+  sendingTransactionsTeller: [];
+  receivingTransactionsTeller: [];
 }
 
 const ShowAllCustomers: React.FC<Props> = (props) => {
   const [type, setType] = useState("");
+  const [cardNumber, setCardNumber] = useState(0);
+
+  useEffect(() => {
+    const search = qs.parse(window.location.search);
+    if(search && search.card_number) {
+      setCardNumber(+search.card_number);
+    }
+  })
 
   const callApi = (type: string) => {
-    props.getHistoryTransaction(type);
+    if(cardNumber) {
+      props.getHistoryTransactionTeller(type, cardNumber);
+    } else {
+      props.getHistoryTransaction(type);
+    }
     setType(type);
   };
 
   const showHistoryTransactions = (type: string) => {
     let historyTransactions: any = [];
     if (type === "sending") {
-      historyTransactions = props.sendingTransactions;
+      historyTransactions = cardNumber ? props.sendingTransactionsTeller : props.sendingTransactions;
     }
     if (type === "receiving") {
-      historyTransactions = props.receivingTransactions;
+      historyTransactions = cardNumber ? props.receivingTransactionsTeller : props.receivingTransactions;
     }
     if (type === "reminding-debt") {
-      historyTransactions = props.remindingDebtTransactions;
+      historyTransactions = cardNumber ? props.remindingDebtTransactionsTeller : props.remindingDebtTransactions;
     }
-    if (!historyTransactions.length) {
+    if (!historyTransactions) {
       return (
         <tr>
           <td colSpan={4}>Không có lịch sử giao dịch nào</td>
@@ -88,11 +107,15 @@ const mapStateToProps = (state: any) => ({
   remindingDebtTransactions: state.creditState.remindingDebtTransactions,
   sendingTransactions: state.creditState.sendingTransactions,
   receivingTransactions: state.creditState.receivingTransactions,
+  remindingDebtTransactionsTeller: state.tellerState.remindingDebtTransactions,
+  sendingTransactionsTeller: state.tellerState.sendingTransactions,
+  receivingTransactionsTeller: state.tellerState.receivingTransactions,
   isLoading: state.commonState.isLoading,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getHistoryTransaction: (type: string) => dispatch(getHistoryTransaction(type)),
+  getHistoryTransactionTeller: (type: string, card_number: number) => dispatch(getHistoryTransactionTeller(type, card_number)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowAllCustomers);
