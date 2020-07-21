@@ -31,16 +31,21 @@ function* showDetailCustomer(action: any) {
     tellerService.showDetailCustomer,
     action.id
   );
-
   yield put(actShowDetailCustomer(data));
+
+  const dataCards: AxiosResponse = yield call(
+    tellerService.showInfoCards,
+    action.id
+  );
+  yield put(actShowInfoCards(dataCards.data));
 }
 
 function* showInfoCards(action: any) {
-    const { data }: AxiosResponse = yield call(
-        tellerService.showInfoCards,
-        action.id
-    )
-    yield put(actShowInfoCards(data));
+  const { data }: AxiosResponse = yield call(
+    tellerService.showInfoCards,
+    action.id
+  );
+  yield put(actShowInfoCards(data));
 }
 
 function* getHistoryTransaction(action: any) {
@@ -86,10 +91,7 @@ function* watchShowDetailCustomer() {
 }
 
 function* watchShowInfoCards() {
-  yield takeLatest(
-    tellerActionTypes.INFO_CARDS_REQUEST,
-    showInfoCards
-  );
+  yield takeLatest(tellerActionTypes.INFO_CARDS_REQUEST, showInfoCards);
 }
 
 

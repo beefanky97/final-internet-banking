@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import HeaderBody from "src/components/commons/HeaderBody";
-import { actShowAllCustomersRequest } from "src/app/actions/tellerActions";
+import { actShowAllCustomersRequest, actShowDetailCustomerRequest } from "src/app/actions/tellerActions";
 
 interface Props {
   showAllCustomers: () => void;
@@ -15,9 +15,13 @@ const HistoryTransaction: React.FC<Props> = (props) => {
     props.showAllCustomers();
   }, []);
 
+  const onShowDetail = (id: string) => {
+    window.location.href = `/teller/customer/detail?id=${id}`;
+  }
+
   const listCustomers = (customers: []) =>
     customers.map((c: any, i) => (
-      <tr key={i}>
+      <tr onClick={() => onShowDetail(c._id)} key={i}>
         <td>{i + 1}</td>
         <td>{c.username}</td>
         <td>{c.full_name}</td>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
@@ -19,10 +19,22 @@ interface Object {
 
 const InfoCustomer: React.FC<Props> = (props) => {
   const [isNotEdit, setIsNotEdit] = useState(true);
+  const [infoUser, setInfoUser] = useState(props.customer);
+
+  useEffect(() => {
+    if(props.customer){
+      setInfoUser(props.customer);
+    }
+  }, [props.customer])
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
+
+  const onHandleCancel = () => {
+    setIsNotEdit(!isNotEdit);
+    setInfoUser(props.customer);
+  }
 
   return (
     <div className="col-lg-6">
@@ -50,9 +62,10 @@ const InfoCustomer: React.FC<Props> = (props) => {
               <input
                 type="text"
                 className="col-12"
-                value={props.customer.username}
+                value={infoUser.username}
+                onChange={(e: any) => setInfoUser({...infoUser, username: e.target.value})}
                 disabled={isNotEdit}
-              />
+              /> 
             </div>
           </div>
           <div className="col-lg-10 fdr mt-15">
@@ -63,7 +76,8 @@ const InfoCustomer: React.FC<Props> = (props) => {
               <input
                 type="text"
                 className="col-12"
-                value={props.customer.full_name}
+                value={infoUser.full_name}
+                onChange={(e: any) => setInfoUser({...infoUser, full_name: e.target.value})}
                 disabled={isNotEdit}
               />
             </div>
@@ -76,7 +90,8 @@ const InfoCustomer: React.FC<Props> = (props) => {
               <input
                 type="text"
                 className="col-12"
-                value={props.customer.email}
+                value={infoUser.email}
+                onChange={(e: any) => setInfoUser({...infoUser, email: e.target.value})}
                 disabled={isNotEdit}
               />
             </div>
@@ -89,7 +104,8 @@ const InfoCustomer: React.FC<Props> = (props) => {
               <input
                 type="text"
                 className="col-12"
-                value={props.customer.address}
+                value={infoUser.address}
+                onChange={(e: any) => setInfoUser({...infoUser, address: e.target.value})}
                 disabled={isNotEdit}
               />
             </div>
@@ -102,7 +118,8 @@ const InfoCustomer: React.FC<Props> = (props) => {
               <input
                 type="text"
                 className="col-12"
-                value={props.customer.phone_number}
+                value={infoUser.phone_number}
+                onChange={(e: any) => setInfoUser({...infoUser, phone_number: e.target.value})}
                 disabled={isNotEdit}
               />
             </div>
@@ -115,16 +132,13 @@ const InfoCustomer: React.FC<Props> = (props) => {
               <input
                 type="date"
                 className="col-12"
-                value={moment(props.customer.day_of_birth).format("YYYY-MM-DD")}
+                value={moment(infoUser.day_of_birth).format("YYYY-MM-DD")}
+                onChange={(e: any) => setInfoUser({...infoUser, day_of_birth: e.target.value})}
                 disabled={isNotEdit}
               />
             </div>
           </div>
           <div className="col-12">
-            {/* <button className="btn credit-btn mt-30 mr-15" type="button">
-              <i className="fa fa-backward" aria-hidden="true"></i>
-              &nbsp;&nbsp;&nbsp;Quay lại
-            </button> */}
             <button
               className="btn credit-btn mt-30"
               type={!isNotEdit ? "button" : "submit"}
@@ -132,6 +146,15 @@ const InfoCustomer: React.FC<Props> = (props) => {
             >
               {isNotEdit ? "Chỉnh sửa" : "Lưu"}
             </button>
+            {!isNotEdit ? (
+              <button
+                className="btn credit-btn mt-30 ml-15"
+                type="button"
+                onClick={() => onHandleCancel()}
+              >
+                Huỷ
+              </button>
+            ) : null}
           </div>
         </div>
       </form>
