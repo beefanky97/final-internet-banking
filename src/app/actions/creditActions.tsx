@@ -9,6 +9,8 @@ export const creditActionTypes = {
   GET_REMINDING_DEBT_TRANSACTION_SUCCESS: 'GET_REMINDING_DEBT_TRANSACTION_SUCCESS',
   GET_DEBT_LIST: 'GET_DEBT_LIST',
   GET_DEBT_LIST_SUCCESS: 'GET_DEBT_LIST_SUCCESS',
+  ADD_DEBT_REMINDER: 'ADD_DEBT_REMINDER',
+  ADD_DEBT_REMINDER_SUCCESS: 'ADD_DEBT_REMINDER_SUCCESS',
 };
 
 //asign type for each action => identify
@@ -65,3 +67,13 @@ export const getDebtListSuccess = (data: any) => ({
   type: creditActionTypes.GET_DEBT_LIST_SUCCESS,
   debtList: data
 });
+
+export const addDebtReminder = (debtInfo: any) => ({
+  type: creditActionTypes.ADD_DEBT_REMINDER,
+  debtInfo
+});
+
+// export const addDebtReminderSuccess = (data: any) => ({
+//   type: creditActionTypes.GET_DEBT_LIST_SUCCESS,
+//   debtList: data
+// });

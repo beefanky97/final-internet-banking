@@ -61,4 +61,15 @@ export const creditService = {
         console.log(err);
       });
   },
+  addDebtReminder: async (debtInfo: number) => {
+    console.log("api card", debtInfo);
+    return await appAxios
+      .post("/debtors/add", debtInfo)
+      .then((res: AxiosResponse) => {
+        return res;
+      })
+      .catch((err: AxiosError) => {
+        console.log(err);
+      });
+  },
 };

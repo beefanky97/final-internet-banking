@@ -21,6 +21,7 @@ import ChangePassword from "src/components/ChangePassword";
 import HistoryTransaction from "src/components/HistoryTransaction";
 import { appAxios } from "src/api/appAxios";
 import DebtReminder from "src/components/DebtReminder";
+import AddDebtReminder from "src/components/DebtReminder/AddDebtReminder";
 
 interface Props {
   isLoading?: boolean;
@@ -57,8 +58,11 @@ const App: React.FC<Props> = (props) => {
       <Route path="/history-transaction">
         <HistoryTransaction />
       </Route>
-      <Route path="/debt-reminder">
+      <Route exact={true} path="/debt-reminder">
         <DebtReminder />
+      </Route>
+      <Route exact={true} path="/debt-reminder/add">
+        <AddDebtReminder />
       </Route>
       <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
       {props.isLoading && <LoadingOverlay />}
