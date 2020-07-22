@@ -10,10 +10,10 @@ import * as qs from "query-string";
 
 interface Props {
   getDebtList: any;
-  othersDebt: [],
-  myDebt: [],
-  othersUnpaidDebt: [],
-  myUnpaidDebt: [],
+  othersDebt: [];
+  myDebt: [];
+  othersUnpaidDebt: [];
+  myUnpaidDebt: [];
 }
 
 const DebtReminderList: React.FC<Props> = (props) => {
@@ -49,17 +49,41 @@ const DebtReminderList: React.FC<Props> = (props) => {
             <div className="col-10">
               <div className="contact-form-area contact-page">
                 <div className="btn-group not-margin">
-                  <button className={activeList === 1 ? "active" : ""} onClick={() => {setShowedList(props.othersDebt); setActiveList(1);}}>
+                  <button
+                    className={activeList === 1 ? "active" : ""}
+                    onClick={() => {
+                      setShowedList(props.othersDebt);
+                      setActiveList(1);
+                    }}
+                  >
                     Nợ người khác
                   </button>
-                  <button className={activeList === 2 ? "active" : ""} onClick={() => {setShowedList(props.myDebt); setActiveList(2);}}>
+                  <button
+                    className={activeList === 2 ? "active" : ""}
+                    onClick={() => {
+                      setShowedList(props.myDebt);
+                      setActiveList(2);
+                    }}
+                  >
                     Người khác nợ
                   </button>
-                  <button className={activeList === 3 ? "active" : ""} onClick={() => {setShowedList(props.othersUnpaidDebt); setActiveList(3);}}>
-                    Nợ người khác chưa thanh toán
-                  </button>
-                  <button className={activeList === 4? "active" : ""} onClick={() => {setShowedList(props.myUnpaidDebt); setActiveList(4);}}>
+                  <button
+                    className={activeList === 3 ? "active" : ""}
+                    onClick={() => {
+                      setShowedList(props.othersUnpaidDebt);
+                      setActiveList(3);
+                    }}
+                  >
                     Người khác nợ chưa thanh toán
+                  </button>
+                  <button
+                    className={activeList === 4 ? "active" : ""}
+                    onClick={() => {
+                      setShowedList(props.myUnpaidDebt);
+                      setActiveList(4);
+                    }}
+                  >
+                    Nợ người khác chưa thanh toán
                   </button>
                 </div>
                 <table className="table table-light table-hover table-striped">

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import * as qs from 'query-string';
+import { Link } from "react-router-dom";
 
 interface Props {
   cards: Object[];
@@ -122,7 +123,8 @@ const InfoCard: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
-      <a className="btn credit-btn mt-30" href={`/history-transaction?card_number=${card.card_number}`}>Xem lịch sử giao dịch</a>
+      <Link className="btn credit-btn mt-30" to={`/history-transaction?card_number=${card.card_number}`}>Xem lịch sử giao dịch</Link>
+      <Link className="btn credit-btn mt-30" to={`/debt-reminder/add`}>Thêm một nhắc nợ</Link>
     </div>
   );
 };

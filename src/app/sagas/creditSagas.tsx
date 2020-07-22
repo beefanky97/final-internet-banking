@@ -47,14 +47,25 @@ function* getHistoryTransaction(action: any) {
 }
 
 function* getDebtListSaga() {
+  yield put(onLoading());
   const res = yield call(creditService.getDebtList);
-  console.log("saga", res);
+  yield put(offLoading());
   yield put(getDebtListSuccess({ 
     othersDebt: res.othersDebt.data,
     myDebt: res.myDebt.data,
     othersUnpaidDebt: res.othersUnpaidDebt.data,
     myUnpaidDebt: res.myUnpaidDebt.data 
   }));
+}
+
+function* addDebtReminderSaga(action: any) {
+  yield put(onLoading());
+  const { data } = yield call(creditService.addDebtReminder, action.debtInfo);
+  if(data.card_number) {
+    yield put(offLoading());
+    console.log("data", data);
+    window.location.href = "/debt-reminder";
+  }
 }
 
 function* watchGetCardInfo() {
@@ -73,6 +84,16 @@ function* watchGetDebtList() {
   yield takeLatest(creditActionTypes.GET_DEBT_LIST, getDebtListSaga);
 }
 
+function* watchAddDebtReminder() {
+  yield takeLatest(creditActionTypes.ADD_DEBT_REMINDER, addDebtReminderSaga);
+}
+
 export function* creditSaga() {
-  yield all([watchTransfer(), watchGetCardInfo(), watchGetHistorTransaction(), watchGetDebtList()]);
+  yield all([
+    watchTransfer(),
+    watchGetCardInfo(),
+    watchGetHistorTransaction(),
+    watchGetDebtList(),
+    watchAddDebtReminder()
+  ]);
 }
