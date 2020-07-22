@@ -1,6 +1,13 @@
 import { all, takeLatest, put, call } from "redux-saga/effects";
 import { AxiosResponse } from "axios";
-import { creditActionTypes, getCardInfoSuccess, getReceivingTransactionSuccess, getSendingTransactionSuccess, getRemindingDebtTransactionSuccess } from "src/app/actions/creditActions";
+import {
+  creditActionTypes,
+  getCardInfoSuccess,
+  getReceivingTransactionSuccess,
+  getSendingTransactionSuccess,
+  getRemindingDebtTransactionSuccess,
+  getDebtListSuccess,
+} from "src/app/actions/creditActions";
 import { accountService } from "src/api/accountService";
 import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions";
 import { creditService } from "src/api/creditService";
@@ -39,6 +46,17 @@ function* getHistoryTransaction(action: any) {
   }
 }
 
+function* getDebtListSaga() {
+  const res = yield call(creditService.getDebtList);
+  console.log("saga", res);
+  yield put(getDebtListSuccess({ 
+    othersDebt: res.othersDebt.data,
+    myDebt: res.myDebt.data,
+    othersUnpaidDebt: res.othersUnpaidDebt.data,
+    myUnpaidDebt: res.myUnpaidDebt.data 
+  }));
+}
+
 function* watchGetCardInfo() {
   yield takeLatest(creditActionTypes.GET_CARD_INFO, getCardInfoSaga);
 }
@@ -51,6 +69,10 @@ function* watchGetHistorTransaction() {
   yield takeLatest(creditActionTypes.GET_HISTORY_TRANSACTION, getHistoryTransaction);
 }
 
+function* watchGetDebtList() {
+  yield takeLatest(creditActionTypes.GET_DEBT_LIST, getDebtListSaga);
+}
+
 export function* creditSaga() {
-  yield all([watchTransfer(), watchGetCardInfo(), watchGetHistorTransaction()]);
+  yield all([watchTransfer(), watchGetCardInfo(), watchGetHistorTransaction(), watchGetDebtList()]);
 }

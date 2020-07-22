@@ -2,7 +2,7 @@
 // import { AxiosResponse, AxiosError } from "axios";
 
 import { appAxios } from "./appAxios";
-import { AxiosResponse, AxiosError } from "axios";
+import Axios, { AxiosResponse, AxiosError } from "axios";
 
 export const creditService = {
   transfer: async (transferInfo: Object) => {
@@ -40,6 +40,23 @@ export const creditService = {
       .then((res: AxiosResponse) => {
         return res;
       })
+      .catch((err: AxiosError) => {
+        console.log(err);
+      });
+  },
+  getDebtList: async () => {
+    console.log("overrrrr1222");
+    console.log("axios", Axios);
+    return await Axios.all([
+      appAxios.get("/debtors/my-created"),
+      appAxios.get("/debtors/others-sent"),
+      appAxios.get("/debtors/my-created/unpaid"),
+      appAxios.get("/debtors/others-sent/unpaid")
+    ])
+      .then(Axios.spread((...[othersDebt, myDebt, othersUnpaidDebt, myUnpaidDebt]: any) => {
+        console.log("ressss", othersDebt, myDebt, othersUnpaidDebt, myUnpaidDebt);
+        return {othersDebt, myDebt, othersUnpaidDebt, myUnpaidDebt}
+      }))
       .catch((err: AxiosError) => {
         console.log(err);
       });
