@@ -14,5 +14,9 @@
                 background: greenyellow;
             }
         }
+
+        &.not-margin {
+            margin: 0;
+        }
     }
 }

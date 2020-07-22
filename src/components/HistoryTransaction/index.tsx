@@ -19,7 +19,7 @@ interface Props {
   receivingTransactionsTeller: [];
 }
 
-const ShowAllCustomers: React.FC<Props> = (props) => {
+const HistoryTransactions: React.FC<Props> = (props) => {
   const [type, setType] = useState("");
   const [cardNumber, setCardNumber] = useState(0);
 
@@ -118,4 +118,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   getHistoryTransactionTeller: (type: string, card_number: number) => dispatch(getHistoryTransactionTeller(type, card_number)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowAllCustomers);
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryTransactions);
