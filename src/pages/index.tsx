@@ -19,48 +19,53 @@ import ShowAllCustomers from "src/components/Teller/ShowAllCustomers";
 import CustomerDetail from "src/components/Teller/CustomerDetail";
 import ChangePassword from "src/components/ChangePassword";
 import HistoryTransaction from "src/components/HistoryTransaction";
+import { appAxios } from "src/api/appAxios";
+import DebtReminder from "src/components/DebtReminder";
 
 interface Props {
   isLoading?: boolean;
 }
 
 const App: React.FC<Props> = (props) => {
+  console.log("isLoading!!!!", props.isLoading);
 
-  console.log("isLoading!!!!", props.isLoading)
-  
+
   return (
-      <Router>
-        <Header />
-          <PrivateRoute exact={true} path="/" ComposedComp={Top} />
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/change-password">
-            <ChangePassword />
-          </Route>
-          <PrivateRoute path="/about" ComposedComp={About} />
-          <PrivateRoute path="/transfer" ComposedComp={Transfer} />
-          <Route path="/teller/add-customer">
-            <AddCustomer />
-          </Route>
-          <Route path="/teller/customer/detail">
-            <CustomerDetail />
-          </Route>
-          <Route path="/teller/customers">
-            <ShowAllCustomers />
-          </Route>
-          <Route path="/admin/history-transaction-interbank">
-            <AddCustomer />
-          </Route>
-          <Route path="/history-transaction">
-            <HistoryTransaction />
-          </Route>
-          <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
-          {props.isLoading && <LoadingOverlay />}
-        <Footer />
-      </Router>
+    <Router>
+      <Header />
+      <PrivateRoute exact={true} path="/" ComposedComp={Top} />
+      <Route path="/login">
+        <Login />
+      </Route>
+      <Route path="/change-password">
+        <ChangePassword />
+      </Route>
+      <PrivateRoute path="/about" ComposedComp={About} />
+      <PrivateRoute path="/transfer" ComposedComp={Transfer} />
+      <Route path="/teller/add-customer">
+        <AddCustomer />
+      </Route>
+      <Route path="/teller/customer/detail">
+        <CustomerDetail />
+      </Route>
+      <Route path="/teller/customers">
+        <ShowAllCustomers />
+      </Route>
+      <Route path="/admin/history-transaction-interbank">
+        <AddCustomer />
+      </Route>
+      <Route path="/history-transaction">
+        <HistoryTransaction />
+      </Route>
+      <Route path="/debt-reminder">
+        <DebtReminder />
+      </Route>
+      <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
+      {props.isLoading && <LoadingOverlay />}
+      <Footer />
+    </Router>
   );
-}
+};
 const mapStateToProps = (state: any) => ({
   isLoading: state.commonState.isLoading,
 });
