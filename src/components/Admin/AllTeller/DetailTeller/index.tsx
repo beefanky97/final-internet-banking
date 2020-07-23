@@ -14,6 +14,8 @@ interface Props {
   editTeller: (id: string, tellerEdit: object) => void;
   teller: any;
   tellers: [];
+  history: any;
+  isEditTellerSuccessed: boolean;
 }
 
 const DetailTeller: React.FC<Props> = (props) => {
@@ -24,12 +26,26 @@ const DetailTeller: React.FC<Props> = (props) => {
 
   useEffect(() => {
     props.getDetailTeller(id);
-  }, []);
-  // console.log("DetailTeller component", tellerEdit);
+
+    if(props.isEditTellerSuccessed){
+      props.history.goBack();
+    }
+  }, [props.isEditTellerSuccessed]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     props.editTeller(id, tellerEdit);
+  };
+  
+  const onHandleEdit = () => {
+    setIsNotEdit(!isNotEdit);
+    if (isNotEdit) setTellerEdit(props.teller);
+  }
+
+  const onHandleCancel = (id: string) => {
+    setIsNotEdit(!isNotEdit);
+    setTellerEdit(null);
+    setTellerEdit(props.teller);
   };
 
   return (
@@ -211,10 +227,20 @@ const DetailTeller: React.FC<Props> = (props) => {
               <i className="fa fa-backward" aria-hidden="true"></i>
               &nbsp;&nbsp;&nbsp;Quay lại
             </button> */}
+                            {!isNotEdit ? (
+                              <button
+                                className="btn btn-hv mt-30 mr-15"
+                                type="button"
+                                onClick={() => onHandleCancel(id)}
+                              >
+                                Huỷ
+                              </button>
+                            ) : null}
                             <button
-                              className="btn credit-btn mt-30"
+                              className="btn btn-hv mt-30"
                               type={!isNotEdit ? "button" : "submit"}
-                              onClick={() => setIsNotEdit(!isNotEdit)}
+                              // onClick={() => setIsNotEdit(!isNotEdit)}
+                              onClick={() => onHandleEdit()}
                             >
                               {isNotEdit ? "Chỉnh sửa" : "Lưu"}
                             </button>
@@ -236,6 +262,7 @@ const DetailTeller: React.FC<Props> = (props) => {
 const mapStateToProps = (state: any) => ({
   teller: state.adminState.teller,
   tellers: state.adminState.tellers,
+  isEditTellerSuccessed: state.adminState.isEditTellerSuccessed
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

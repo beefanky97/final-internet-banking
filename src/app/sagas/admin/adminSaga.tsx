@@ -7,7 +7,9 @@ import {
   actGetTransactionsSuccess,
   actGetTellersSuccess,
   actGetDetailTellerSuccess,
-  actAddTeller,
+  actAddTellerSuccess,
+  actEditTellerSuccess,
+  actDeleteTellerSuccess,
 } from "src/app/actions/admin/adminAction";
 
 function* getTransactionsSaga(action: any) {
@@ -54,9 +56,10 @@ export function* watchGetDetailTeller() {
 
 export function* addTellerSaga(action: any) {
   const { data } = yield call(adminService.addTeller, action.entity);
-  // yield put(actGetDetailTellerSuccess(data));
   if (!data.is_error) {
-    window.location.href = "/admin/tellers";
+    yield put(actAddTellerSuccess(true));
+  } else {
+    yield put(actAddTellerSuccess(false));
   }
 }
 
@@ -65,30 +68,36 @@ export function* watchAddTeller() {
 }
 
 export function* editTellerSaga(action: any) {
-    const { data } = yield call(adminService.editTellter, action.id, action.entity);
-    // yield put(actGetDetailTellerSuccess(data));
-    if (!data.is_error) {
-      window.location.href = "/admin/tellers";
-    }
-  }
-  
-  export function* watchEditTeller() {
-    yield takeLatest(adminActionTypes.EDIT_TELLER, editTellerSaga);
-  }
+  const { data } = yield call(
+    adminService.editTellter,
+    action.id,
+    action.entity
+  );
 
-  export function* deleteTellerSaga(action: any) {
-    console.log('adminSaga delete teller')
-    const { status } = yield call(adminService.deleteTellter, action.id);
-    // yield put(actGetDetailTellerSuccess(data));
-    if (status === 200) {
-      // window.location.href = "/admin/tellers";
-      console.log('delete success!!')
-    }
+  if (!data.is_error) {
+    yield put(actEditTellerSuccess(true));
+  } else {
+    yield put(actEditTellerSuccess(false));
   }
-  
-  export function* watchDeleteTeller() {
-    yield takeLatest(adminActionTypes.DELETE_TELLER, deleteTellerSaga);
+}
+
+export function* watchEditTeller() {
+  yield takeLatest(adminActionTypes.EDIT_TELLER, editTellerSaga);
+}
+
+export function* deleteTellerSaga(action: any) {
+  const { status } = yield call(adminService.deleteTellter, action.id);
+
+  if (status === 200) {
+    yield put(actDeleteTellerSuccess(true));
+  } else {
+    yield put(actDeleteTellerSuccess(false));
   }
+}
+
+export function* watchDeleteTeller() {
+  yield takeLatest(adminActionTypes.DELETE_TELLER, deleteTellerSaga);
+}
 
 export function* adminSaga() {
   yield all([
@@ -98,6 +107,6 @@ export function* adminSaga() {
     watchGetDetailTeller(),
     watchAddTeller(),
     watchEditTeller(),
-    watchDeleteTeller()
+    watchDeleteTeller(),
   ]);
 }

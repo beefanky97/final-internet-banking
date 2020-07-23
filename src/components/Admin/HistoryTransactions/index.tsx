@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Dispatch } from "redux";
 import { show, hide } from "redux-modal";
 import moment from "moment";
+import ReactPaginate from "react-paginate";
 
 import HeaderBody from "src/components/commons/HeaderBody";
 import { connect } from "react-redux";
@@ -10,7 +11,6 @@ import {
   actGetDetailTransaction,
 } from "src/app/actions/admin/adminAction";
 import DetailTransactionModal from "./DetailTransactionModal/index";
-import { relative } from "path";
 
 interface Props {
   getTransactions: (partner_code: number) => void;
@@ -25,20 +25,38 @@ const HistoryTransactions: React.FC<Props> = (props) => {
   const [partnerCode, setPartnerCode] = useState(1);
   const [dateStart, setDateStart] = useState("2020-01-01");
   const [dateEnd, setDateEnd] = useState(moment(moment()).format("YYYY-MM-DD"));
+
+  //pagenation
+  const [offset, setOffset] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [postData, setPostData] = useState([]);
+
   let totalMoney;
 
   useEffect(() => {
     props.getTransactions(partnerCode);
   }, [partnerCode]);
 
-  const handleOpenModal = (id: string) => {
-    props.openModal("DETAIL_TRANSACTION_MODAL");
-    props.getDetailTransaction(id);
-  };
+  useEffect(() => {
+    if (props.transactions.length > 0) {
+      const transactions = shortAndFilterFollowDate(props.transactions);
 
-  const showListTransactions = (transactions: []) => {
-    // console.log("listTransactions", transactions);
+      const slice = transactions.slice(offset, offset + perPage);
 
+      setPostData(slice);
+
+      if (slice.length < 10) {
+        console.log("helllo");
+        setCurrentPage(0);
+      }
+
+      setPageCount(Math.ceil(transactions.length / perPage));
+    }
+  }, [props.transactions, dateEnd, dateStart]);
+
+  const shortAndFilterFollowDate = (transactions: any) => {
     transactions.sort(function (a: any, b: any) {
       // Sap xep tu moi toi cu
       const date_a = parseInt(moment(a.date_created).format("x"));
@@ -46,7 +64,7 @@ const HistoryTransactions: React.FC<Props> = (props) => {
       return date_b - date_a;
     });
 
-    const list = transactions.filter((t: any) => {
+    return transactions.filter((t: any) => {
       const date_created = moment(t.date_created).format("YYYY-MM-DD");
       // kiem tra ngay nguoi dung chon xem
       return (
@@ -54,28 +72,47 @@ const HistoryTransactions: React.FC<Props> = (props) => {
         moment(date_created).format("x") <= moment(dateEnd).format("x")
       );
     });
+  };
 
-    totalMoney = list.reduce((sum, current: any) => sum + current.money, 0);
+  const handlePageClick = (e: any) => {
+    const selectedPage = e.selected;
+    const offsetTemp = selectedPage * perPage;
 
-    return list.map((t: any, i) => {
+    const transactions = shortAndFilterFollowDate(props.transactions);
+
+    setCurrentPage(selectedPage);
+    setOffset(offsetTemp);
+    const slice = transactions.slice(offsetTemp, offsetTemp + perPage);
+    setPostData(slice);
+  };
+
+  const handleOpenModal = (id: string) => {
+    props.openModal("DETAIL_TRANSACTION_MODAL");
+    props.getDetailTransaction(id);
+  };
+
+  const showListTransactions = (transactions: any, postData: any) => {
+    const list = shortAndFilterFollowDate(transactions);
+
+    totalMoney = list.reduce(
+      (sum: number, current: any) => sum + current.money,
+      0
+    );
+
+    return postData.map((t: any, i: number) => {
       return (
         <tr key={i} onClick={() => handleOpenModal(t._id)}>
-          <td>{i + 1}</td>
+          <td>{i + 1 + currentPage * 10}</td>
           <td>{t.bank_name}</td>
           <td>{t.card_number_sender}</td>
           <td>{t.card_number_receiver}</td>
           <td>{`${t.money} VND`}</td>
           {/* <td>{t.message}</td> */}
-          <td>{moment(t.date_created).format("DD-MM-YYYY")}</td>
+          <td>{moment(t.date_created).format("DD-MM-YYYY h:mm:ss")}</td>
         </tr>
       );
     });
   };
-
-  // const showTotalMoney = () => {
-  //   setTotalMoney(money);
-  //   return <p>{totalMoney}</p>;
-  // };
 
   return (
     <div>
@@ -92,9 +129,7 @@ const HistoryTransactions: React.FC<Props> = (props) => {
                   <h4 className="mb-50">Danh Sách Giao Dịch</h4>
 
                   {/* begin action */}
-                  <div
-                    className="row justify-content-between mt-15 mb-15"
-                  >
+                  <div className="row justify-content-between mt-15 mb-15">
                     <div className="col-lg-4 fdr ">
                       <div className="keyword">
                         <span>Ngân Hàng</span>
@@ -171,14 +206,14 @@ const HistoryTransactions: React.FC<Props> = (props) => {
                         <th>Ngày Gửi</th>
                       </tr>
                     </thead>
-                    <tbody>{showListTransactions(props.transactions)}</tbody>
+                    <tbody>
+                      {showListTransactions(props.transactions, postData)}
+                    </tbody>
                   </table>
                   {/* end table list transactions */}
 
                   {/* begin total money */}
-                  <div
-                    className="row justify-content-end mt-15"
-                  >
+                  <div className="row justify-content-end mt-15">
                     <div className="col-lg-4 fdr">
                       <div className="keyword">
                         <span>Tổng Tiền</span>
@@ -196,13 +231,30 @@ const HistoryTransactions: React.FC<Props> = (props) => {
                   </div>
                   {/* end total money */}
 
-                  {/* begin modal detail transaction */}
-                  <DetailTransactionModal
-                    closeModal={props.closeModal}
-                    info_transaction={props.info_transaction}
-                  />
-                  {/* end modal detail transaction */}
+                  <div style={{ zIndex: 1, position: "relative" }}>
+                    <ReactPaginate
+                      previousLabel={"<<"}
+                      nextLabel={">>"}
+                      breakLabel={"..."}
+                      breakClassName={"break-me"}
+                      pageCount={pageCount}
+                      marginPagesDisplayed={2}
+                      pageRangeDisplayed={5}
+                      onPageChange={handlePageClick}
+                      containerClassName={"pagination"}
+                      activeClassName={"active"}
+                    />
+                  </div>
                 </div>
+              </div>
+
+              <div style={{ zIndex: 1000 }}>
+                {/* begin modal detail transaction */}
+                <DetailTransactionModal
+                  closeModal={props.closeModal}
+                  info_transaction={props.info_transaction}
+                />
+                {/* end modal detail transaction */}
               </div>
             </div>
           </div>

@@ -26,18 +26,18 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body" style={{backgroundColor: '#003679'}}>
+          <div className="modal-body" >
             <div className="col-lg-12">
               <div className="row">
                 <div className="col-lg-12 fdr">
                   <div className="keyword">
-                    <span>#ID</span>
+                    <span style={{color: '#003679'}}>#ID</span>
                   </div>
-                  <div className="input-info">
+                  <div className="input-info" >
                     <input
                       type="text"
                       className="col-12"
-                      value={props.info_transaction._id}
+                      value={props.info_transaction._id} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
                       disabled
                     />
                   </div>
@@ -47,13 +47,13 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
               <div className="row">
                 <div className="col-lg-12 fdr mt-15">
                   <div className="keyword">
-                    <span>Tên Ngân Hàng</span>
+                    <span style={{color: '#003679'}}>Tên Ngân Hàng</span>
                   </div>
                   <div className="input-info">
                     <input
                       type="text"
                       className="col-12"
-                      value={props.info_transaction.bank_name}
+                      value={props.info_transaction.bank_name} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
                       disabled
                     />
                   </div>
@@ -63,26 +63,26 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
               <div className="row">
                 <div className="col-lg-6 fdr mt-15">
                   <div className="keyword">
-                    <span>Tên Người Gửi</span>
+                    <span style={{color: '#003679'}}>Tên Người Gửi</span>
                   </div>
                   <div className="input-info">
                     <input
                       type="text"
                       className="col-12"
-                      value={props.info_transaction.full_name_sender}
-                      disabled
+                      value={props.info_transaction.full_name_sender} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
+                      disabled 
                     />
                   </div>
                 </div>
                 <div className="col-lg-6 fdr mt-15">
                   <div className="keyword">
-                    <span>STK Người Gửi</span>
+                    <span style={{color: '#003679'}}>STK Người Gửi</span>
                   </div>
                   <div className="input-info">
                     <input
                       type="text"
                       className="col-12"
-                      value={props.info_transaction.card_number_sender}
+                      value={props.info_transaction.card_number_sender} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
                       disabled
                     />
                   </div>
@@ -92,26 +92,26 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
               <div className="row">
                 <div className="col-lg-6 fdr mt-15">
                   <div className="keyword">
-                    <span>Tên Người Nhận</span>
+                    <span style={{color: '#003679'}}>Tên Người Nhận</span>
                   </div>
                   <div className="input-info">
                     <input
                       type="text"
                       className="col-12"
-                      value={props.info_transaction.full_name_receiver}
+                      value={props.info_transaction.full_name_receiver} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
                       disabled
                     />
                   </div>
                 </div>
                 <div className="col-lg-6 fdr mt-15">
                   <div className="keyword">
-                    <span>STK Người Nhận</span>
+                    <span style={{color: '#003679'}}>STK Người Nhận</span>
                   </div>
                   <div className="input-info">
                     <input
                       type="text"
                       className="col-12"
-                      value={props.info_transaction.card_number_receiver}
+                      value={props.info_transaction.card_number_receiver} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
                       disabled
                     />
                   </div>
@@ -121,13 +121,13 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
               <div className="row">
                 <div className="col-lg-12 fdr mt-15">
                   <div className="keyword">
-                    <span>Số Tiền</span>
+                    <span style={{color: '#003679'}}>Số Tiền</span>
                   </div>
                   <div className="input-info">
                     <input
                       type="text"
                       className="col-12"
-                      value={props.info_transaction.money}
+                      value={props.info_transaction.money} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
                       disabled
                     />
                   </div>
@@ -137,13 +137,13 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
               <div className="row">
                 <div className="col-lg-12 fdr mt-15">
                   <div className="keyword">
-                    <span>Lời Nhắn</span>
+                    <span style={{color: '#003679'}}>Lời Nhắn</span>
                   </div>
                   <div className="input-info">
                     <input
                       type="text"
                       className="col-12"
-                      value={props.info_transaction.message}
+                      value={props.info_transaction.message} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
                       disabled
                     />
                   </div>
@@ -152,16 +152,16 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
 
               <div className="row">
                 <div className="col-lg-12 fdr mt-15">
-                  <div className="keyword">
-                    <span>Ngày Giao Dịch</span>
+                  <div className="keyword" >
+                    <span style={{color: '#003679'}}>Ngày Giao Dịch</span>
                   </div>
                   <div className="input-info">
                     <input
                       type="text"
                       className="col-12"
                       value={moment(props.info_transaction.date_created).format(
-                        "DD-MM-YYYY"
-                      )}
+                        "DD-MM-YYYY h:mm:ss"
+                      )} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
                       disabled
                     />
                   </div>
@@ -172,7 +172,7 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn credit-btn mr-15"
               data-dismiss="modal"
               onClick={props.closeModal}
             >

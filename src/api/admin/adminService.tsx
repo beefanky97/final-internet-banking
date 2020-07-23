@@ -4,7 +4,7 @@ import { appAxios } from "src/api/appAxios";
 
 export const adminService = {
   getTransactions: async (partner_code: number) => {
-    // console.log("adminService getTransactions", partner_code);
+    console.log("adminService getTransactions", partner_code);
 
     if (partner_code === 1) {
       return await appAxios
@@ -19,11 +19,11 @@ export const adminService = {
       return await appAxios
         .post("/transactions/admin/partner-bank", { partner_code })
         .then((res: AxiosResponse) => {
-          console.log(res);
+          // console.log(res);
           return res;
         })
         .catch((err: AxiosError) => {
-          console.log(err);
+          // console.log(err);
           return err;
         });
     }
@@ -40,7 +40,7 @@ export const adminService = {
       });
   },
   getTellers: async () => {
-    // console.log("adminService getTransactions", partner_code);
+    console.log("adminService getTellers");
 
     return await appAxios
       .get("/customers/admin")
@@ -68,10 +68,11 @@ export const adminService = {
     return await appAxios
       .post("/customers/admin/add", entity)
       .then((res: AxiosResponse) => {
-        // console.log('ser',res);
+        // console.log('res',res);
         return res;
       })
       .catch((err: AxiosError) => {
+        // console.log('err',err);
         return err;
       });
   },
@@ -80,7 +81,7 @@ export const adminService = {
     return await appAxios
       .post(`/customers/admin/edit/${id}`, entity)
       .then((res: AxiosResponse) => {
-        // console.log('ser',res);
+        // console.log('res',res);
         return res;
       })
       .catch((err: AxiosError) => {

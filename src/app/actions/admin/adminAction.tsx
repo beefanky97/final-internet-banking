@@ -8,8 +8,11 @@ export const adminActionTypes = {
   GET_DETAIL_TELLER: "GET_DETAIL_TELLER",
   GET_DETAIL_TELLER_SUCCESS: "GET_DETAIL_TELLER_SUCCESS",
   ADD_TELLER: "ADD_TELLER",
+  ADD_TELLER_SUCCESS: "ADD_TELLER_SUCCESS",
   EDIT_TELLER: "EDIT_TELLER",
-  DELETE_TELLER: "DELETE_TELLER" 
+  EDIT_TELLER_SUCCESS: "EDIT_TELLER_SUCCESS",
+  DELETE_TELLER: "DELETE_TELLER",
+  DELETE_TELLER_SUCCESS: "DELETE_TELLER_SUCCESS"
 };
 
 export const actGetTransactions = (partner_code: number) => ({
@@ -56,13 +59,28 @@ export const actAddTeller = (entity: object) => ({
   entity,
 });
 
+export const actAddTellerSuccess = (data: boolean) => ({
+  type: adminActionTypes.ADD_TELLER_SUCCESS,
+  data,
+});
+
 export const actEditTeller = (id: string, entity: object) => ({
   type: adminActionTypes.EDIT_TELLER,
   id,
   entity,
 });
 
+export const actEditTellerSuccess = (data: boolean) => ({
+  type: adminActionTypes.EDIT_TELLER_SUCCESS,
+  data
+});
+
 export const actDeleteTeller = (id: string) => ({
   type: adminActionTypes.DELETE_TELLER,
   id
+})
+
+export const actDeleteTellerSuccess = (data: boolean) => ({
+  type: adminActionTypes.DELETE_TELLER_SUCCESS,
+  data
 })

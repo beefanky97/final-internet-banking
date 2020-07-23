@@ -8,10 +8,18 @@ import { actAddTeller } from "src/app/actions/admin/adminAction";
 interface Props {
   addTeller: (teller: object) => void;
   tellers: [];
+  history: any;
+  isAddTellerSuccessed: boolean;
 }
 
 const AddTeller: React.FC<Props> = (props) => {
   const [teller, setTeller] = useState({});
+
+  useEffect(() => {
+    if(props.isAddTellerSuccessed){
+      props.history.goBack();
+    }
+  }, [props.isAddTellerSuccessed])
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -38,9 +46,10 @@ const AddTeller: React.FC<Props> = (props) => {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <input
+                            style={{ backgroundColor: "white", fontSize: 15  }}
                             type="text"
                             className="form-control text-dark"
-                            id="name"
+                            id="username"
                             placeholder="Nhập tên đăng nhập"
                             onChange={(e) =>
                               setTeller({
@@ -54,9 +63,10 @@ const AddTeller: React.FC<Props> = (props) => {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <input
+                            style={{ backgroundColor: "white", fontSize: 15 }}
                             type="password"
                             className="form-control text-dark"
-                            id="email"
+                            id="password"
                             placeholder="Nhập password"
                             onChange={(e) =>
                               setTeller({
@@ -70,6 +80,7 @@ const AddTeller: React.FC<Props> = (props) => {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <input
+                            style={{ backgroundColor: "white", fontSize: 15 }}
                             type="text"
                             className="form-control text-dark"
                             id="name"
@@ -86,6 +97,7 @@ const AddTeller: React.FC<Props> = (props) => {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <input
+                            style={{ backgroundColor: "white", fontSize: 15 }}
                             type="email"
                             className="form-control text-dark"
                             id="email"
@@ -102,9 +114,10 @@ const AddTeller: React.FC<Props> = (props) => {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <input
+                            style={{ backgroundColor: "white", fontSize: 15 }}
                             type="text"
                             className="form-control text-dark"
-                            id="name"
+                            id="phone"
                             placeholder="Nhập số điện thoại"
                             onChange={(e) =>
                               setTeller({
@@ -118,9 +131,10 @@ const AddTeller: React.FC<Props> = (props) => {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <input
+                            style={{ backgroundColor: "white", fontSize: 15 }}
                             type="text"
                             className="form-control text-dark"
-                            id="email"
+                            id="address"
                             placeholder="Nhập địa chỉ"
                             onChange={(e) =>
                               setTeller({
@@ -131,12 +145,14 @@ const AddTeller: React.FC<Props> = (props) => {
                           />
                         </div>
                       </div>
+
                       <div className="col-lg-6">
                         <div className="form-group">
                           <input
+                            style={{ backgroundColor: "white", fontSize: 15 }}
                             type="date"
                             className="form-control text-dark"
-                            id="email"
+                            id="dof"
                             onChange={(e) =>
                               setTeller({
                                 ...teller,
@@ -147,7 +163,10 @@ const AddTeller: React.FC<Props> = (props) => {
                         </div>
                       </div>
                       <div className="col-12">
-                        <button className="btn credit-btn mt-30" type="submit">
+                        <button
+                          className="btn btn-hv credit-btn mt-30"
+                          type="submit"
+                        >
                           Thêm
                         </button>
                       </div>
@@ -165,6 +184,7 @@ const AddTeller: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: any) => ({
   tellers: state.adminState.tellers,
+  isAddTellerSuccessed: state.adminState.isAddTellerSuccessed
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
