@@ -12,7 +12,7 @@ interface Props {
   customer: any;
   cards: [];
   showDetailCustomer: (id: string) => void;
-  showInfoCards: () => void;
+  // showInfoCards: () => void;
 }
 
 const CustomerDetail: React.FC<Props> = (props) => {
@@ -58,7 +58,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   showDetailCustomer: (id: string) => dispatch(actShowDetailCustomerRequest(id)),
-  showInfoCards: () => dispatch(actShowInfoCardsRequest("5eeb5d49522755fd2ddb8d3d")),
+  // showInfoCards: () => dispatch(actShowInfoCardsRequest("5eeb5d49522755fd2ddb8d3d")),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerDetail);

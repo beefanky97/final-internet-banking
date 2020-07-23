@@ -59,4 +59,19 @@ export const tellerService = {
         console.log(err);
       });
   },
+  addMoneyForCustomer: async (card_number: number, money: number) => {
+    return await appAxios
+      .post(
+        "https://internet-banking-api-17.herokuapp.com/transactions/teller/sending/add",
+        { card_number, money }
+      )
+      .then((res: AxiosResponse) => {
+        console.log("res", res);
+        return res;
+      })
+      .catch((err: AxiosError) => {
+        console.log("error: ", err);
+        return err;
+      });
+  },
 };

@@ -140,7 +140,7 @@ const InfoCustomer: React.FC<Props> = (props) => {
           </div>
           <div className="col-12">
             <button
-              className="btn credit-btn mt-30"
+              className="btn btn-hv mt-30"
               type={!isNotEdit ? "button" : "submit"}
               onClick={() => setIsNotEdit(!isNotEdit)}
             >
@@ -148,7 +148,7 @@ const InfoCustomer: React.FC<Props> = (props) => {
             </button>
             {!isNotEdit ? (
               <button
-                className="btn credit-btn mt-30 ml-15"
+                className="btn btn-hv mt-30 ml-15"
                 type="button"
                 onClick={() => onHandleCancel()}
               >

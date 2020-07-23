@@ -9,6 +9,8 @@ import {
   getReceivingTransactionSuccess,
   getRemindingDebtTransactionSuccess,
   getSendingTransactionSuccess,
+  actAddMoneyCustomerSuccess,
+  actAddCustomerSuccess,
 } from "src/app/actions/tellerActions";
 import { actShowAllCustomers } from "../../actions/tellerActions";
 import { onLoading, offLoading } from "src/app/actions/commonActions";
@@ -22,7 +24,10 @@ function* addCustomer(action: any) {
   console.log("over saga!", action.entity);
   const data = yield call(tellerService.addCustomer, action.entity);
   if (!data.data.is_error) {
-    window.location.href = "/teller/customers";
+    // window.location.href = "/teller/customers";
+    yield put(actAddCustomerSuccess(true));
+  } else {
+    yield put(actAddCustomerSuccess(false));
   }
 }
 
@@ -74,6 +79,21 @@ function* getHistoryTransaction(action: any) {
 }
 
 
+function* addMoneyCustomer(action: any) {
+  const { data }: AxiosResponse = yield call(
+    tellerService.addMoneyForCustomer,
+    action.card_number,
+    action.money
+  );
+  console.log('data',data);
+
+  if(!data.is_error){
+    yield put(actAddMoneyCustomerSuccess(true));
+  } else {
+    yield put(actAddMoneyCustomerSuccess(false));
+  }
+}
+
 function* watchAllCustomer() {
   yield takeLatest(tellerActionTypes.All_CUSTOMERS_REQUEST, showAllCustomers);
 }
@@ -94,9 +114,12 @@ function* watchShowInfoCards() {
   yield takeLatest(tellerActionTypes.INFO_CARDS_REQUEST, showInfoCards);
 }
 
-
 function* watchGetHistorTransaction() {
   yield takeLatest(tellerActionTypes.GET_HISTORY_TRANSACTION, getHistoryTransaction);
+}
+
+function* watchAddMoneyCustomer() {
+  yield takeLatest(tellerActionTypes.ADD_MONEY_CUSTOMER_REQUEST, addMoneyCustomer);
 }
 
 export function* tellerSaga() {
@@ -106,5 +129,6 @@ export function* tellerSaga() {
     watchShowDetailCustomer(),
     watchShowInfoCards(),
     watchGetHistorTransaction(),
+    watchAddMoneyCustomer(),
   ]);
 }
