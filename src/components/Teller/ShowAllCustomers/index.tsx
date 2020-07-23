@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
+import ReactPaginate from "react-paginate";
 
 import HeaderBody from "src/components/commons/HeaderBody";
 import {
@@ -17,16 +18,38 @@ interface Props {
 
 const HistoryTransaction: React.FC<Props> = (props) => {
   const [offset, setOffset] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [postData, setPostData] = useState([]);
 
   useEffect(() => {
     props.showAllCustomers();
     props.resetStatusAdd(false);
   }, []);
 
-  const listCustomers = (customers: []) =>
-    customers.map((c: any, i) => (
+  useEffect(() => {
+    if (props.customers.length > 0) {
+      const slice = props.customers.slice(offset, offset + perPage);
+      setPostData(slice);
+      setPageCount(Math.ceil(props.customers.length / perPage));
+    }
+  }, [props.customers]);
+
+  const handlePageClick = (e: any) => {
+    const selectedPage = e.selected;
+    const offsetTemp = selectedPage * perPage;
+
+    setCurrentPage(selectedPage);
+    setOffset(offsetTemp);
+    const slice = props.customers.slice(offsetTemp, offsetTemp + perPage);
+    setPostData(slice);
+  };
+
+  const listCustomers = (customers: any) =>
+    customers.map((c: any, i: number) => (
       <tr key={i}>
-        <td>{i + 1}</td>
+        <td>{i + 1 + currentPage*10}</td>
         <td>{c.username}</td>
         <td>{c.full_name}</td>
         <td>{c.email}</td>
@@ -55,8 +78,8 @@ const HistoryTransaction: React.FC<Props> = (props) => {
               <div className="col-10">
                 <div className="contact-form-area contact-page">
                   <h4 className="mb-50">Danh sách tài khoản khách hàng</h4>
-                  <div className='d-flex justify-content-between align-items-end mb-15'>
-                    <div className="col-lg-6 fdr" style={{marginLeft: -14}}>
+                  <div className="d-flex justify-content-between align-items-end mb-15">
+                    <div className="col-lg-6 fdr" style={{ marginLeft: -14 }}>
                       <div className="keyword">
                         <span>Số tài khoản</span>
                       </div>
@@ -90,8 +113,20 @@ const HistoryTransaction: React.FC<Props> = (props) => {
                         <th></th>
                       </tr>
                     </thead>
-                    <tbody>{listCustomers(props.customers)}</tbody>
+                    <tbody>{listCustomers(postData)}</tbody>
                   </table>
+                  <ReactPaginate
+                    previousLabel={"<<"}
+                    nextLabel={">>"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    activeClassName={"active"}
+                  />
                 </div>
               </div>
             </div>
