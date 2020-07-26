@@ -134,7 +134,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getCardInfo: (card_number: number) => dispatch(getCardInfo(card_number)),
+  getCardInfo: (card_number: number) => dispatch(getCardInfo(card_number, 1)),
   openModal: (name: string) => dispatch(show(name)),
   closeModal: () => dispatch(hide("INFO_CUSTOMER_MODAL")),
   addMoneyCustomer: (card_number: number, money: number) =>
