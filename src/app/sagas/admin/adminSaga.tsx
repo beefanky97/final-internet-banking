@@ -76,6 +76,20 @@ export function* editTellerSaga(action: any) {
     yield takeLatest(adminActionTypes.EDIT_TELLER, editTellerSaga);
   }
 
+  export function* deleteTellerSaga(action: any) {
+    console.log('adminSaga delete teller')
+    const { status } = yield call(adminService.deleteTellter, action.id);
+    // yield put(actGetDetailTellerSuccess(data));
+    if (status === 200) {
+      // window.location.href = "/admin/tellers";
+      console.log('delete success!!')
+    }
+  }
+  
+  export function* watchDeleteTeller() {
+    yield takeLatest(adminActionTypes.DELETE_TELLER, deleteTellerSaga);
+  }
+
 export function* adminSaga() {
   yield all([
     watchGetTransactions(),
@@ -83,6 +97,7 @@ export function* adminSaga() {
     watchGetTellers(),
     watchGetDetailTeller(),
     watchAddTeller(),
-    watchEditTeller()
+    watchEditTeller(),
+    watchDeleteTeller()
   ]);
 }

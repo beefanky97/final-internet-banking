@@ -87,4 +87,16 @@ export const adminService = {
         return err;
       });
   },
+  deleteTellter: async (id: string) => {
+    console.log("delete teller service", id);
+    return await appAxios
+      .post(`customers/admin/delete/${id}`)
+      .then((res: AxiosResponse) => {
+        // console.log('seSr',res);
+        return res;
+      })
+      .catch((err: AxiosError) => {
+        return err;
+      });
+  },
 };

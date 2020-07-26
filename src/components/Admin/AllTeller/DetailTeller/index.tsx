@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
+import { parseUrl } from "query-string";
 import HeaderBody from "src/components/commons/HeaderBody";
 import {
   actGetDetailTeller,
@@ -13,21 +14,22 @@ interface Props {
   editTeller: (id: string, tellerEdit: object) => void;
   teller: any;
   tellers: [];
-  //   id: string;
 }
 
 const DetailTeller: React.FC<Props> = (props) => {
   const [isNotEdit, setIsNotEdit] = useState(true);
   const [tellerEdit, setTellerEdit] = useState(props.teller);
 
+  const id: any = parseUrl(window.location.href).query.id;
+
   useEffect(() => {
-    props.getDetailTeller("5f12b1115b8fa500179fc295");
+    props.getDetailTeller(id);
   }, []);
   // console.log("DetailTeller component", tellerEdit);
-  
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    props.editTeller("5f12b1115b8fa500179fc295", tellerEdit);
+    props.editTeller(id, tellerEdit);
   };
 
   return (
@@ -70,7 +72,11 @@ const DetailTeller: React.FC<Props> = (props) => {
                               <input
                                 type="text"
                                 className="col-12"
-                                value={isNotEdit ? props.teller.username : tellerEdit.username}
+                                value={
+                                  isNotEdit
+                                    ? props.teller.username
+                                    : tellerEdit.username
+                                }
                                 disabled={isNotEdit}
                                 onChange={(e) =>
                                   setTellerEdit({
@@ -89,7 +95,11 @@ const DetailTeller: React.FC<Props> = (props) => {
                               <input
                                 type="text"
                                 className="col-12"
-                                value={isNotEdit ? props.teller.full_name : tellerEdit.full_name}
+                                value={
+                                  isNotEdit
+                                    ? props.teller.full_name
+                                    : tellerEdit.full_name
+                                }
                                 disabled={isNotEdit}
                                 onChange={(e) =>
                                   setTellerEdit({
@@ -108,7 +118,11 @@ const DetailTeller: React.FC<Props> = (props) => {
                               <input
                                 type="text"
                                 className="col-12"
-                                value={isNotEdit ? props.teller.email : tellerEdit.email}
+                                value={
+                                  isNotEdit
+                                    ? props.teller.email
+                                    : tellerEdit.email
+                                }
                                 disabled={isNotEdit}
                                 onChange={(e) =>
                                   setTellerEdit({
@@ -127,7 +141,11 @@ const DetailTeller: React.FC<Props> = (props) => {
                               <input
                                 type="text"
                                 className="col-12"
-                                value={isNotEdit ? props.teller.address : tellerEdit.address}
+                                value={
+                                  isNotEdit
+                                    ? props.teller.address
+                                    : tellerEdit.address
+                                }
                                 disabled={isNotEdit}
                                 onChange={(e) =>
                                   setTellerEdit({
@@ -146,7 +164,11 @@ const DetailTeller: React.FC<Props> = (props) => {
                               <input
                                 type="text"
                                 className="col-12"
-                                value={isNotEdit ? props.teller.phone_number : tellerEdit.phone_number}
+                                value={
+                                  isNotEdit
+                                    ? props.teller.phone_number
+                                    : tellerEdit.phone_number
+                                }
                                 disabled={isNotEdit}
                                 onChange={(e) =>
                                   setTellerEdit({
@@ -165,11 +187,15 @@ const DetailTeller: React.FC<Props> = (props) => {
                               <input
                                 type="date"
                                 className="col-12"
-                                value={isNotEdit ? moment(props.teller.day_of_birth).format(
-                                  "YYYY-MM-DD"
-                                ) : moment(tellerEdit.day_of_birth).format(
-                                  "YYYY-MM-DD"
-                                )}
+                                value={
+                                  isNotEdit
+                                    ? moment(props.teller.day_of_birth).format(
+                                        "YYYY-MM-DD"
+                                      )
+                                    : moment(tellerEdit.day_of_birth).format(
+                                        "YYYY-MM-DD"
+                                      )
+                                }
                                 disabled={isNotEdit}
                                 onChange={(e) =>
                                   setTellerEdit({

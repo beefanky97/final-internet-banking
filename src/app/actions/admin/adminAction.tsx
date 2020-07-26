@@ -9,6 +9,7 @@ export const adminActionTypes = {
   GET_DETAIL_TELLER_SUCCESS: "GET_DETAIL_TELLER_SUCCESS",
   ADD_TELLER: "ADD_TELLER",
   EDIT_TELLER: "EDIT_TELLER",
+  DELETE_TELLER: "DELETE_TELLER" 
 };
 
 export const actGetTransactions = (partner_code: number) => ({
@@ -60,3 +61,8 @@ export const actEditTeller = (id: string, entity: object) => ({
   id,
   entity,
 });
+
+export const actDeleteTeller = (id: string) => ({
+  type: adminActionTypes.DELETE_TELLER,
+  id
+})

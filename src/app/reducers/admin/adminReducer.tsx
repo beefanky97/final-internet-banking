@@ -1,5 +1,6 @@
 import { AnyAction } from "redux";
 import { adminActionTypes } from "src/app/actions/admin/adminAction";
+import { act } from "react-dom/test-utils";
 
 let initialAdminState: any ={
     transactions: [],
