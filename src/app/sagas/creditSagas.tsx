@@ -49,23 +49,25 @@ function* getHistoryTransaction(action: any) {
 function* getDebtListSaga() {
   yield put(onLoading());
   const res = yield call(creditService.getDebtList);
-  yield put(offLoading());
   yield put(getDebtListSuccess({ 
     othersDebt: res.othersDebt.data,
     myDebt: res.myDebt.data,
     othersUnpaidDebt: res.othersUnpaidDebt.data,
     myUnpaidDebt: res.myUnpaidDebt.data 
   }));
+  yield put(offLoading());
 }
 
 function* addDebtReminderSaga(action: any) {
   yield put(onLoading());
-  const { data } = yield call(creditService.addDebtReminder, action.debtInfo);
-  if(data.card_number) {
-    yield put(offLoading());
+  const { data, status } = yield call(creditService.addDebtReminder, action.debtInfo);
+  if(status !== 203) {
     console.log("data", data);
     window.location.href = "/debt-reminder";
+  } else {
+    alert(data.msg);
   }
+  yield put(offLoading());
 }
 
 function* watchGetCardInfo() {
