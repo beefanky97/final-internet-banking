@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { show, hide } from 'redux-modal';
+import { show, hide } from "redux-modal";
 
-import ConfirmCardModal from 'src/components/Transfer/modals/ConfirmCardModal';
+import ConfirmCardModal from "src/components/Transfer/modals/ConfirmCardModal";
 import { getCardInfo, transfer } from "src/app/actions/creditActions";
+import HeaderBody from "../commons/HeaderBody";
 
 interface Props {
-  cardInfo: any
-  openModal: (name: string) => void
+  cardInfo: any;
+  openModal: (name: string) => void;
   getCardInfo: any;
-  transfer:(transferInfo: Object) => void
-  closeModal: () => void
+  transfer: (transferInfo: Object) => void;
+  closeModal: () => void;
 }
 
 const Transfer: React.FC<Props> = (props) => {
@@ -27,8 +28,8 @@ const Transfer: React.FC<Props> = (props) => {
       card_number: cardNumber,
       money: amount,
       message: content,
-      type_paid: paidType
-    }
+      type_paid: paidType,
+    };
     props.transfer(transferInfo);
   };
 
@@ -36,80 +37,121 @@ const Transfer: React.FC<Props> = (props) => {
     console.log("card", cardNumber);
     props.getCardInfo(cardNumber, partnerCode);
     props.openModal("CONFIRM_CARD_MODAL");
-  }
+  };
 
   return (
-    <div className="transfer-ctn">
-      <div className="d-flex justify-content-center h-100">
-        <div className="card col-md-6">
-          <div className="card-header">
-            <h3>Sign In</h3>
-            <div className="d-flex justify-content-end social_icon">
-              <span>
-                <i className="fab fa-facebook-square"></i>
-              </span>
-              <span>
-                <i className="fab fa-google-plus-square"></i>
-              </span>
-              <span>
-                <i className="fab fa-twitter-square"></i>
-              </span>
-            </div>
-          </div>
-          <div className="card-body">
-            <div>
-              <div className="form-group">
-                <div className="form-group col-md-12">
-                  <label htmlFor="inputState">Chọn ngân hàng</label>
-                  <select onChange={e => setPartnerCode(+e.target.value)} className="form-control">
-                    <option defaultValue="1">Chuyển nội bộ 3TBank</option>
-                    <option value="2">Ngân hàng PGP</option>
-                    <option value="3">Ngân hàng RSA</option>
-                  </select>
-                </div>
-                <div className="form-group col-md-12">
-                  <label htmlFor="inputState">Tính phí</label>
-                  <select onChange={e => setPaidType(+e.target.value)} className="form-control">
-                    <option defaultValue="1">Người chuyển trả</option>
-                    <option value="2">Người nhận trả</option>
-                  </select>
-                </div>
-                <div className="form-group col-md-12">
-                  <label htmlFor="inputEmail4">Tài khoản người nhận</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={e => setCardNumber(+e.target.value)}
-                    placeholder="Nhập số tài khoản"
-                  />
-                </div>
-                <div className="form-group col-md-12">
-                  <label htmlFor="inputEmail4">Thông tin giao dịch</label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={e => setAmount(+e.target.value)}
-                    placeholder="Số tiền"
-                  />
-                </div>
-                <div className="form-group col-md-12">
-                  <label htmlFor="inputEmail4">Lời nhắn</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={e => setContent(e.target.value)}
-                    placeholder="Nội dung"
-                  />
+    <div>
+      {/* <!-- ##### Breadcrumb Area Start ##### --> */}
+      <HeaderBody namePage="Khách hàng" />
+      {/* <!-- ##### Breadcrumb Area End ##### --> */}
+
+      <div className="map-area">
+        <div className="contact---area">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-10 contact-form-area contact-page">
+                <h4 className="mb-50">CHUYỂN KHOẢN</h4>
+                <div className="row">
+                  <div className="col-lg-6 fdr mb-30">
+                    <div className="keyword">
+                      <span style={{textAlign: 'center'}}>Chọn ngân hàng</span>
+                    </div>
+                    <div className="input-info">
+                      <select
+                        onChange={(e) => setPartnerCode(+e.target.value)}
+                        className="col-12"
+                      >
+                        <option defaultValue="1">Chuyển nội bộ 3TBank</option>
+                        <option value="2">Ngân hàng PGP</option>
+                        <option value="3">Ngân hàng RSA</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 fdr mb-30">
+                    <div className="keyword">
+                      <span style={{textAlign: 'center'}}>Tính phí</span>
+                    </div>
+                    <div className="input-info">
+                      <select
+                        onChange={(e) => setPaidType(+e.target.value)}
+                        className="col-12"
+                      >
+                        <option defaultValue="1">Người chuyển trả</option>
+                        <option value="2">Người nhận trả</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-lg-6 fdr mb-30">
+                    <div className="keyword">
+                      <span style={{textAlign: 'center'}}>Tài khoản người nhận</span>
+                    </div>
+                    <div className="input-info">
+                      <input
+                        type="number"
+                        className="col-12"
+                        onChange={(e) => setCardNumber(+e.target.value)}
+                        placeholder="Nhập số tài khoản"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-lg-6 fdr mb-30">
+                    <div className="keyword">
+                      <span style={{textAlign: 'center'}}>Thông tin giao dịch</span>
+                    </div>
+                    <div className="input-info">
+                      <input
+                        type="number"
+                        className="col-12"
+                        onChange={(e) => setAmount(+e.target.value)}
+                        placeholder="Số tiền"
+                      />
+                    </div>
+                  </div>
+                  {/* <div className="col-lg-6 fdr mb-30">
+                    <div className="keyword">
+                      <span style={{textAlign: 'center'}}>Lời nhắn</span>
+                    </div>
+                    <div className="input-info">
+                      <input
+                        type="text"
+                        className="col-12"
+                        onChange={(e) => setContent(e.target.value)}
+                        placeholder="Nội dung"
+                      />
+                    </div>
+                  </div> */}
+                  <div className="col-lg-12">
+                    <div className="form-group">
+                      <textarea
+                        className="form-control text-dark"
+                        placeholder="Nhập nội dung"
+                        style={{fontSize: 16}}
+                        onChange={(e) => setContent(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-12">
+                    <button
+                      className="btn btn-hv mt-30"
+                      type="submit"
+                      onClick={handleOpenModal}
+                    >
+                      Chuyển tiền
+                    </button>
+                  </div>
                 </div>
               </div>
-              <button type="submit" className="btn round-5 btn-primary" onClick={handleOpenModal}>
-                Chuyển tiền
-              </button>
+              <ConfirmCardModal
+                closeModal={props.closeModal}
+                continuteTransfer={handleSubmit}
+                cardInfo={props.cardInfo}
+                isErrorGetInfo={false}
+              />
             </div>
           </div>
         </div>
       </div>
-      <ConfirmCardModal closeModal={props.closeModal} continuteTransfer={handleSubmit} cardInfo={props.cardInfo} isErrorGetInfo={false}/>
     </div>
   );
 };
@@ -117,14 +159,15 @@ const Transfer: React.FC<Props> = (props) => {
 //defined Type of State
 const mapStateToProps = (state: any) => ({
   isAuthenticated: state.accountState.isAuthenticated,
-  cardInfo: state.creditState.cardInfo
+  cardInfo: state.creditState.cardInfo,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   openModal: (name: string) => dispatch(show(name)),
-  getCardInfo: (card_number: number, partner_code: number) => dispatch(getCardInfo(card_number, partner_code)),
+  getCardInfo: (card_number: number, partner_code: number) =>
+    dispatch(getCardInfo(card_number, partner_code)),
   transfer: (transferInfo: Object) => dispatch(transfer(transferInfo)),
-  closeModal: () => dispatch(hide("CONFIRM_CARD_MODAL"))
+  closeModal: () => dispatch(hide("CONFIRM_CARD_MODAL")),
 });
 
 //connect to the appStore

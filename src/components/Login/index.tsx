@@ -34,7 +34,7 @@ const Login: React.FC<Props> = (props) => {
       <div className="d-flex justify-content-center h-100">
         <div className="card">
           <div className="card-header">
-            <h3>Sign In</h3>
+            <h3 style={{marginTop: 20}}>Đăng nhập</h3>
             <div className="d-flex justify-content-end social_icon">
               <span onClick={props.logout}>
                 <i className="fab fa-facebook-square"></i>
@@ -92,7 +92,7 @@ const Login: React.FC<Props> = (props) => {
           </div>
           <div className="card-footer">
             <div className="d-flex justify-content-center links">
-              Nếu bạn quên mật khẩu?<Link to="/forget-password">Hãy nhấn vào đây!</Link>
+              Nếu bạn quên mật khẩu?<Link to="/forget-password" style={{color: '#ffc312'}}>Hãy nhấn vào đây!</Link>
             </div>
           </div>
         </div>
