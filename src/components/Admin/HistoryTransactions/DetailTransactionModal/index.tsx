@@ -45,7 +45,7 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
               </div>
 
               <div className="row">
-                <div className="col-lg-12 fdr mt-15">
+                <div className="col-lg-6 fdr mt-15">
                   <div className="keyword">
                     <span style={{color: '#003679'}}>Tên Ngân Hàng</span>
                   </div>
@@ -54,6 +54,19 @@ const DetailTransactionModal: React.FunctionComponent<Props> = (props) => {
                       type="text"
                       className="col-12"
                       value={props.info_transaction.bank_name} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
+                      disabled 
+                    />
+                  </div>
+                </div>
+                <div className="col-lg-6 fdr mt-15">
+                  <div className="keyword">
+                    <span style={{color: '#003679'}}>Loại Giao Dịch</span>
+                  </div>
+                  <div className="input-info">
+                    <input
+                      type="text"
+                      className="col-12"
+                      value={props.info_transaction.type_transaction} style={{backgroundColor: '#003679', color: 'white', fontWeight: 'bold'}}
                       disabled
                     />
                   </div>
