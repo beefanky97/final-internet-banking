@@ -6,6 +6,7 @@ import { recieverReducer } from './recieverReducer';
 import { commonReducer } from './commonReducer';
 import { reducer as modal } from 'redux-modal';
 import { tellerReducer } from './tellerReducer/tellerReducer';
+import { adminReducer } from './admin/adminReducer';
 //Import some reducer to combine
 
 const appReducer = combineReducers({
@@ -17,6 +18,7 @@ const appReducer = combineReducers({
     commonState: commonReducer,
     modal,
     tellerState: tellerReducer,
+    adminState: adminReducer
 })
 
 export default appReducer;
