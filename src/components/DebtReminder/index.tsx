@@ -3,26 +3,60 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 
 import HeaderBody from "src/components/commons/HeaderBody";
-import { getHistoryTransaction, getDebtList } from "src/app/actions/creditActions";
+import { getHistoryTransaction, getDebtList, transfer } from "src/app/actions/creditActions";
 import { getHistoryTransaction as getHistoryTransactionTeller } from "src/app/actions/tellerActions";
 
 import * as qs from "query-string";
+import { appAxios } from "src/api/appAxios";
 
 interface Props {
   getDebtList: any;
+  payDebting: any;
   othersDebt: [];
   myDebt: [];
   othersUnpaidDebt: [];
-  myUnpaidDebt: [];
+  myUnpaidDebt: any;
+  isLoading: boolean;
 }
 
 const DebtReminderList: React.FC<Props> = (props) => {
   const [showedList, setShowedList] = useState([]);
   const [activeList, setActiveList] = useState(1);
+  const [msg, setMsg] = useState("");
+  const [idCancel, setIDCancel] = useState("");
 
   useEffect(() => {
-    props.getDebtList();
+    console.log("over", props.isLoading);
+    async function getList() {
+      setTimeout(async () => {
+        await props.getDebtList();
+      }, 0);
+      await setShowedList(props.othersDebt);
+    }
+    getList();
   }, []);
+
+  const handlePayment = (id: number) => {
+    appAxios.post(`/debtors/transaction/reminding-debt/${id}`).then((res) => {
+      if (!res.data.is_error) {
+        alert("Thanh toán thành công!");
+      } else {
+        alert(res.data.msg);
+      }
+    });
+  };
+
+  const handleCancel = () => {
+    appAxios
+      .post(`/debtors/delete/${idCancel}`, { message: msg })
+      .then((res) => {
+        setIDCancel("");
+        alert("Huỷ nhắc nợ thành công!!!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const showHistoryTransactions = () => {
     console.log("props my debt", props);
@@ -33,12 +67,16 @@ const DebtReminderList: React.FC<Props> = (props) => {
         <td>{c.full_name}</td>
         <td>{c.message}</td>
         <td>{c.money}</td>
+        <td>
+          <button className="btn-action" onClick={() => setIDCancel(c._id)}>Huỷ</button>
+          {activeList === 4 && <button className="btn-action" onClick={() => handlePayment(c._id)}>Thanh toán</button>}
+        </td>
       </tr>
     ));
   };
 
   return (
-    <div>
+    <div className="overlay-debt">
       {/* <!-- ##### Breadcrumb Area Start ##### --> */}
       <HeaderBody namePage="Lịch sử giao dịch" />
       {/* <!-- ##### Breadcrumb Area End ##### --> */}
@@ -56,7 +94,7 @@ const DebtReminderList: React.FC<Props> = (props) => {
                       setActiveList(1);
                     }}
                   >
-                    Nợ người khác
+                    Người khác nợ
                   </button>
                   <button
                     className={activeList === 2 ? "active" : ""}
@@ -65,7 +103,7 @@ const DebtReminderList: React.FC<Props> = (props) => {
                       setActiveList(2);
                     }}
                   >
-                    Người khác nợ
+                    Nợ người khác
                   </button>
                   <button
                     className={activeList === 3 ? "active" : ""}
@@ -94,6 +132,7 @@ const DebtReminderList: React.FC<Props> = (props) => {
                       <th>Họ tên</th>
                       <th>Lời nhắn</th>
                       <th>Số tiền</th>
+                      <th>Thao tác</th>
                     </tr>
                   </thead>
                   <tbody>{showHistoryTransactions()}</tbody>
@@ -102,6 +141,16 @@ const DebtReminderList: React.FC<Props> = (props) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className={`msg-block ${idCancel && "show-msg"}`}>
+        <div className="close-block">
+          <span className="close-block__label">Lời nhắn:</span>
+          <span className="close-block__close" onClick={() => setIDCancel("")}>X</span>
+        </div>
+        <textarea onChange={(e) => setMsg(e.target.value)} className="msg-block__content"></textarea>
+        <button className="nsg-block__button" onClick={handleCancel}>
+          Xác nhận
+        </button>
       </div>
     </div>
   );
@@ -117,6 +166,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getDebtList: () => dispatch(getDebtList()),
+  payDebting: (transferInfo: Object) => dispatch(transfer(transferInfo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DebtReminderList);

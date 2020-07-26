@@ -4,6 +4,11 @@
     flex-direction: column;
     align-items: center;
 
+    .btn-action {
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+
     .btn-group {
         width: 100%;
         height: 50px;
@@ -17,6 +22,63 @@
 
         &.not-margin {
             margin: 0;
+        }
+    }
+}
+
+.overlay-debt {
+    position: relative;
+
+    .msg-block {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        width: 300px;
+        z-index: 50;
+
+        &.show-msg {
+            display: flex;
+            flex-direction: column;
+            font-size: 30px;
+            padding: 50px 30px;
+            background-color: grey;
+            border-radius: 10px;
+        }
+
+        .close-block {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            &__close {
+                background: honeydew;
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+                line-height: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+
+        &__label {
+            font-weight: bolder;
+            padding-bottom: 20px;
+        }
+
+        &__content {
+            font-size: 15px;
+            margin-bottom: 20px;
+            height: 100px;
+        }
+
+        &__button {
+            background-color: greenyellow;
+            margin-top: 20px;
         }
     }
 }
