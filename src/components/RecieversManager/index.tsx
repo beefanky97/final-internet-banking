@@ -10,6 +10,7 @@ import {
 } from "src/app/actions/recieverActions";
 import { commonActionTypes } from "src/app/actions/commonActions";
 import HeaderBody from "../commons/HeaderBody";
+import ReactPaginate from "react-paginate";
 
 interface Props {
   recievers: any;
@@ -25,6 +26,20 @@ const RecieversManager: React.FC<Props> = (props) => {
   const [cardNumber, setCardNumber] = useState("");
   const [name, setName] = useState("");
   const [nameEdit, setNameEdit] = useState("");
+//pagenation
+const [offset, setOffset] = useState(0);
+const [perPage, setPerPage] = useState(10);
+const [currentPage, setCurrentPage] = useState(0);
+const [pageCount, setPageCount] = useState(0);
+const [postData, setPostData] = useState([]);
+
+useEffect(() => {
+  if (props.recievers.length > 0) {
+    const slice = props.recievers.slice(offset, offset + perPage);
+    setPostData(slice);
+    setPageCount(Math.ceil(props.recievers.length / perPage));
+  }
+}, [props.recievers]);
 
   useEffect(() => {
     props.getReciever();
@@ -34,6 +49,16 @@ const RecieversManager: React.FC<Props> = (props) => {
   const clearInput = () => {
     setCardNumber("");
     setName("");
+  };
+
+  const handlePageClick = (e: any) => {
+    const selectedPage = e.selected;
+    const offsetTemp = selectedPage * perPage;
+
+    setCurrentPage(selectedPage);
+    setOffset(offsetTemp);
+    const slice = props.recievers.slice(offsetTemp, offsetTemp + perPage);
+    setPostData(slice);
   };
 
   const enableEdit = (index: number) => {
@@ -140,12 +165,12 @@ const RecieversManager: React.FC<Props> = (props) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {props.recievers.map((reciever: any, index: number) => {
+                      {postData.map((reciever: any, index: number) => {
                         const { _id, card_number, reminiscent_name } = reciever;
                         if (indexEdit !== index) {
                           return (
                             <tr key={index}>
-                              <td>{index + 1}</td>
+                              <td>{index + 1 + currentPage*10}</td>
                               <td>{card_number}</td>
                               <td>{reminiscent_name}</td>
                               <td>
@@ -228,6 +253,18 @@ const RecieversManager: React.FC<Props> = (props) => {
                     </tbody>
                   </table>
                   {/* end table list transactions */}
+
+                  <ReactPaginate
+                    previousLabel={"<<"}
+                    nextLabel={">>"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    activeClassName={"active"} />
                 </div>
               </div>
             </div>
@@ -235,108 +272,6 @@ const RecieversManager: React.FC<Props> = (props) => {
         </div>
       </div>
     </div>
-
-    // <div className="container">
-    //   <div className="row col-md-12 col-md-offset-2 custyle">
-    //     <div className="input-group">
-    //       <div className="input-group-prepend">
-    //         <button
-    //           onClick={handleAddReciever}
-    //           className="btn btn-primary btn-xs pull-right input-group-text"
-    //         >
-    //           <b>+</b> Thêm người nhận
-    //         </button>
-    //       </div>
-    //       <input
-    //         onChange={(e) => setCardNumber(e.target.value)}
-    //         type="number"
-    //         placeholder="Số tài khoản"
-    //         value={cardNumber}
-    //         className="form-control"
-    //       />
-    //       <input
-    //         onChange={(e) => setName(e.target.value)}
-    //         value={name}
-    //         type="text"
-    //         placeholder="Tên gợi nhớ"
-    //         className="form-control"
-    //       />
-    //       <i onClick={clearInput} className="fa fa-delete"></i>
-    //     </div>
-    //     <table className="table table-striped custab">
-    //       <thead>
-    //         <tr>
-    //           <th scope="col">STT</th>
-    //           <th scope="col">Số tài khoản</th>
-    //           <th scope="col">Họ và tên</th>
-    //           <th scope="col" className="text-center">
-    //             Thao tác
-    //           </th>
-    //         </tr>
-    //       </thead>
-    //       <tbody>
-    //         {props.recievers.map((reciever: any, index: number) => {
-    //           const { _id, card_number, reminiscent_name } = reciever;
-    //           if (indexEdit !== index) {
-    //             return (
-    //               <tr key={index}>
-    //                 <td>{index}</td>
-    //                 <td>{card_number}</td>
-    //                 <td>{reminiscent_name}</td>
-    //                 <td className="text-center">
-    //                   <button
-    //                     onClick={() =>
-    //                       enableEdit(index)
-    //                     }
-    //                     className="btn btn-info btn-xs"
-    //                   >
-    //                     <span className="glyphicon glyphicon-edit"></span> Edit
-    //                   </button>{" "}
-    //                   <button
-    //                     onClick={() => handleDeleteReciever(_id)}
-    //                     className="btn btn-danger btn-xs"
-    //                   >
-    //                     <span className="glyphicon glyphicon-remove"></span> Del
-    //                   </button>
-    //                 </td>
-    //               </tr>
-    //             );
-    //           } else {
-    //             return (
-    //               <tr key={index}>
-    //                 <td>{index}</td>
-    //                 <td>{card_number}</td>
-    //                 <td>
-    //                   <input
-    //                     onChange={(e) => setNameEdit(e.target.value)}
-    //                     type="text"
-    //                     defaultValue={reminiscent_name}
-    //                   />
-    //                 </td>
-    //                 <td className="text-center">
-    //                   <button
-    //                     onClick={() =>
-    //                       handleEditReciever(_id, card_number, nameEdit)
-    //                     }
-    //                     className="btn btn-info btn-xs"
-    //                   >
-    //                     <span className="glyphicon glyphicon-edit">Xong</span>
-    //                   </button>{" "}
-    //                   <button
-    //                     onClick={() => enableEdit(-1)}
-    //                     className="btn btn-danger btn-xs"
-    //                   >
-    //                     <span className="glyphicon glyphicon-remove">Huỷ</span>
-    //                   </button>
-    //                 </td>
-    //               </tr>
-    //             );
-    //           }
-    //         })}
-    //       </tbody>
-    //     </table>
-    //   </div>
-    // </div>
   );
 };
 
