@@ -26,6 +26,8 @@ import HistoryTransactions from "src/components/Admin/HistoryTransactions";
 import AllTeller from "src/components/Admin/AllTeller";
 import DetailTeller from "src/components/Admin/AllTeller/DetailTeller";
 import AddTeller from "src/components/Admin/AllTeller/AddTeller";
+import ForgetPassword from "src/components/ForgetPassword";
+import ResetPassword from "src/components/ResetPassword";
 
 interface Props {
   isLoading?: boolean;
@@ -41,6 +43,12 @@ const App: React.FC<Props> = (props) => {
         <PrivateRoute exact={true} path="/" ComposedComp={Top} />
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/forget-password">
+          <ForgetPassword />
+        </Route>
+        <Route path="/reset-password">
+          {({ history }) => <ResetPassword history={history} />}
         </Route>
         <Route path="/change-password">
           <ChangePassword />
