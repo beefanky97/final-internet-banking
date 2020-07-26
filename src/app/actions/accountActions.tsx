@@ -7,7 +7,10 @@ export const accountActionTypes = {
   REFRESH_TOKEN: "REFRESH_TOKEN",
   CHANGE_PASSWORD: "CHANGE_PASSWORD",
   CHANGE_PASSWORD_SUCCESS: "CHANGE_PASSWORD_SUCCESS",
-
+  FORGET_PASSWORD: "FORGET_PASSWORD",
+  FORGET_PASSWORD_SUCCESS: "FORGET_PASSWORD_SUCCESS",
+  RESET_PASSWORD: 'RESET_PASSWORD',
+  RESET_PASSWORD_SUCCESS: 'RESET_PASSWORD_SUCCESS',
 };
 
 //asign type for each action => identify
@@ -48,3 +51,25 @@ export const refreshToken = () => {
   return {
   type: accountActionTypes.REFRESH_TOKEN
 }};
+
+export const actForgetPassword = (email: string) => ({
+  type: accountActionTypes.FORGET_PASSWORD,
+  email
+})
+
+export const actForgetPasswordSuccess = (data: boolean) => ({
+  type: accountActionTypes.FORGET_PASSWORD_SUCCESS,
+  data
+})
+
+export const actResetPassword = (token: any, new_password: string, confirm_password: string) => ({
+  type: accountActionTypes.RESET_PASSWORD,
+  token,
+  new_password,
+  confirm_password
+})
+
+export const actResetPasswordSuccess = (data: boolean) => ({
+  type: accountActionTypes.RESET_PASSWORD_SUCCESS,
+  data
+})

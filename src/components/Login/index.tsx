@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { login, logout } from "src/app/actions/accountActions";
 import ReCAPTCHA from "react-google-recaptcha";
+import { Link } from "react-router-dom";
 
 interface Props {
   login: (username: string, password: string) => void;
@@ -91,7 +92,7 @@ const Login: React.FC<Props> = (props) => {
           </div>
           <div className="card-footer">
             <div className="d-flex justify-content-center links">
-              Nếu bạn quên mật khẩu?<a href="./forgot-password">Hãy nhấn vào đây!</a>
+              Nếu bạn quên mật khẩu?<Link to="/forget-password">Hãy nhấn vào đây!</Link>
             </div>
           </div>
         </div>
