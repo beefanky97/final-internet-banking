@@ -229,7 +229,7 @@ const DetailTeller: React.FC<Props> = (props) => {
             </button> */}
                             {!isNotEdit ? (
                               <button
-                                className="btn btn-hv mt-30 mr-15"
+                                className="btn credit-btn mt-30 mr-15"
                                 type="button"
                                 onClick={() => onHandleCancel(id)}
                               >
@@ -237,7 +237,7 @@ const DetailTeller: React.FC<Props> = (props) => {
                               </button>
                             ) : null}
                             <button
-                              className="btn btn-hv mt-30"
+                              className="btn credit-btn mt-30"
                               type={!isNotEdit ? "button" : "submit"}
                               // onClick={() => setIsNotEdit(!isNotEdit)}
                               onClick={() => onHandleEdit()}

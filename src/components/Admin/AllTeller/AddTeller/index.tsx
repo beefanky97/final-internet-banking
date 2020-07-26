@@ -164,7 +164,7 @@ const AddTeller: React.FC<Props> = (props) => {
                       </div>
                       <div className="col-12">
                         <button
-                          className="btn btn-hv credit-btn mt-30"
+                          className="btn credit-btn mt-30"
                           type="submit"
                         >
                           Thêm

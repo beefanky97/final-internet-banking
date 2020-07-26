@@ -103,7 +103,7 @@ const AllTeller: React.FC<Props> = (props) => {
                   <div className="row justify-content-end mb-15">
                     <Link
                       to={`/admin/teller/add`}
-                      className="btn btn-hv mr-15"
+                      className="btn credit-btn mr-15"
                     >
                       <i className="fa fa-plus" aria-hidden="true"></i>
                       &nbsp;&nbsp;&nbsp;Thêm
