@@ -26,10 +26,11 @@ export const transferSuccsess = () => ({
   type: creditActionTypes.TRANSFER_SUCCESS
 });
 
-export const getCardInfo = (card_number: number) => {
+export const getCardInfo = (card_number: number, partner_code: number) => {
   return {
     type: creditActionTypes.GET_CARD_INFO,
-    card_number
+    card_number,
+    partner_code
   };
 };
 

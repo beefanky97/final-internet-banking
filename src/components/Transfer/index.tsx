@@ -9,13 +9,14 @@ import { getCardInfo, transfer } from "src/app/actions/creditActions";
 interface Props {
   cardInfo: any
   openModal: (name: string) => void
-  getCardInfo: (card_number: number) => void
+  getCardInfo: any;
   transfer:(transferInfo: Object) => void
   closeModal: () => void
 }
 
 const Transfer: React.FC<Props> = (props) => {
   const [partnerCode, setPartnerCode] = useState(1);
+  const [paidType, setPaidType] = useState(1);
   const [cardNumber, setCardNumber] = useState(5678900008);
   const [amount, setAmount] = useState(0);
   const [content, setContent] = useState("");
@@ -26,14 +27,14 @@ const Transfer: React.FC<Props> = (props) => {
       card_number: cardNumber,
       money: amount,
       message: content,
-      type_paid: 2
+      type_paid: paidType
     }
     props.transfer(transferInfo);
   };
 
   const handleOpenModal = () => {
     console.log("card", cardNumber);
-    props.getCardInfo(cardNumber);
+    props.getCardInfo(cardNumber, partnerCode);
     props.openModal("CONFIRM_CARD_MODAL");
   }
 
@@ -62,8 +63,15 @@ const Transfer: React.FC<Props> = (props) => {
                   <label htmlFor="inputState">Chọn ngân hàng</label>
                   <select onChange={e => setPartnerCode(+e.target.value)} className="form-control">
                     <option defaultValue="1">Chuyển nội bộ 3TBank</option>
-                    <option value="2">Ngân hàng khác 2</option>
-                    <option value="3">Ngân hàng khác 3</option>
+                    <option value="2">Ngân hàng PGP</option>
+                    <option value="3">Ngân hàng RSA</option>
+                  </select>
+                </div>
+                <div className="form-group col-md-12">
+                  <label htmlFor="inputState">Tính phí</label>
+                  <select onChange={e => setPaidType(+e.target.value)} className="form-control">
+                    <option defaultValue="1">Người chuyển trả</option>
+                    <option value="2">Người nhận trả</option>
                   </select>
                 </div>
                 <div className="form-group col-md-12">
@@ -114,7 +122,7 @@ const mapStateToProps = (state: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   openModal: (name: string) => dispatch(show(name)),
-  getCardInfo: (card_number: number) => dispatch(getCardInfo(card_number)),
+  getCardInfo: (card_number: number, partner_code: number) => dispatch(getCardInfo(card_number, partner_code)),
   transfer: (transferInfo: Object) => dispatch(transfer(transferInfo)),
   closeModal: () => dispatch(hide("CONFIRM_CARD_MODAL"))
 });

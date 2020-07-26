@@ -18,7 +18,7 @@ function* transferSaga(action: any) {
 }
 
 function* getCardInfoSaga(action: any) {
-  const { data } = yield call(creditService.getCardInfo, action.card_number);
+  const { data } = yield call(creditService.getCardInfo, action.card_number, action.partner_code);
   yield put(getCardInfoSuccess(data));
 }
 

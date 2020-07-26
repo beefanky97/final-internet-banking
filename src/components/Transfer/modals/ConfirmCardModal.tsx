@@ -18,11 +18,12 @@ const ConfirmCardModal: React.FunctionComponent<Props> = (props) => {
   console.log("info modal", props.isErrorGetInfo);
 
   const cardInfoModal = (cardInfo: any) => {
+    console.log("ress", cardInfo);
     return (
       <>
         <span>Số tài khoản: {cardInfo && cardInfo.card_number}</span>
         <br />
-        <span>Tên người nhận: {cardInfo && cardInfo.name}</span>
+        <span>Tên người nhận: {cardInfo && cardInfo.full_name}</span>
       </>
     );
   };

@@ -22,10 +22,10 @@ export const creditService = {
     //   }
     // });
   },
-  getCardInfo: async (card_number: number) => {
+  getCardInfo: async (card_number: number, partner_code: number) => {
     console.log("api card", card_number);
     return await appAxios
-      .post("/cards/customer/detail", { card_number })
+      .post("/cards/customer/detail", { card_number, partner_code })
       .then((res: AxiosResponse) => {
         return res;
       })
