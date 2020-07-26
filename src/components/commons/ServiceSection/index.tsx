@@ -5,7 +5,6 @@ import { appAxios } from "src/api/appAxios";
 interface Props {}
 
 const ServiceSection: React.FC<Props> = ({}) => {
-  appAxios.get("https://internet-banking-api-17.herokuapp.com/cards/customer").then((res) => console.log("test", res.data));
   const service_info = [
     {
       id: "1",
@@ -19,21 +18,21 @@ const ServiceSection: React.FC<Props> = ({}) => {
       name: "Danh bạ thụ hưởng",
       des: "Quản lý danh sách phụ hưởng, đối tượng giao dịch.",
       icon: "icon-profits",
-      url: "/reciever",
+      url: "./reciever",
     },
     {
       id: "3",
       name: "Chuyển tiền",
       des: "Các dịch vụ liên quan đến chuyển tiền.",
       icon: "icon-money-1",
-      url: "/transfer",
+      url: ".transfer",
     },
     {
       id: "4",
       name: "Quản lý nhắc nợ",
       des: "Các dịch vụ liên quan đến nhắc nợ.",
       icon: "icon-profits",
-      url: "",
+      url: "./debt-reminder",
     },
     {
       id: "5",
@@ -47,7 +46,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
       name: "Quản lý cài đặt.",
       des: "Các cài đặt về tài khoản ứng dụng.",
       icon: "icon-profits",
-      url: "",
+      url: "./setting",
     },
   ];
 

@@ -24,19 +24,10 @@ const Header: React.FC<Props> = ({}) => {
                     href="#"
                     data-toggle="tooltip"
                     data-placement="bottom"
-                    title="25 th Street Avenue, Los Angeles, CA"
-                  >
-                    <img src="img/core-img/placeholder.png" alt="" />{" "}
-                    <span>25 th Street Avenue, Los Angeles, CA</span>
-                  </a>
-                  <a
-                    href="#"
-                    data-toggle="tooltip"
-                    data-placement="bottom"
                     title="office@yourfirm.com"
                   >
-                    <img src="img/core-img/message.png" alt="" />{" "}
-                    <span>office@yourfirm.com</span>
+                    <img src="img/core-img/user.ico" style={{width: '30px', height: '30px'}} alt="" />{" "}
+                    <span>Lê Thanh Tâm</span>
                   </a>
                 </div>
               </div>

@@ -7,8 +7,8 @@ import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions"
 function* loginSaga(action: any) {
   const { data }: AxiosResponse = yield call(accountService.login, action.username, action.password);
   if(data.authenticated === false) {
-    yield put(loginFail());
     yield call(clearTokenInfo);
+    alert("Tài khoảng hoặc mật khẩu không đúng!");
     return;
   }
   yield call(saveTokenExpire, data);

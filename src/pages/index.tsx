@@ -92,9 +92,9 @@ const App: React.FC<Props> = (props) => {
           {({ history }) => <AddTeller history={history} />}
         </Route>
         <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
-        {props.isLoading && <LoadingOverlay />}
       </Switch>
       <Footer />
+      {props.isLoading && <LoadingOverlay />}
     </Router>
   );
 };

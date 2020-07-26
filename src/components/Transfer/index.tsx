@@ -11,25 +11,28 @@ interface Props {
   cardInfo: any;
   openModal: (name: string) => void;
   getCardInfo: any;
-  transfer: (transferInfo: Object) => void;
-  closeModal: () => void;
+  transfer:(transferInfo: Object) => void
+  closeModal: () => void
+  isLoading: boolean
 }
 
 const Transfer: React.FC<Props> = (props) => {
   const [partnerCode, setPartnerCode] = useState(1);
   const [paidType, setPaidType] = useState(1);
-  const [cardNumber, setCardNumber] = useState(5678900008);
+  const [cardNumber, setCardNumber] = useState(0);
   const [amount, setAmount] = useState(0);
   const [content, setContent] = useState("");
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (otp_params: string) => {
     const transferInfo = {
       partner_code: partnerCode,
       card_number: cardNumber,
       money: amount,
       message: content,
       type_paid: paidType,
-    };
+      otp: otp_params
+    }
+    console.log("dataaaa", transferInfo);
     props.transfer(transferInfo);
   };
 
@@ -142,16 +145,11 @@ const Transfer: React.FC<Props> = (props) => {
                   </div>
                 </div>
               </div>
-              <ConfirmCardModal
-                closeModal={props.closeModal}
-                continuteTransfer={handleSubmit}
-                cardInfo={props.cardInfo}
-                isErrorGetInfo={false}
-              />
             </div>
           </div>
         </div>
       </div>
+      {!props.isLoading && <ConfirmCardModal closeModal={props.closeModal} continuteTransfer={handleSubmit} cardInfo={props.cardInfo} />}
     </div>
   );
 };
@@ -160,12 +158,11 @@ const Transfer: React.FC<Props> = (props) => {
 const mapStateToProps = (state: any) => ({
   isAuthenticated: state.accountState.isAuthenticated,
   cardInfo: state.creditState.cardInfo,
+  isLoading: state.commonState.isLoading,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  openModal: (name: string) => dispatch(show(name)),
-  getCardInfo: (card_number: number, partner_code: number) =>
-    dispatch(getCardInfo(card_number, partner_code)),
+  getCardInfo: (card_number: number, partner_code: number) => dispatch(getCardInfo(card_number, partner_code)),
   transfer: (transferInfo: Object) => dispatch(transfer(transferInfo)),
   closeModal: () => dispatch(hide("CONFIRM_CARD_MODAL")),
 });

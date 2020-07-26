@@ -14,13 +14,12 @@ export const creditService = {
       }
       return res;
     });
-    // .catch((err: AxiosError) => {
-    //   console.log("stop here!", err.toJSON());
-    //   if(err.response && +err.response.status === 400) {
-    //     console.log("stop here!");
-    //     return;
-    //   }
-    // });
+  },
+  confirmOTP: async (token: string) => {
+    console.log("token", token);
+    return await appAxios.post("/transactions/verify-otp", { token }).then((res: AxiosResponse) => {
+      return res;
+    });
   },
   getCardInfo: async (card_number: number, partner_code: number) => {
     console.log("api card", card_number);

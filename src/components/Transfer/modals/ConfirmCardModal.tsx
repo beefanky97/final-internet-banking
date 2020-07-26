@@ -1,29 +1,36 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { connectModal } from "redux-modal";
+import { appAxios } from "src/api/appAxios";
 
 interface Props {
   cardInfo: any;
   isErrorGetInfo: boolean;
   closeModal: () => void;
-  continuteTransfer: () => void;
+  continuteTransfer: (otp: string) => void;
 }
 
 const ConfirmCardModal: React.FunctionComponent<Props> = (props) => {
+  const [otp, setOtp] = useState("");
+
+
   const handleTransfer = (e: any) => {
     e.preventDefault();
-    props.continuteTransfer();
+    props.continuteTransfer(otp);
     props.closeModal();
   };
 
-  console.log("info modal", props.isErrorGetInfo);
+  console.log("props", props.cardInfo);
+
+  const getOTP = () => {
+    appAxios.get("/transactions/verify-email");
+  }
 
   const cardInfoModal = (cardInfo: any) => {
-    console.log("ress", cardInfo);
     return (
       <>
-        <span>Số tài khoản: {cardInfo && cardInfo.card_number}</span>
+        <span><b>Số tài khoản:</b> {cardInfo && cardInfo.card_number}</span>
         <br />
-        <span>Tên người nhận: {cardInfo && cardInfo.full_name}</span>
+        <span><b>Tên người nhận:</b> {cardInfo && cardInfo.full_name}</span>
       </>
     );
   };
@@ -43,12 +50,17 @@ const ConfirmCardModal: React.FunctionComponent<Props> = (props) => {
               className="close"
               data-dismiss="modal"
               aria-label="Close"
+              onClick={props.closeModal}
             >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div className="modal-body">
             {!props.isErrorGetInfo ? cardInfoModal(props.cardInfo) : errorModal()}
+            <div>
+              <input onChange={e => setOtp(e.target.value)} type="text"/>
+              <button onClick={getOTP}>lấy mã</button>
+            </div>
           </div>
           <div className="modal-footer">
             <button

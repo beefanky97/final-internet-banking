@@ -12,14 +12,32 @@ import { accountService } from "src/api/accountService";
 import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions";
 import { creditService } from "src/api/creditService";
 import { onLoading, offLoading } from "../actions/commonActions";
+import { show } from "redux-modal";
 
 function* transferSaga(action: any) {
-  const { status, data }: AxiosResponse = yield call(creditService.transfer, action.transferInfo);
+  
+  const { status, data }: AxiosResponse = yield call(creditService.confirmOTP, action.transferInfo.otp);
+  console.log("otp", action.transferInfo.otp);
+  if(!data.is_error) {
+    const data_2 = yield call(creditService.transfer, action.transferInfo);
+    if(!data_2.data.is_error) {
+      alert("Chuyển khoản thành công!");
+    } else {
+      alert(data.data.msg);
+    }
+  } 
 }
 
 function* getCardInfoSaga(action: any) {
+  yield put(onLoading());
   const { data } = yield call(creditService.getCardInfo, action.card_number, action.partner_code);
-  yield put(getCardInfoSuccess(data));
+  yield put(offLoading());
+  if(!data.is_error) {
+    yield put(getCardInfoSuccess(data));
+    yield put(show("CONFIRM_CARD_MODAL"));
+  } else {
+    alert(data.msg);
+  }
 }
 
 function* getHistoryTransaction(action: any) {

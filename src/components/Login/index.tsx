@@ -13,7 +13,7 @@ interface Props {
 
 const Login: React.FC<Props> = (props) => {
   const [username, setUsername] = useState("customer1");
-  const [password, setPassword] = useState("1234567");
+  const [password, setPassword] = useState("123123");
   const [verified, setVerified] = useState(false);
 
   const recaptchaRef = useRef(null);
