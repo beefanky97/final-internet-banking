@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
+import * as qs from 'query-string';
 
 import HeaderBody from "src/components/commons/HeaderBody";
 import { actShowDetailCustomerRequest, actShowInfoCardsRequest } from "src/app/actions/tellerActions";
@@ -10,14 +11,16 @@ import InfoCard from "./InfoCard";
 interface Props {
   customer: any;
   cards: [];
-  showDetailCustomer: () => void;
-  showInfoCards: () => void;
+  showDetailCustomer: (id: string) => void;
+  // showInfoCards: () => void;
 }
 
 const CustomerDetail: React.FC<Props> = (props) => {
+  const parsed: any = qs.parseUrl(window.location.href);
+  
   useEffect(() => {
-    props.showDetailCustomer();
-    props.showInfoCards();
+    props.showDetailCustomer(parsed.query.id);
+    // props.showInfoCards();
   }, []);
 
   return (
@@ -54,9 +57,8 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  showDetailCustomer: () =>
-    dispatch(actShowDetailCustomerRequest("5eeb5d49522755fd2ddb8d3d")),
-  showInfoCards: () => dispatch(actShowInfoCardsRequest("5eeb5d49522755fd2ddb8d3d")),
+  showDetailCustomer: (id: string) => dispatch(actShowDetailCustomerRequest(id)),
+  // showInfoCards: () => dispatch(actShowInfoCardsRequest("5eeb5d49522755fd2ddb8d3d")),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerDetail);

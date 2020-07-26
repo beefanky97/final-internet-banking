@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import * as qs from 'query-string';
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -15,20 +14,24 @@ interface Object {
 }
 
 const InfoCard: React.FC<Props> = (props) => {
-  const [card, setCard] = useState({card_number: 0, id_type_card: 1, balance: 0});
+  const [card, setCard] = useState({
+    card_number: 0,
+    id_type_card: 1,
+    balance: 0,
+  });
 
   const findCard = (cards: Object[]) => {
-    const atm_card = cards.find(item => item.id_type_card === 1);
+    const atm_card = cards.find((item) => item.id_type_card === 1);
     console.log("cards", props.cards);
     console.log("atm", atm_card);
-    if(atm_card) {
+    if (atm_card) {
       setCard(atm_card);
     }
-  }
+  };
 
   useEffect(() => {
     findCard(props.cards);
-  }, [props.cards])
+  }, [props.cards]);
 
   const showCardSaving = (cards: Object[]) =>
     // eslint-disable-next-line array-callback-return
@@ -40,13 +43,12 @@ const InfoCard: React.FC<Props> = (props) => {
             <td>{c.card_number}</td>
             <td>{c.balance} VNĐ</td>
             <td>
-              <button className="btn-custom" type="button">
-                <span>Nạp tiền</span>
-              </button>
-              &nbsp;&nbsp;
-              <button className="btn-custom" type="button">
-                <span>Xoá thẻ</span>
-              </button>
+              <Link
+                className="btn-custom"
+                to={`/teller/add-money-customer?card_number=${c.card_number}`}
+              >
+                <span style={{ marginLeft: 5 }}>Nạp tiền</span>
+              </Link>
             </td>
           </tr>
         );
@@ -54,11 +56,25 @@ const InfoCard: React.FC<Props> = (props) => {
     });
 
   return (
-    <div className="col-lg-6 accordions mb-100" id="accordion" role="tablist" aria-multiselectable="true">
+    <div
+      className="col-lg-6 accordions mb-100"
+      id="accordion"
+      role="tablist"
+      aria-multiselectable="true"
+    >
       <h4 className="mb-50">Thông tin thẻ</h4>
       <div className="panel single-accordion">
         <h6>
-          <a role="button" className="collapsed" aria-expanded="true" aria-controls="collapseOne" data-parent="#accordion" data-toggle="collapse" href="#collapseOne">
+          <a
+            role="button"
+            className="collapsed"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+            data-parent="#accordion"
+            data-toggle="collapse"
+            href="#collapseOne"
+            style={{ backgroundColor: "#FFCA28" }}
+          >
             Thẻ thanh toán
             <span className="accor-open">
               <i className="fa fa-plus" aria-hidden="true"></i>
@@ -82,12 +98,25 @@ const InfoCard: React.FC<Props> = (props) => {
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>{card?.card_number}</td>
-                  <td>{card?.balance} VNĐ</td>
                   <td>
-                    <button className="btn-custom" type="button">
+                    {props.cards.find((x) => x.id_type_card === 1)?.card_number}
+                  </td>
+                  <td>
+                    {props.cards.find((x) => x.id_type_card === 1)?.balance} VNĐ
+                  </td>
+                  <td>
+                    {/* <button className="btn-custom" type="button" onClick={() => onHandleAddMoney()}>
                       <span>Nạp tiền</span>
-                    </button>
+                    </button> */}
+                    <Link
+                      className="btn-custom"
+                      to={`/teller/add-money-customer?card_number=${
+                        props.cards.find((x) => x.id_type_card === 1)
+                          ?.card_number
+                      }`}
+                    >
+                      <span style={{ marginLeft: 5 }}>Nạp tiền</span>
+                    </Link>
                   </td>
                 </tr>
               </tbody>
@@ -97,7 +126,16 @@ const InfoCard: React.FC<Props> = (props) => {
       </div>
       <div className="panel single-accordion">
         <h6>
-          <a role="button" className="collapsed" aria-expanded="true" aria-controls="collapseTwo" data-parent="#accordion" data-toggle="collapse" href="#collapseTwo">
+          <a
+            role="button"
+            className="collapsed"
+            aria-expanded="true"
+            aria-controls="collapseTwo"
+            data-parent="#accordion"
+            data-toggle="collapse"
+            href="#collapseTwo"
+            style={{ backgroundColor: "#FFCA28" }}
+          >
             Thẻ tiết kiệm
             <span className="accor-open">
               <i className="fa fa-plus" aria-hidden="true"></i>
@@ -123,8 +161,16 @@ const InfoCard: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
-      <Link className="btn credit-btn mt-30" to={`/history-transaction?card_number=${card.card_number}`}>Xem lịch sử giao dịch</Link>
-      <Link className="btn credit-btn mt-30" to={`/debt-reminder/add`}>Thêm một nhắc nợ</Link>
+
+      <Link
+        className="btn credit-btn mt-30"
+        to={`/history-transaction?card_number=${card.card_number}`}
+      >
+        Xem lịch sử giao dịch
+      </Link>
+      <Link className="btn credit-btn mt-30" to={`/debt-reminder/add`}>
+        Thêm một nhắc nợ
+      </Link>
     </div>
   );
 };

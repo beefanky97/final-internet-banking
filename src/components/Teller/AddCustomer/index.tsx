@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dispatch } from "redux";
 
 import HeaderBody from "src/components/commons/HeaderBody";
 import { connect } from "react-redux";
-import { actAddCustomer } from "src/app/actions/tellerActions";
+import { actAddCustomer, actAddCustomerSuccess } from "src/app/actions/tellerActions";
 
 interface Props {
+  isAddCustomerSuccessed: boolean;
+  history: any;
   addCustomer: (customer: object) => void;
-  customers: [];
 }
 
 const AddCustomer: React.FC<Props> = (props) => {
   const [customer, setCustomer] = useState({});
+
+  useEffect(() => {
+    if(props.isAddCustomerSuccessed){
+      props.history.goBack();
+    }
+  }, [props.isAddCustomerSuccessed])
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -147,7 +154,7 @@ const AddCustomer: React.FC<Props> = (props) => {
                         </div>
                       </div>
                       <div className="col-12">
-                        <button className="btn credit-btn mt-30" type="submit">
+                        <button className="btn btn-hv mt-30" type="submit">
                           Thêm
                         </button>
                       </div>
@@ -164,8 +171,8 @@ const AddCustomer: React.FC<Props> = (props) => {
 };
 
 const mapStateToProps = (state: any) => ({
-  customers: state.tellerState.customers,
-});
+  isAddCustomerSuccessed: state.tellerState.isAddCustomerSuccessed,
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   addCustomer: (customer: object) => dispatch(actAddCustomer(customer)),

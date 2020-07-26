@@ -1,14 +1,18 @@
 import { AnyAction } from "redux";
 import { tellerActionTypes } from "src/app/actions/tellerActions";
-import { tellerService } from "src/api/teller/tellerService";
 
 let initialtellerState: any = {
   customer: {},
   cards: [],
   customers: [],
+  isAddSuccessed: false,
+  isAddCustomerSuccessed: false,
 };
 
-export const tellerReducer = (state = initialtellerState, action: AnyAction) => {
+export const tellerReducer = (
+  state = initialtellerState,
+  action: AnyAction
+) => {
   switch (action.type) {
     case tellerActionTypes.All_CUSTOMERS: {
       return {
@@ -28,7 +32,12 @@ export const tellerReducer = (state = initialtellerState, action: AnyAction) => 
         cards: action.cards,
       };
     }
-
+    case tellerActionTypes.ADD_MONEY_CUSTOMER_SUCCESS: {
+      return { ...state, isAddSuccessed: action.data };
+    }
+    case tellerActionTypes.ADD_CUSTOMER_SUCCESS: {
+      return { ...state, isAddCustomerSuccessed: action.data };
+    }
     case tellerActionTypes.GET_RECEIVING_TRANSACTION_SUCCESS: {
       return {
         ...state,
