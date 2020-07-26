@@ -1,6 +1,6 @@
 import { all, takeLatest, put, call } from "redux-saga/effects";
 import { AxiosResponse } from "axios";
-import { accountActionTypes, loginSuccsess, logoutSuccsess, loginFail } from "src/app/actions/accountActions";
+import { accountActionTypes, loginSuccsess, logoutSuccsess, loginFail, actForgetPasswordSuccess, actResetPasswordSuccess } from "src/app/actions/accountActions";
 import { accountService } from "src/api/accountService";
 import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions";
 
@@ -44,6 +44,28 @@ function* changePasswpordSaga(action: any) {
   }
 }
 
+function* forgetPasswordSaga(action: any) {
+  const { data } = yield call(accountService.forgetPassword, action.email);
+
+  if(!data.is_error) {
+    yield put(actForgetPasswordSuccess(true));
+  } else {
+    yield put(actForgetPasswordSuccess(false));
+    alert("Email không tồn tại!");
+  }
+}
+
+function* resetPasswordSaga(action: any) {
+  const { data } = yield call(accountService.resetPassword, action.token, action.new_password, action.confirm_password);
+
+  if(!data.is_error) {
+    yield put(actResetPasswordSuccess(true));
+  } else {
+    yield put(actResetPasswordSuccess(false));
+    alert(data.msg);
+  }
+}
+
 function* watchLogin() {
   yield takeLatest(accountActionTypes.LOGIN, loginSaga);
 }
@@ -60,11 +82,21 @@ function* watchChangePassword() {
   yield takeLatest(accountActionTypes.CHANGE_PASSWORD, changePasswpordSaga);
 }
 
+function* watchForgetPassword() {
+  yield takeLatest(accountActionTypes.FORGET_PASSWORD, forgetPasswordSaga);
+}
+
+function* watchResetPassword() {
+  yield takeLatest(accountActionTypes.RESET_PASSWORD, resetPasswordSaga);
+}
+
 export function* accountSaga() {
   yield all([
     watchLogin(),
     watchLogout(),
     watchRefreshToken(),
-    watchChangePassword()
+    watchChangePassword(),
+    watchForgetPassword(),
+    watchResetPassword(),
   ]);
 }

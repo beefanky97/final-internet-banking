@@ -22,6 +22,8 @@ import HistoryTransaction from "src/components/HistoryTransaction";
 import DebtReminder from "src/components/DebtReminder";
 import AddDebtReminder from "src/components/DebtReminder/AddDebtReminder";
 import AddMoney from "src/components/Teller/AddMoney";
+import ForgetPassword from "src/components/ForgetPassword";
+import ResetPassword from "src/components/ResetPassword";
 
 interface Props {
   isLoading?: boolean;
@@ -37,6 +39,12 @@ const App: React.FC<Props> = (props) => {
         <PrivateRoute exact={true} path="/" ComposedComp={Top} />
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/forget-password">
+          <ForgetPassword />
+        </Route>
+        <Route path="/reset-password">
+          {({ history }) => <ResetPassword history={history} />}
         </Route>
         <Route path="/change-password">
           <ChangePassword />

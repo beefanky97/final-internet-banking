@@ -3,6 +3,8 @@ import { AnyAction } from "redux";
 
 const initialAccountState = {
   isAuthenticated: false,
+  isCorrectEmail: false,
+  isResetPasswordSuccess: false,
 };
 
 export const accountReducer = (
@@ -27,6 +29,12 @@ export const accountReducer = (
         ...state,
         isAuthenticated: false,
       };
+    }
+    case accountActionTypes.FORGET_PASSWORD_SUCCESS: {
+      return {...state, isCorrectEmail: action.data}
+    }
+    case accountActionTypes.RESET_PASSWORD_SUCCESS: {
+      return {...state, isResetPasswordSuccess: action.data}
     }
 
     default:

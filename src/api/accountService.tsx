@@ -26,4 +26,24 @@ export const accountService = {
         return res;
       });
   },
+  forgetPassword: async (email: string) => {
+    return await appAxios
+      .post('/forget-password/send-email', { email })
+      .then((res: AxiosResponse) => {
+        return res;
+      })
+      .catch((err: AxiosError) => {
+        console.log(err.response);
+      })
+  },
+  resetPassword: async (token: any, new_password: string, confirm_password: string) => {
+    return await appAxios
+      .post(`/forget-password/verify/${token}`, { new_password, confirm_password })
+      .then((res: AxiosResponse) => {
+        return res;
+      })
+      .catch((err) => {
+        console.log(err.response);
+      })
+  }
 };
