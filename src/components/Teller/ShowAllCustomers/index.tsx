@@ -71,7 +71,7 @@ const HistoryTransaction: React.FC<Props> = (props) => {
       <HeaderBody namePage="Khách hàng" />
       {/* <!-- ##### Breadcrumb Area End ##### --> */}
 
-      <div className="map-area" style={{ height: 2000 }}>
+      <div className="map-area">
         <div className="contact---area">
           <div className="container">
             <div className="row justify-content-center">

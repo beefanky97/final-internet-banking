@@ -25,7 +25,7 @@ const AddMoney: React.FC<Props> = (props) => {
   const parsed: any = qs.parseUrl(window.location.href);
 
   useEffect(() => {
-    if(parsed){
+    if(parsed.query.card_number){
       setCardNumber(+parsed.query.card_number);
     }
   }, [parsed])
