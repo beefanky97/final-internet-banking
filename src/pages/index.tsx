@@ -22,6 +22,7 @@ import HistoryTransaction from "src/components/HistoryTransaction";
 import DebtReminder from "src/components/DebtReminder";
 import AddDebtReminder from "src/components/DebtReminder/AddDebtReminder";
 import AddMoney from "src/components/Teller/AddMoney";
+import HistoryTransactions from "src/components/Admin/HistoryTransactions";
 
 interface Props {
   isLoading?: boolean;
@@ -67,6 +68,9 @@ const App: React.FC<Props> = (props) => {
         <Route exact={true} path="/debt-reminder/add">
           <AddDebtReminder />
         </Route>
+        <Route path="/admin/history-transaction-interbank">
+            <HistoryTransactions />
+          </Route>
         <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
         {props.isLoading && <LoadingOverlay />}
       </Switch>
