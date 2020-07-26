@@ -134,7 +134,7 @@ const HistoryTransactions: React.FC<Props> = (props) => {
             <div className="row justify-content-center">
               <div className="col-12">
                 <div className="contact-form-area contact-page">
-                  <h4 className="mb-50">Danh Sách Giao Dịch</h4>
+                  <h4 className="mb-50">DANH SÁCH GIAO DỊCH</h4>
 
                   {/* begin action */}
                   <div className="row justify-content-between mt-15 mb-15">

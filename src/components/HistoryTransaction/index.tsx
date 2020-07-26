@@ -120,12 +120,12 @@ const HistoryTransactions: React.FC<Props> = (props) => {
               <div className="col-12">
                 <div className="contact-form-area contact-page">
                   <h4 className="mb-50">
-                    Danh Sách Giao Dịch{" "}
+                    DANH SÁCH GIAO DỊCH{" "}
                     {type === "sending"
-                      ? "Giao Dịch Chuyển Khoản"
+                      ? "CHUYỂN KHOẢN"
                       : type === "receiving"
-                      ? "Giao Dịch Nhận Tiền"
-                      : "Giao Dịch Thanh Toán Nhắc Nợ"}
+                      ? "NHẬN TIỀN"
+                      : "THANH TOÁN NHẮC NỢ"}
                   </h4>
 
                   {/* begin action */}

@@ -59,6 +59,7 @@ export function* addTellerSaga(action: any) {
   if (!data.is_error) {
     yield put(actAddTellerSuccess(true));
   } else {
+    alert(data.msg);
     yield put(actAddTellerSuccess(false));
   }
 }

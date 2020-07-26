@@ -177,14 +177,14 @@ const DebtReminderList: React.FC<Props> = (props) => {
               <div className="col-12">
                 <div className="contact-form-area contact-page">
                   <h4 className="mb-50">
-                    Danh Sách{" "}
+                    DANH SÁCH{" "}
                     {activeList === 1
-                      ? "Nợ Bản Thân Tạo"
+                      ? "NỢ BẢN THÂN TẠO"
                       : activeList === 2
-                      ? "Nợ Người Khác Gửi"
+                      ? "NỢ NGƯỜI KHÁC GỬI"
                       : activeList === 3
-                      ? "Nợ Bản Thân Tạo Chưa Thanh Toán"
-                      : "Nợ Người Khác Gửi Chưa Thanh Toán"}
+                      ? "NỢ BẢN THÂN TẠO CHƯA THANH TOÁN"
+                      : "NỢ NGƯỜI KHÁC GỬI CHƯA THANH TOÁN"}
                   </h4>
 
                   <div className="row justify-content-between mt-15 mb-15">
