@@ -17,7 +17,7 @@ export const adminService = {
         });
     } else {
       return await appAxios
-        .post("/transactions/admin/partner-bank", {partner_code})
+        .post("/transactions/admin/partner-bank", { partner_code })
         .then((res: AxiosResponse) => {
           console.log(res);
           return res;
@@ -34,6 +34,54 @@ export const adminService = {
       .get(`/transactions/detail/${id}`)
       .then((res: AxiosResponse) => {
         return res.data;
+      })
+      .catch((err: AxiosError) => {
+        return err;
+      });
+  },
+  getTellers: async () => {
+    // console.log("adminService getTransactions", partner_code);
+
+    return await appAxios
+      .get("/customers/admin")
+      .then((res: AxiosResponse) => {
+        // console.log('customer/admin/res', res)
+        return res;
+      })
+      .catch((err: AxiosError) => {
+        return err;
+      });
+  },
+  getDetailTeller: async (id: string) => {
+    console.log("adminService getDetailTeller", id);
+    return await appAxios
+      .get(`customers/admin/detail/${id}`)
+      .then((res: AxiosResponse) => {
+        return res;
+      })
+      .catch((err: AxiosError) => {
+        return err;
+      });
+  },
+  addTeller: async (entity: object) => {
+    console.log("service over", entity);
+    return await appAxios
+      .post("/customers/admin/add", entity)
+      .then((res: AxiosResponse) => {
+        // console.log('ser',res);
+        return res;
+      })
+      .catch((err: AxiosError) => {
+        return err;
+      });
+  },
+  editTellter: async (id: string, entity: object) => {
+    console.log("edit teller service", id, entity);
+    return await appAxios
+      .post(`/customers/admin/edit/${id}`, entity)
+      .then((res: AxiosResponse) => {
+        // console.log('ser',res);
+        return res;
       })
       .catch((err: AxiosError) => {
         return err;

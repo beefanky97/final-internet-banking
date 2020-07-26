@@ -3,7 +3,9 @@ import { adminActionTypes } from "src/app/actions/admin/adminAction";
 
 let initialAdminState: any ={
     transactions: [],
-    transaction: {}
+    transaction: {},
+    tellers: [],
+    teller: {}
 }
 
 export const adminReducer = (
@@ -23,7 +25,28 @@ export const adminReducer = (
                 transaction: action.transaction
             }
         }
+
+        case adminActionTypes.GET_TELLERS_SUCCESS : {
+            return {
+                ...state,
+                tellers: action.tellers
+            }
+        }
         
+        case adminActionTypes.GET_DETAIL_TELLER_SUCCESS: {
+            return{
+                ...state,
+                teller: action.teller
+            }
+        }
+
+        // case adminActionTypes.ADD_TELLER: {
+        //     return{
+        //         ...state,
+        //         entity: action.entity
+        //     }
+        // }
+
         default:
             return state;
     }

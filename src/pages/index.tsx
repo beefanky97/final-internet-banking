@@ -23,6 +23,9 @@ import DebtReminder from "src/components/DebtReminder";
 import AddDebtReminder from "src/components/DebtReminder/AddDebtReminder";
 import AddMoney from "src/components/Teller/AddMoney";
 import HistoryTransactions from "src/components/Admin/HistoryTransactions";
+import AllTeller from "src/components/Admin/AllTeller";
+import DetailTeller from "src/components/Admin/AllTeller/DetailTeller";
+import AddTeller from "src/components/Admin/AllTeller/AddTeller";
 
 interface Props {
   isLoading?: boolean;
@@ -70,6 +73,15 @@ const App: React.FC<Props> = (props) => {
         </Route>
         <Route path="/admin/history-transaction-interbank">
             <HistoryTransactions />
+          </Route>
+          <Route path="/admin/tellers">
+            <AllTeller />
+          </Route>
+          <Route path="/admin/tellers/detail">
+            <DetailTeller />
+          </Route>
+          <Route path="/admin/teller/add">
+            <AddTeller/>
           </Route>
         <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
         {props.isLoading && <LoadingOverlay />}
