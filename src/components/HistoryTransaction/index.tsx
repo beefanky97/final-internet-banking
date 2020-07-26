@@ -34,14 +34,16 @@ const HistoryTransactions: React.FC<Props> = (props) => {
 
   useEffect(() => {
     const search = qs.parse(window.location.search);
+
     if (search && search.card_number) {
       setCardNumber(+search.card_number);
     }
 
     callApi("sending");
-  }, []);
+  }, [cardNumber]);
 
   const callApi = (type: string) => {
+    console.log(cardNumber);
     if (cardNumber) {
       props.getHistoryTransactionTeller(type, cardNumber);
     } else {
