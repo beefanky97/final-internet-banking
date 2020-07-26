@@ -77,7 +77,7 @@ const HistoryTransaction: React.FC<Props> = (props) => {
             <div className="row justify-content-center">
               <div className="col-10">
                 <div className="contact-form-area contact-page">
-                  <h4 className="mb-50">Danh sách tài khoản khách hàng</h4>
+                  <h4 className="mb-50">DANH SÁCH TÀI KHOẢN KHÁCH HÀNG</h4>
                   <div className="d-flex justify-content-between align-items-end mb-15">
                     <div className="col-lg-6 fdr" style={{ marginLeft: -14 }}>
                       <div className="keyword">

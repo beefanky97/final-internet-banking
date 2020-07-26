@@ -22,12 +22,13 @@ function* showAllCustomers() {
 
 function* addCustomer(action: any) {
   console.log("over saga!", action.entity);
-  const data = yield call(tellerService.addCustomer, action.entity);
-  if (!data.data.is_error) {
+  const { data } = yield call(tellerService.addCustomer, action.entity);
+  if (!data.is_error) {
     // window.location.href = "/teller/customers";
     yield put(actAddCustomerSuccess(true));
   } else {
     yield put(actAddCustomerSuccess(false));
+    alert(data.msg);
   }
 }
 

@@ -12,17 +12,37 @@ interface Props {
 }
 
 const AddCustomer: React.FC<Props> = (props) => {
-  const [customer, setCustomer] = useState({});
+  const [customer, setCustomer] = useState({
+    username: "",
+    password: "",
+    full_name: "",
+    email: "",
+    phone_number: "",
+    address: "",
+    day_of_birth: "",
+  });
 
   useEffect(() => {
-    if(props.isAddCustomerSuccessed){
+    if (props.isAddCustomerSuccessed) {
       props.history.goBack();
     }
-  }, [props.isAddCustomerSuccessed])
+  }, [props.isAddCustomerSuccessed]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    props.addCustomer(customer);
+    if (
+      customer.username === '' ||
+      customer.password === '' ||
+      customer.full_name === '' ||
+      customer.email === '' ||
+      customer.phone_number === '' ||
+      customer.address === '' ||
+      customer.day_of_birth === ''
+    ) {
+      alert("Chưa điền đầy đủ thông tin!");
+    } else {
+      props.addCustomer(customer);
+    }
   };
 
   return (
@@ -38,7 +58,7 @@ const AddCustomer: React.FC<Props> = (props) => {
               <div className="col-10">
                 {/* <!-- Contact Area --> */}
                 <div className="contact-form-area contact-page">
-                  <h4 className="mb-50">Thêm khách hàng</h4>
+                  <h4 className="mb-50">THÊM KHÁCH HÀNG</h4>
 
                   <form onSubmit={handleSubmit} method="post">
                     <div className="row">
@@ -154,7 +174,7 @@ const AddCustomer: React.FC<Props> = (props) => {
                         </div>
                       </div>
                       <div className="col-12">
-                        <button className="btn credit-btn mt-30" type="submit">
+                        <button className="btn btn-hv mt-30" type="submit">
                           Thêm
                         </button>
                       </div>
@@ -172,7 +192,7 @@ const AddCustomer: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: any) => ({
   isAddCustomerSuccessed: state.tellerState.isAddCustomerSuccessed,
-})
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   addCustomer: (customer: object) => dispatch(actAddCustomer(customer)),

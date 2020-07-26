@@ -35,7 +35,7 @@ const ChangePassword: React.FC<Props> = (props) => {
       <div className="d-flex justify-content-center h-100">
         <div className="card">
           <div className="card-header">
-            <h3>Sign In</h3>
+            <h3 style={{marginTop: 20}}>Đổi mật khẩu</h3>
             <div className="d-flex justify-content-end social_icon">
               <span>
                 <i className="fab fa-facebook-square"></i>
@@ -53,13 +53,13 @@ const ChangePassword: React.FC<Props> = (props) => {
               <div className="input-group form-group">
                 <div className="input-group-prepend">
                   <span className="input-group-text">
-                    <i className="fas fa-user"></i>
+                    <i className="fas fa-key"></i>
                   </span>
                 </div>
                 <input
                   type="password"
                   className="form-control"
-                  placeholder="current password"
+                  placeholder="Nhập mật khẩu hiện tại"
                   onChange={(e) => setCurrentPassword(e.target.value)}
                 />
               </div>
@@ -72,7 +72,7 @@ const ChangePassword: React.FC<Props> = (props) => {
                 <input
                   type="password"
                   className="form-control"
-                  placeholder="new password"
+                  placeholder="Nhập mật khẩu mới"
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
               </div>
@@ -85,7 +85,7 @@ const ChangePassword: React.FC<Props> = (props) => {
                 <input
                   type="password"
                   className="form-control"
-                  placeholder="confirm password"
+                  placeholder="Xác nhận mật khẩu"
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
