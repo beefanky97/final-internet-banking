@@ -72,17 +72,17 @@ const App: React.FC<Props> = (props) => {
           <AddDebtReminder />
         </Route>
         <Route path="/admin/history-transaction-interbank">
-            <HistoryTransactions />
-          </Route>
-          <Route path="/admin/tellers">
-            <AllTeller />
-          </Route>
-          <Route path="/admin/tellers/detail">
-            <DetailTeller />
-          </Route>
-          <Route path="/admin/teller/add">
-            <AddTeller/>
-          </Route>
+          <HistoryTransactions />
+        </Route>
+        <Route path="/admin/tellers">
+          <AllTeller />
+        </Route>
+        <Route path="/admin/teller/detail">
+          {({ history }) => <DetailTeller history={history} />}
+        </Route>
+        <Route path="/admin/teller/add">
+          {({ history }) => <AddTeller history={history} />}
+        </Route>
         <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
         {props.isLoading && <LoadingOverlay />}
       </Switch>
