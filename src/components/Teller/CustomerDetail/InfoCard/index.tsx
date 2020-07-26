@@ -163,7 +163,7 @@ const InfoCard: React.FC<Props> = (props) => {
       </div>
 
       <Link
-        className="btn credit-btn mt-30"
+        className="btn credit-btn mt-30 mr-15"
         to={`/history-transaction?card_number=${card.card_number}`}
       >
         Xem lịch sử giao dịch

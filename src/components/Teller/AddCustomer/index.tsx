@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 
 import HeaderBody from "src/components/commons/HeaderBody";
 import { connect } from "react-redux";
-import { actAddCustomer, actAddCustomerSuccess } from "src/app/actions/tellerActions";
+import { actAddCustomer } from "src/app/actions/tellerActions";
 
 interface Props {
   isAddCustomerSuccessed: boolean;
@@ -154,7 +154,7 @@ const AddCustomer: React.FC<Props> = (props) => {
                         </div>
                       </div>
                       <div className="col-12">
-                        <button className="btn btn-hv mt-30" type="submit">
+                        <button className="btn credit-btn mt-30" type="submit">
                           Thêm
                         </button>
                       </div>
