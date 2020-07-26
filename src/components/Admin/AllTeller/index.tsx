@@ -98,7 +98,7 @@ const AllTeller: React.FC<Props> = (props) => {
             <div className="row justify-content-center">
               <div className="col-10">
                 <div className="contact-form-area contact-page">
-                  <h4 className="mb-50">Danh sách giao dịch viên</h4>
+                  <h4 className="mb-50">DANH SÁCH GIAO DỊCH VIÊN</h4>
                   {/* begin link add teller */}
                   <div className="row justify-content-end mb-15">
                     <Link

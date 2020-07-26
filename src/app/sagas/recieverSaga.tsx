@@ -30,9 +30,11 @@ function* editRecieverSaga(action: any) {
 function* addRecieverSaga(action: any) {
   yield put(onLoading());
   const { data }: AxiosResponse = yield call(receiverService.addReciever, action.card_number, action.reminiscent_name);
-  if(data) {
+  if(!data.is_error) {
     // yield put(addRecieverSuccsess(data));
     yield put(offLoading());
+  }else{
+    alert(data.msg);
   }
 }
 

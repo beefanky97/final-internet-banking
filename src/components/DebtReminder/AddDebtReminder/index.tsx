@@ -33,7 +33,7 @@ const AddDebtReminder: React.FC<Props> = (props) => {
               <div className="col-10">
                 {/* <!-- Contact Area --> */}
                 <div className="contact-form-area contact-page">
-                  <h4 className="mb-50">Thêm nhắc nợ</h4>
+                  <h4 className="mb-50">THÊM NHẮC NỢ</h4>
 
                   <form onSubmit={handleSubmit} method="post">
                     <div className="row">

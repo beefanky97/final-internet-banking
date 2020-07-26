@@ -101,7 +101,7 @@ const HistoryTransactions: React.FC<Props> = (props) => {
 
     return postData.map((t: any, i: number) => {
       return (
-        <tr key={i} onClick={() => handleOpenModal(t._id)}>
+        <tr key={i}>
           <td>{i + 1 + currentPage * 10}</td>
           <td>{t.bank_name}</td>
           <td>{t.card_number_sender}</td>
@@ -109,6 +109,14 @@ const HistoryTransactions: React.FC<Props> = (props) => {
           <td>{`${t.money} VND`}</td>
           {/* <td>{t.message}</td> */}
           <td>{moment(t.date_created).format("DD-MM-YYYY h:mm:ss")}</td>
+          <td>
+            <i
+              style={{ color: "green", cursor: "pointer" }}
+              className="fa fa-eye"
+              aria-hidden="true"
+              onClick={() => handleOpenModal(t._id)}
+            ></i>
+          </td>
         </tr>
       );
     });
@@ -126,7 +134,7 @@ const HistoryTransactions: React.FC<Props> = (props) => {
             <div className="row justify-content-center">
               <div className="col-12">
                 <div className="contact-form-area contact-page">
-                  <h4 className="mb-50">Danh Sách Giao Dịch</h4>
+                  <h4 className="mb-50">DANH SÁCH GIAO DỊCH</h4>
 
                   {/* begin action */}
                   <div className="row justify-content-between mt-15 mb-15">
@@ -204,6 +212,7 @@ const HistoryTransactions: React.FC<Props> = (props) => {
                         <th>Số Tiền</th>
                         {/* <th>Lời Nhắn</th> */}
                         <th>Ngày Gửi</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>

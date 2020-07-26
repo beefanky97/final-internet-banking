@@ -27,20 +27,28 @@ const DetailTeller: React.FC<Props> = (props) => {
   useEffect(() => {
     props.getDetailTeller(id);
 
-    if(props.isEditTellerSuccessed){
+    if (props.isEditTellerSuccessed) {
       props.history.goBack();
     }
   }, [props.isEditTellerSuccessed]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    props.editTeller(id, tellerEdit);
+
+    if (
+      tellerEdit.full_name === "" ||
+      tellerEdit.address === "" ||
+      tellerEdit.phone === "" ||
+      tellerEdit.day_of_birth === ""
+    )
+      alert("Hãy nhập đầy đủ thông tin!!!");
+    else props.editTeller(id, tellerEdit);
   };
-  
+
   const onHandleEdit = () => {
     setIsNotEdit(!isNotEdit);
     if (isNotEdit) setTellerEdit(props.teller);
-  }
+  };
 
   const onHandleCancel = (id: string) => {
     setIsNotEdit(!isNotEdit);
@@ -64,7 +72,6 @@ const DetailTeller: React.FC<Props> = (props) => {
                   <h4 className="mb-50">HỒ SƠ GIAO DỊCH VIÊN</h4>
                   <div className="row">
                     <div className="col-lg-12">
-                      <h4 className="mb-50">Sơ yếu lý lịch</h4>
                       <form onSubmit={handleSubmit} method="post">
                         <div className="row">
                           <div className="col-lg-12 fdr">
@@ -77,6 +84,10 @@ const DetailTeller: React.FC<Props> = (props) => {
                                 className="col-12"
                                 value={props.teller._id}
                                 disabled
+                                style={{
+                                  borderColor: !isNotEdit ? "gray" : "",
+                                  borderWidth: 5,
+                                }}
                               />
                             </div>
                           </div>
@@ -93,7 +104,11 @@ const DetailTeller: React.FC<Props> = (props) => {
                                     ? props.teller.username
                                     : tellerEdit.username
                                 }
-                                disabled={isNotEdit}
+                                disabled
+                                style={{
+                                  borderColor: !isNotEdit ? "gray" : "",
+                                  borderWidth: 5,
+                                }}
                                 onChange={(e) =>
                                   setTellerEdit({
                                     ...tellerEdit,
@@ -139,7 +154,11 @@ const DetailTeller: React.FC<Props> = (props) => {
                                     ? props.teller.email
                                     : tellerEdit.email
                                 }
-                                disabled={isNotEdit}
+                                disabled
+                                style={{
+                                  borderColor: !isNotEdit ? "gray" : "",
+                                  borderWidth: 5,
+                                }}
                                 onChange={(e) =>
                                   setTellerEdit({
                                     ...tellerEdit,
@@ -262,7 +281,7 @@ const DetailTeller: React.FC<Props> = (props) => {
 const mapStateToProps = (state: any) => ({
   teller: state.adminState.teller,
   tellers: state.adminState.tellers,
-  isEditTellerSuccessed: state.adminState.isEditTellerSuccessed
+  isEditTellerSuccessed: state.adminState.isEditTellerSuccessed,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
