@@ -42,8 +42,6 @@ const App: React.FC<Props> = (props) => {
     console.log("over logout", sessionStorage.getItem("is_authentication"));
     if(sessionStorage.getItem("is_authentication") === "true") {
       setAuth(true);
-    } else if (window.location.pathname !== "/login" ) {
-      window.location.href = "./login";
     }
   }, [])
 
@@ -75,27 +73,12 @@ const App: React.FC<Props> = (props) => {
         <Route path="/teller/customer/detail">
           <CustomerDetail />
         </Route>
-        <Route path="/teller/customers">
-          <ShowAllCustomers />
-        </Route>
-        {/* <Route path="/admin/history-transaction-interbank">
-          <AddCustomer />
-        </Route> */}
-        <Route path="/history-transaction">
-          <HistoryTransaction />
-        </Route>
-        <Route exact={true} path="/debt-reminder">
-          <DebtReminder />
-        </Route>
-        <Route exact={true} path="/debt-reminder/add">
-          <AddDebtReminder />
-        </Route>
-        <Route path="/admin/history-transaction-interbank">
-          <HistoryTransactions />
-        </Route>
-        <Route path="/admin/tellers">
-          <AllTeller />
-        </Route>
+        <PrivateRoute path="/teller/customers" ComposedComp={ShowAllCustomers} />
+        <PrivateRoute path="/history-transaction" ComposedComp={HistoryTransaction} />
+        <PrivateRoute exact={true} path="/debt-reminder" ComposedComp={DebtReminder} />
+        <PrivateRoute exact={true} path="/debt-reminder/add" ComposedComp={AddDebtReminder} />
+        <PrivateRoute path="/admin/history-transaction-interbank" ComposedComp={HistoryTransactions} />
+        <PrivateRoute path="/admin/tellers" ComposedComp={AllTeller} />
         <Route path="/admin/teller/detail">
           {({ history }) => <DetailTeller history={history} />}
         </Route>
