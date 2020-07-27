@@ -1,58 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { logout } from "src/app/actions/accountActions";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 
-interface Props {}
+interface Props {
+  logout: () => void;
+  isAuthenticated: boolean;
+}
 
-const Header: React.FC<Props> = ({}) => {
+const Header: React.FC<Props> = (props) => {
+  const handleLogout = () => {
+    console.log("over");
+    props.logout();
+  }
+
   return (
     <div>
       <header className="header-area">
-        {/* <!-- Top Header Area --> */}
-        <div className="top-header-area">
-          <div className="container h-100">
-            <div className="row h-100 align-items-center">
-              <div className="col-12 d-flex justify-content-between">
-                {/* <!-- Logo Area --> */}
-                <div className="logo">
-                  <a href="index.html">
-                    <img src="img/core-img/logo.png" alt="" />
-                  </a>
-                </div>
-
-                {/* <!-- Top Contact Info --> */}
-                <div className="top-contact-info d-flex align-items-center">
-                  <a
-                    href="#"
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="25 th Street Avenue, Los Angeles, CA"
-                  >
-                    <img src="img/core-img/placeholder.png" alt="" />{" "}
-                    <span>25 th Street Avenue, Los Angeles, CA</span>
-                  </a>
-                  <a
-                    href="#"
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="office@yourfirm.com"
-                  >
-                    <img src="img/core-img/message.png" alt="" />{" "}
-                    <span>office@yourfirm.com</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* <!-- Navbar Area --> */}
         <div className="credit-main-menu" id="sticker">
           <div className="classy-nav-container breakpoint-off">
             <div className="container">
               {/* <!-- Menu --> */}
-              <nav
-                className="classy-navbar justify-content-between"
-                id="creditNav"
-              >
+              <nav className="classy-navbar justify-content-between" id="creditNav">
                 {/* <!-- Navbar Toggler --> */}
                 <div className="classy-navbar-toggler">
                   <span className="navbarToggler">
@@ -228,10 +198,69 @@ const Header: React.FC<Props> = ({}) => {
             </div>
           </div>
         </div>
+        {/* <!-- Top Header Area --> */}
+        <div className="top-header-area">
+          <div className="container h-100">
+            <div className="row h-100 align-items-center">
+              <div className="col-12 d-flex justify-content-between">
+                {/* <!-- Logo Area --> */}
+                <div className="logo">
+                  <a href="index.html">
+                    <img src="img/core-img/logo.png" alt="" />
+                  </a>
+                </div>
+
+                {/* <!-- Top Contact Info --> */}
+                {props.isAuthenticated && <div className="top-contact-info d-flex align-items-center dropdown">
+                  <button
+                    className="dropdown-toggle border-0"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <img
+                      src="img/core-img/user.ico"
+                      style={{ width: "30px", height: "30px" }}
+                      alt=""
+                    />
+                  </button>
+                  <div
+                    className="dropdown-menu"
+                    style={{ zIndex: 1000 }}
+                    tabIndex={0}
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a className="dropdown-item" href="./profile">
+                      Thông tin cá nhân
+                    </a>
+                    <a className="dropdown-item" href="./change-password">
+                      Đổi mật khẩu
+                    </a>
+                    <div onClick={handleLogout} className="dropdown-item">
+                      Đăng xuất
+                    </div>
+                  </div>{" "}
+                </div>}
+              </div>
+            </div>
+          </div>
+        </div>
       </header>
       {/* <!-- ##### Header Area End ##### --> */}
     </div>
   );
 };
 
-export default Header;
+
+//defined Type of State
+const mapStateToProps = (state: any) => ({
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  logout: () => dispatch(logout()),
+});
+
+//connect to the appStore
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

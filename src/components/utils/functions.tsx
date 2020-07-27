@@ -2,14 +2,7 @@ import jwtDecode from 'jwt-decode';
 import { SSL_OP_COOKIE_EXCHANGE } from 'constants';
 
 export const isValidToken = () => {
-  const token_expire = sessionStorage.getItem("token_expire") || "";
-  if (token_expire && +token_expire) {
-    const currentTime = new Date().getTime();
-    const expireTime = +token_expire * 1000 - 30000; // before real expire time on server 30s
-    return expireTime >= currentTime;
-  }
-  //set to using
-  return true;
+  return sessionStorage.getItem("is_authentication") === "true";
 };
 
 interface IToken {
@@ -26,11 +19,14 @@ export const saveTokenExpire = (token: IToken) => {
     // }
     sessionStorage.setItem('access_token', token.access_token);
     sessionStorage.setItem('refresh_token', token.refresh_token);
+    sessionStorage.setItem('is_authentication', "true");
   }
 }
 
 export const clearTokenInfo = () => {
   if(sessionStorage) {
-    sessionStorage.removeItem("token_expire");
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("refresh_token");
+    sessionStorage.removeItem('is_authentication');
   }
 }

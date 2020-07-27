@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "src/styles/_all.scss";
 
 import { connect } from "react-redux";
@@ -31,14 +31,23 @@ import ResetPassword from "src/components/ResetPassword";
 
 interface Props {
   isLoading?: boolean;
+  isAuthenticated?: boolean;
 }
 
 const App: React.FC<Props> = (props) => {
   console.log("isLoading!!!!", props.isLoading);
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    console.log("over logout", sessionStorage.getItem("is_authentication"));
+    if(sessionStorage.getItem("is_authentication") === "true") {
+      setAuth(true);
+    }
+  }, [])
 
   return (
     <Router>
-      <Header />
+      <Header isAuthenticated={auth}/>
       <Switch>
         <PrivateRoute exact={true} path="/" ComposedComp={Top} />
         <Route path="/login">
@@ -64,27 +73,12 @@ const App: React.FC<Props> = (props) => {
         <Route path="/teller/customer/detail">
           <CustomerDetail />
         </Route>
-        <Route path="/teller/customers">
-          <ShowAllCustomers />
-        </Route>
-        {/* <Route path="/admin/history-transaction-interbank">
-          <AddCustomer />
-        </Route> */}
-        <Route path="/history-transaction">
-          <HistoryTransaction />
-        </Route>
-        <Route exact={true} path="/debt-reminder">
-          <DebtReminder />
-        </Route>
-        <Route exact={true} path="/debt-reminder/add">
-          <AddDebtReminder />
-        </Route>
-        <Route path="/admin/history-transaction-interbank">
-          <HistoryTransactions />
-        </Route>
-        <Route path="/admin/tellers">
-          <AllTeller />
-        </Route>
+        <PrivateRoute path="/teller/customers" ComposedComp={ShowAllCustomers} />
+        <PrivateRoute path="/history-transaction" ComposedComp={HistoryTransaction} />
+        <PrivateRoute exact={true} path="/debt-reminder" ComposedComp={DebtReminder} />
+        <PrivateRoute exact={true} path="/debt-reminder/add" ComposedComp={AddDebtReminder} />
+        <PrivateRoute path="/admin/history-transaction-interbank" ComposedComp={HistoryTransactions} />
+        <PrivateRoute path="/admin/tellers" ComposedComp={AllTeller} />
         <Route path="/admin/teller/detail">
           {({ history }) => <DetailTeller history={history} />}
         </Route>
@@ -92,13 +86,14 @@ const App: React.FC<Props> = (props) => {
           {({ history }) => <AddTeller history={history} />}
         </Route>
         <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
-        {props.isLoading && <LoadingOverlay />}
       </Switch>
       <Footer />
+      {props.isLoading && <LoadingOverlay />}
     </Router>
   );
 };
 const mapStateToProps = (state: any) => ({
+  isAuthenticated: state.accountState.isAuthenticated,
   isLoading: state.commonState.isLoading,
 });
 

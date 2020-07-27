@@ -1,0 +1,7 @@
+.top-contact-info.d-flex.align-items-center.dropdown {
+  z-index: 9999 !important;
+
+  .dropdown-menu.show {
+    transform: translate(-77%, 41px) !important;
+  }
+}

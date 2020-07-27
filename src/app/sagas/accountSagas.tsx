@@ -3,12 +3,13 @@ import { AxiosResponse } from "axios";
 import { accountActionTypes, loginSuccsess, logoutSuccsess, loginFail, actForgetPasswordSuccess, actResetPasswordSuccess } from "src/app/actions/accountActions";
 import { accountService } from "src/api/accountService";
 import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions";
+import { offLoading, onLoading } from "../actions/commonActions";
 
 function* loginSaga(action: any) {
   const { data }: AxiosResponse = yield call(accountService.login, action.username, action.password);
   if(data.authenticated === false) {
-    yield put(loginFail());
     yield call(clearTokenInfo);
+    alert("Tài khoảng hoặc mật khẩu không đúng!");
     return;
   }
   yield call(saveTokenExpire, data);
@@ -18,6 +19,7 @@ function* loginSaga(action: any) {
 function* logout() {
   yield call(clearTokenInfo);
   yield put(logoutSuccsess());
+  yield window.location.href = "./login";
 }
 
 function* refreshTokenSaga() {
