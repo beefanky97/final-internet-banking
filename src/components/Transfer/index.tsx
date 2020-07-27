@@ -39,7 +39,6 @@ const Transfer: React.FC<Props> = (props) => {
   const handleOpenModal = () => {
     console.log("card", cardNumber);
     props.getCardInfo(cardNumber, partnerCode);
-    props.openModal("CONFIRM_CARD_MODAL");
   };
 
   return (

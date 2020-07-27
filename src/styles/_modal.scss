@@ -1,8 +1,31 @@
 .modal-center {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+
+  .modal-body {
+    font-size: 20px;
+    .info-row {
+      display: block;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.code-block {
+  margin-top: 20px;
+  &__input {
+    padding: 5px;
+    width: 70%;
+  }
+  &__button {
+    background-color: #ffb300;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px 20px;
+  }
 }

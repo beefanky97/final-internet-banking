@@ -28,9 +28,8 @@ const ConfirmCardModal: React.FunctionComponent<Props> = (props) => {
   const cardInfoModal = (cardInfo: any) => {
     return (
       <>
-        <span><b>Số tài khoản:</b> {cardInfo && cardInfo.card_number}</span>
-        <br />
-        <span><b>Tên người nhận:</b> {cardInfo && cardInfo.full_name}</span>
+        <span className="info-row"><b>Số tài khoản:</b> {cardInfo && cardInfo.card_number}</span>
+        <span className="info-row"><b>Tên người nhận:</b> {cardInfo && cardInfo.full_name}</span>
       </>
     );
   };
@@ -44,7 +43,7 @@ const ConfirmCardModal: React.FunctionComponent<Props> = (props) => {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Thông tin tài khoản muốn chuyển</h5>
+            <h2 className="modal-title">Thông tin tài khoản</h2>
             <button
               type="button"
               className="close"
@@ -57,9 +56,9 @@ const ConfirmCardModal: React.FunctionComponent<Props> = (props) => {
           </div>
           <div className="modal-body">
             {!props.isErrorGetInfo ? cardInfoModal(props.cardInfo) : errorModal()}
-            <div>
-              <input onChange={e => setOtp(e.target.value)} type="text"/>
-              <button onClick={getOTP}>lấy mã</button>
+            <div className="code-block">
+              <input className="code-block__input" onChange={e => setOtp(e.target.value)} type="text"/>
+              <button className="code-block__button" onClick={getOTP}>Lấy mã</button>
             </div>
           </div>
           <div className="modal-footer">
