@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "src/styles/_all.scss";
 
 import { connect } from "react-redux";
@@ -31,14 +31,25 @@ import ResetPassword from "src/components/ResetPassword";
 
 interface Props {
   isLoading?: boolean;
+  isAuthenticated?: boolean;
 }
 
 const App: React.FC<Props> = (props) => {
   console.log("isLoading!!!!", props.isLoading);
+  const [auth, setAuth] = useState(false);
+
+  useEffect(() => {
+    console.log("over logout", sessionStorage.getItem("is_authentication"));
+    if(sessionStorage.getItem("is_authentication") === "true") {
+      setAuth(true);
+    } else if (window.location.pathname !== "/login" ) {
+      window.location.href = "./login";
+    }
+  }, [])
 
   return (
     <Router>
-      <Header />
+      <Header isAuthenticated={auth}/>
       <Switch>
         <PrivateRoute exact={true} path="/" ComposedComp={Top} />
         <Route path="/login">
@@ -99,6 +110,7 @@ const App: React.FC<Props> = (props) => {
   );
 };
 const mapStateToProps = (state: any) => ({
+  isAuthenticated: state.accountState.isAuthenticated,
   isLoading: state.commonState.isLoading,
 });
 

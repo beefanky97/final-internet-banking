@@ -26,11 +26,14 @@ export const saveTokenExpire = (token: IToken) => {
     // }
     sessionStorage.setItem('access_token', token.access_token);
     sessionStorage.setItem('refresh_token', token.refresh_token);
+    sessionStorage.setItem('is_authentication', "true");
   }
 }
 
 export const clearTokenInfo = () => {
   if(sessionStorage) {
-    sessionStorage.removeItem("token_expire");
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("refresh_token");
+    sessionStorage.removeItem('is_authentication');
   }
 }
