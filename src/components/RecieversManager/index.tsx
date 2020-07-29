@@ -229,7 +229,7 @@ useEffect(() => {
                                     handleEditReciever(
                                       _id,
                                       card_number,
-                                      nameEdit
+                                      reminiscent_name
                                     )
                                   }
                                 ></i>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import * as qs from 'query-string';
@@ -7,6 +7,8 @@ import HeaderBody from "src/components/commons/HeaderBody";
 import { actShowDetailCustomerRequest, actShowInfoCardsRequest } from "src/app/actions/tellerActions";
 import InfoCustomer from "./InfoCustomer";
 import InfoCard from "./InfoCard";
+import { appAxios } from "src/api/appAxios";
+import axios from 'axios';
 
 interface Props {
   customer: any;
@@ -16,17 +18,46 @@ interface Props {
 }
 
 const CustomerDetail: React.FC<Props> = (props) => {
+  const [profile, setProfile] = useState({
+    customerInfo: {
+      username: "",
+      _id: "",
+      full_name: "",
+      email: "",
+      address: "",
+      phone_number: "",
+      day_of_birth: ""
+    },
+    cardInfo: [{
+      card_number: 0,
+      id_type_card: 0,
+      balance: 0
+    }]
+  });
+  const [isTeller, setIsTeller] = useState(false);
+
+  const path = window.location.pathname;
   const parsed: any = qs.parseUrl(window.location.href);
   
   useEffect(() => {
-    props.showDetailCustomer(parsed.query.id);
-    // props.showInfoCards();
+    console.log("path", path);
+    if(path === "/my-profile") {
+      axios.all([
+        appAxios.get("/customers/detail"),
+        appAxios.get("/cards/customer")
+      ]).then(axios.spread((customerRes: any, cardRes: any) => {
+        setProfile({...profile, customerInfo: customerRes.data, cardInfo: cardRes.data});
+      }))
+    } else {
+      setIsTeller(true);
+      props.showDetailCustomer(parsed.query.id);
+    }
   }, []);
 
   return (
     <div>
       {/* <!-- ##### Breadcrumb Area Start ##### --> */}
-      <HeaderBody namePage="Khách hàng" />
+      <HeaderBody namePage={path === "/my-profile" ? "Thông tin cá nhân" : "Khách hàng"} />
       {/* <!-- ##### Breadcrumb Area End ##### --> */}
 
       <div className="map-area" style={{height: '1200px'}}>
@@ -36,10 +67,10 @@ const CustomerDetail: React.FC<Props> = (props) => {
               <div className="col-10">
                 {/* <!-- Contact Area --> */}
                 <div className="contact-form-area contact-page">
-                  <h4 className="mb-50">HỒ SƠ KHÁCH HÀNG</h4>
+                  <h4 className="mb-50">{path === "/my-profile" ? "THÔNG TIN CÁ NHÂN" : "THÔNG TIN KHÁCH HÀNG"}</h4>
                   <div className="row">
-                    <InfoCustomer customer={props.customer} />
-                    <InfoCard cards={props.cards} />
+                    <InfoCustomer customer={isTeller ? props.customer : profile.customerInfo} />
+                    <InfoCard isTeller={isTeller} cards={isTeller ? props.cards : profile.cardInfo} />
                   </div>
                 </div>
               </div>

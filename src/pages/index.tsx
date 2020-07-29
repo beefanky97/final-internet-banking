@@ -50,42 +50,62 @@ const App: React.FC<Props> = (props) => {
       <Header isAuthenticated={auth}/>
       <Switch>
         <PrivateRoute exact={true} path="/" ComposedComp={Top} />
+        {/* checked */}
         <Route path="/login">
           <Login />
         </Route>
+        {/* checked */}
         <Route path="/forget-password">
           <ForgetPassword />
         </Route>
+        {/* checked */}
         <Route path="/reset-password">
           {({ history }) => <ResetPassword history={history} />}
         </Route>
+        {/* checked */}
         <Route path="/change-password">
           <ChangePassword />
         </Route>
+
         <PrivateRoute path="/about" ComposedComp={About} />
+        {/* checked */}
         <PrivateRoute path="/transfer" ComposedComp={Transfer} />
+        {/* checked */}
         <Route path="/teller/add-customer">
           {({ history }) => <AddCustomer history={history} />}
         </Route>
+        {/* checked */}
         <Route path="/teller/add-money-customer">
           {({ history }) => <AddMoney history={history} />}
         </Route>
+        {/* checked */}
         <Route path="/teller/customer/detail">
           <CustomerDetail />
         </Route>
+        {/* checked */}
         <PrivateRoute path="/teller/customers" ComposedComp={ShowAllCustomers} />
+        {/* checked */}
         <PrivateRoute path="/history-transaction" ComposedComp={HistoryTransaction} />
+        {/* checked */}
         <PrivateRoute exact={true} path="/debt-reminder" ComposedComp={DebtReminder} />
+        {/* checked */}
         <PrivateRoute exact={true} path="/debt-reminder/add" ComposedComp={AddDebtReminder} />
+        {/* checked */}
+        <PrivateRoute exact={true} path="/my-profile" ComposedComp={CustomerDetail} />
+        {/* check, add loading logic */}
         <PrivateRoute path="/admin/history-transaction-interbank" ComposedComp={HistoryTransactions} />
+        {/* checked */}
         <PrivateRoute path="/admin/tellers" ComposedComp={AllTeller} />
+        {/* checked */}
         <Route path="/admin/teller/detail">
           {({ history }) => <DetailTeller history={history} />}
         </Route>
+        {/* checked */}
         <Route path="/admin/teller/add">
           {({ history }) => <AddTeller history={history} />}
         </Route>
-        <PrivateRoute path="/reciever" ComposedComp={RecieversManager} />
+        {/* checked */}
+        <PrivateRoute path="/reciever" ComposedComp={RecieversManager} /> 
       </Switch>
       <Footer />
       {props.isLoading && <LoadingOverlay />}
