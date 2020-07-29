@@ -11,12 +11,15 @@ import {
   actEditTellerSuccess,
   actDeleteTellerSuccess,
 } from "src/app/actions/admin/adminAction";
+import { onLoading, offLoading } from "src/app/actions/commonActions";
 
 function* getTransactionsSaga(action: any) {
+  yield put(onLoading());
   const { data }: AxiosResponse = yield call(
     adminService.getTransactions,
     action.partner_code
   );
+  yield put(offLoading());
   yield put(actGetTransactionsSuccess(data));
 }
 
@@ -25,7 +28,9 @@ function* watchGetTransactions() {
 }
 
 export function* getDetailTransactionSaga(action: any) {
+  yield put(onLoading());
   const data = yield call(adminService.getDetailTransaction, action.id);
+  yield put(offLoading());
   yield put(actGetDetailTransactionSuccess(data));
 }
 
@@ -37,7 +42,9 @@ export function* watchGetDetailTransaction() {
 }
 
 export function* getTellersSaga(action: any) {
+  yield put(onLoading());
   const { data }: AxiosResponse = yield call(adminService.getTellers);
+  yield put(offLoading());
   yield put(actGetTellersSuccess(data));
 }
 
@@ -46,7 +53,9 @@ export function* watchGetTellers() {
 }
 
 export function* getDetailTellerSaga(action: any) {
+  yield put(onLoading());
   const { data } = yield call(adminService.getDetailTeller, action.id);
+  yield put(offLoading());
   yield put(actGetDetailTellerSuccess(data));
 }
 
@@ -55,7 +64,9 @@ export function* watchGetDetailTeller() {
 }
 
 export function* addTellerSaga(action: any) {
+  yield put(onLoading());
   const { data } = yield call(adminService.addTeller, action.entity);
+  yield put(offLoading());
   if (!data.is_error) {
     yield put(actAddTellerSuccess(true));
   } else {
@@ -69,12 +80,13 @@ export function* watchAddTeller() {
 }
 
 export function* editTellerSaga(action: any) {
+  yield put(onLoading());
   const { data } = yield call(
     adminService.editTellter,
     action.id,
     action.entity
   );
-
+  yield put(offLoading());
   if (!data.is_error) {
     yield put(actEditTellerSuccess(true));
   } else {
@@ -87,8 +99,9 @@ export function* watchEditTeller() {
 }
 
 export function* deleteTellerSaga(action: any) {
+  yield put(onLoading());
   const { status } = yield call(adminService.deleteTellter, action.id);
-
+  yield put(offLoading());
   if (status === 200) {
     yield put(actDeleteTellerSuccess(true));
   } else {
