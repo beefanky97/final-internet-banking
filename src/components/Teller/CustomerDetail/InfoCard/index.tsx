@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 interface Props {
   cards: Object[];
+  isTeller?: boolean
 }
 
 interface Object {
@@ -42,14 +43,14 @@ const InfoCard: React.FC<Props> = (props) => {
             <td>{i}</td>
             <td>{c.card_number}</td>
             <td>{c.balance} VNĐ</td>
-            <td>
+            {props.isTeller && <td>
               <Link
                 className="btn-custom"
                 to={`/teller/add-money-customer?card_number=${c.card_number}`}
               >
                 <span style={{ marginLeft: 5 }}>Nạp tiền</span>
               </Link>
-            </td>
+            </td>}
           </tr>
         );
       }
@@ -92,7 +93,7 @@ const InfoCard: React.FC<Props> = (props) => {
                   <th>STT</th>
                   <th>Số tài khoản</th>
                   <th>Số dư</th>
-                  <th>Thao tác</th>
+                  {props.isTeller && <th>Thao tác</th>}
                 </tr>
               </thead>
               <tbody>
@@ -104,7 +105,7 @@ const InfoCard: React.FC<Props> = (props) => {
                   <td>
                     {props.cards.find((x) => x.id_type_card === 1)?.balance} VNĐ
                   </td>
-                  <td>
+                  {props.isTeller && <td>
                     {/* <button className="btn-custom" type="button" onClick={() => onHandleAddMoney()}>
                       <span>Nạp tiền</span>
                     </button> */}
@@ -117,7 +118,7 @@ const InfoCard: React.FC<Props> = (props) => {
                     >
                       <span style={{ marginLeft: 5 }}>Nạp tiền</span>
                     </Link>
-                  </td>
+                  </td>}
                 </tr>
               </tbody>
             </table>
@@ -153,7 +154,7 @@ const InfoCard: React.FC<Props> = (props) => {
                   <th>STT</th>
                   <th>Số tài khoản</th>
                   <th>Số dư</th>
-                  <th>Thao tác</th>
+                  {props.isTeller && <th>Thao tác</th>}
                 </tr>
               </thead>
               <tbody>{showCardSaving(props.cards)}</tbody>

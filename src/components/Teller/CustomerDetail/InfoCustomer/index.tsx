@@ -8,13 +8,13 @@ interface Props {
 }
 
 interface Object {
-  username: string;
-  _id: string;
-  full_name: string;
-  email: string;
-  address: string;
-  phone_number: string;
-  day_of_birth: Date;
+  username?: string;
+  _id?: string;
+  full_name?: string;
+  email?: string;
+  address?: string;
+  phone_number?: string;
+  day_of_birth?: Date;
 }
 
 const InfoCustomer: React.FC<Props> = (props) => {
