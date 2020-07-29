@@ -118,7 +118,7 @@ const Footer: React.FC<Props> = ({}) => {
                     <div className="col-12">
                         <div className="copywrite-content d-flex flex-wrap justify-content-between align-items-center">
                             {/* <!-- Footer Logo --> */}
-                            <a href="index.html" className="footer-logo"><img src="img/core-img/logo.png" alt="" /></a>
+                            <a href="index.html" className="footer-logo"><img className="logo-img" src="img/core-img/logo.png" alt="" /></a>
 
                             {/* <!-- Copywrite Text --> */}
                             <div className="copywrite-text">

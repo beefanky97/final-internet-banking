@@ -12,6 +12,7 @@ import {
 import DetailTransactionModal from "../Admin/HistoryTransactions/DetailTransactionModal/index";
 
 import * as qs from "query-string";
+import { appAxios } from "src/api/appAxios";
 
 interface Props {
   getHistoryTransaction: any;
@@ -32,20 +33,25 @@ const HistoryTransactions: React.FC<Props> = (props) => {
   const [type, setType] = useState("");
   const [cardNumber, setCardNumber] = useState(0);
 
+  // appAxios.get("/transactions/customer/receiving").then(res => console.log("test", res));
+
   useEffect(() => {
     const search = qs.parse(window.location.search);
-
     if (search && search.card_number) {
       setCardNumber(+search.card_number);
+      callApi("sending", +search.card_number);
+      console.log("over 1");
+    } else {
+      console.log("over 2");
+
+    callApi("sending", 0);
     }
+  }, []);
 
-    callApi("sending");
-  }, [cardNumber]);
-
-  const callApi = (type: string) => {
-    console.log(cardNumber);
-    if (cardNumber) {
-      props.getHistoryTransactionTeller(type, cardNumber);
+  const callApi = (type: string, card_number: number) => {
+    if (card_number !== 0) {
+      console.log("card 2", card_number);
+      props.getHistoryTransactionTeller(type, card_number);
     } else {
       props.getHistoryTransaction(type);
     }
@@ -141,7 +147,7 @@ const HistoryTransactions: React.FC<Props> = (props) => {
                           className="col-12 cn-dropdown"
                           id="partnerBank"
                           onChange={(e) => {
-                            callApi(e.target.value);
+                            callApi(e.target.value, cardNumber);
                           }}
                         >
                           <option className="dropdown" value="sending">

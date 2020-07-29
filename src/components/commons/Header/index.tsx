@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { logout } from "src/app/actions/accountActions";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { Link } from "react-router-dom";
 
 interface Props {
   logout: () => void;
@@ -12,7 +13,7 @@ const Header: React.FC<Props> = (props) => {
   const handleLogout = () => {
     console.log("over");
     props.logout();
-  }
+  };
 
   return (
     <div>
@@ -46,142 +47,13 @@ const Header: React.FC<Props> = (props) => {
                   <div className="classynav">
                     <ul>
                       <li>
-                        <a href="./">Home</a>
+                        <a href="./">Trang chủ</a>
                       </li>
                       <li>
-                        <a href="./about">About Us</a>
+                        <a href="./about">Thông tin</a>
                       </li>
                       <li>
-                        <a href="#">Pages</a>
-                        <ul className="dropdown">
-                          <li>
-                            <a href="./">Trang chủ</a>
-                          </li>
-                          <li>
-                            <a href="about.html">About Us</a>
-                          </li>
-                          <li>
-                            <a href="services.html">Services</a>
-                          </li>
-                          <li>
-                            <a href="post.html">Post</a>
-                          </li>
-                          <li>
-                            <a href="single-post.html">Single Post</a>
-                          </li>
-                          <li>
-                            <a href="/change-password">Đổi mật khẩu</a>
-                          </li>
-                          <li>
-                            <a href="elements.html">Elements</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="./login">Đăng nhập</a>
-                      </li>
-                      <li>
-                        <a href="#">Portfolio</a>
-                        <div className="megamenu">
-                          <ul className="single-mega cn-col-4">
-                            <li>
-                              <a href="#">Portfolio 1</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 2</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 3</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 4</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 5</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 6</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 7</a>
-                            </li>
-                          </ul>
-                          <ul className="single-mega cn-col-4">
-                            <li>
-                              <a href="#">Portfolio 8</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 9</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 10</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 11</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 12</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 13</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 14</a>
-                            </li>
-                          </ul>
-                          <ul className="single-mega cn-col-4">
-                            <li>
-                              <a href="#">Portfolio 15</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 16</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 17</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 18</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 19</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 20</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 21</a>
-                            </li>
-                          </ul>
-                          <ul className="single-mega cn-col-4">
-                            <li>
-                              <a href="#">Portfolio 22</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 23</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 24</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 25</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 26</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 27</a>
-                            </li>
-                            <li>
-                              <a href="#">Portfolio 28</a>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li>
-                        <a href="./transfer">Chuyển tiền</a>
-                      </li>
-                      <li>
-                        <a href="./change-password">Đổi mật khẩu</a>
+                        <a href="#all_service">Dịch vụ</a>
                       </li>
                     </ul>
                   </div>
@@ -191,7 +63,7 @@ const Header: React.FC<Props> = (props) => {
                 {/* <!-- Contact --> */}
                 <div className="contact">
                   <a href="#">
-                    <img src="img/core-img/call2.png" alt="" /> +800 49 900 900
+                    <img src="img/core-img/call2.png" alt="" /> (+84)999 999 999
                   </a>
                 </div>
               </nav>
@@ -206,43 +78,49 @@ const Header: React.FC<Props> = (props) => {
                 {/* <!-- Logo Area --> */}
                 <div className="logo">
                   <a href="index.html">
-                    <img src="img/core-img/logo.png" alt="" />
+                    <img className="logo-img" src="img/core-img/logo.png" alt="" />
                   </a>
                 </div>
 
                 {/* <!-- Top Contact Info --> */}
-                {props.isAuthenticated && <div className="top-contact-info d-flex align-items-center dropdown">
-                  <button
-                    className="dropdown-toggle border-0"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <img
-                      src="img/core-img/user.ico"
-                      style={{ width: "30px", height: "30px" }}
-                      alt=""
-                    />
-                  </button>
-                  <div
-                    className="dropdown-menu"
-                    style={{ zIndex: 1000 }}
-                    tabIndex={0}
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <a className="dropdown-item" href="./profile">
-                      Thông tin cá nhân
-                    </a>
-                    <a className="dropdown-item" href="./change-password">
-                      Đổi mật khẩu
-                    </a>
-                    <div onClick={handleLogout} className="dropdown-item">
-                      Đăng xuất
-                    </div>
-                  </div>{" "}
-                </div>}
+                {props.isAuthenticated ? (
+                  <div className="top-contact-info d-flex align-items-center dropdown">
+                    <button
+                      className="dropdown-toggle border-0"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src="img/core-img/user.ico"
+                        style={{ width: "30px", height: "30px" }}
+                        alt=""
+                      />
+                    </button>
+                    <div
+                      className="dropdown-menu"
+                      style={{ zIndex: 1000 }}
+                      tabIndex={0}
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a className="dropdown-item" href="./my-profile">
+                        Thông tin cá nhân
+                      </a>
+                      <a className="dropdown-item" href="./change-password">
+                        Đổi mật khẩu
+                      </a>
+                      <div onClick={handleLogout} className="dropdown-item">
+                        Đăng xuất
+                      </div>
+                    </div>{" "}
+                  </div>
+                ) : (
+                  <Link to="./login" className="btn credit-btn">
+                    Đăng nhập
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -253,10 +131,8 @@ const Header: React.FC<Props> = (props) => {
   );
 };
 
-
 //defined Type of State
-const mapStateToProps = (state: any) => ({
-});
+const mapStateToProps = (state: any) => ({});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   logout: () => dispatch(logout()),

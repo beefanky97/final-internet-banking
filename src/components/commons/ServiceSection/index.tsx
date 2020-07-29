@@ -11,7 +11,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
       name: "Tài khoản/Thẻ",
       des: "Các dịch vụ liên quan đến thẻ và tài khoản tiết kiệm.",
       icon: "icon-profits",
-      url: "",
+      url: "./my-profile",
     },
     {
       id: "2",
@@ -51,15 +51,15 @@ const ServiceSection: React.FC<Props> = ({}) => {
   ];
 
   return (
-    <section className="services-area section-padding-100-0">
+    <section id="all_service" className="services-area section-padding-100-0">
       <div className="container">
         <div className="row">
           <div className="col-12">
             {/* <!-- Section Heading --> */}
             <div className="section-heading text-center mb-100 wow fadeInUp" data-wow-delay="100ms">
               <div className="line"></div>
-              <p>Take look at our</p>
-              <h2>Our services</h2>
+              <p>Tự hào phát triển</p>
+              <h2>DỊCH VỤ</h2>
             </div>
           </div>
         </div>
