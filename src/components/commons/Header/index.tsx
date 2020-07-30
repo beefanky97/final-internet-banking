@@ -10,6 +10,7 @@ interface Props {
 }
 
 const Header: React.FC<Props> = (props) => {
+  console.log("auth", props.isAuthenticated);
   const handleLogout = () => {
     console.log("over");
     props.logout();
@@ -47,13 +48,13 @@ const Header: React.FC<Props> = (props) => {
                   <div className="classynav">
                     <ul>
                       <li>
-                        <a href="./">Trang chủ</a>
+                        <Link to="./">Trang chủ</Link>
                       </li>
                       <li>
-                        <a href="./about">Thông tin</a>
+                        <Link to="./about">Thông tin</Link>
                       </li>
                       <li>
-                        <a href="#all_service">Dịch vụ</a>
+                        <Link to="./#all_service">Dịch vụ</Link>
                       </li>
                     </ul>
                   </div>
@@ -77,9 +78,9 @@ const Header: React.FC<Props> = (props) => {
               <div className="col-12 d-flex justify-content-between">
                 {/* <!-- Logo Area --> */}
                 <div className="logo">
-                  <a href="index.html">
+                  <Link to="./">
                     <img className="logo-img" src="img/core-img/logo.png" alt="" />
-                  </a>
+                  </Link>
                 </div>
 
                 {/* <!-- Top Contact Info --> */}
@@ -105,12 +106,12 @@ const Header: React.FC<Props> = (props) => {
                       tabIndex={0}
                       aria-labelledby="dropdownMenuButton"
                     >
-                      <a className="dropdown-item" href="./my-profile">
+                      <Link className="dropdown-item" to="./my-profile">
                         Thông tin cá nhân
-                      </a>
-                      <a className="dropdown-item" href="./change-password">
+                      </Link>
+                      <Link className="dropdown-item" to="./change-password">
                         Đổi mật khẩu
-                      </a>
+                      </Link>
                       <div onClick={handleLogout} className="dropdown-item">
                         Đăng xuất
                       </div>
@@ -132,7 +133,9 @@ const Header: React.FC<Props> = (props) => {
 };
 
 //defined Type of State
-const mapStateToProps = (state: any) => ({});
+const mapStateToProps = (state: any) => ({
+
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   logout: () => dispatch(logout()),

@@ -41,6 +41,8 @@ const App: React.FC<Props> = (props) => {
     console.log("over logout", sessionStorage.getItem("is_authentication"));
     if(sessionStorage.getItem("is_authentication") === "true") {
       setAuth(true);
+    } else {
+      setAuth(false);
     }
   }, [props.isAuthenticated])
 
