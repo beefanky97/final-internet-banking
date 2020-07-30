@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   icon: string;
@@ -8,13 +9,9 @@ interface Props {
 }
 
 const ServiceItem: React.FC<Props> = ({icon, name, des, url}) => {
-
-  const redirectPage = (url: string) => {
-    window.location.href = url;
-  }
-
+  
   return (
-    <div onClick={() => redirectPage(url)} className="col-12 col-md-6 col-lg-4" >
+    <Link to={url} className="col-12 col-md-6 col-lg-4" >
       <div
         className="single-service-area flex-column d-flex align-items-center text-center mb-30 wow fadeInUp shadow-lg rounded px-3 py-5 shadow-hover"
         data-wow-delay="200ms"
@@ -30,7 +27,7 @@ const ServiceItem: React.FC<Props> = ({icon, name, des, url}) => {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

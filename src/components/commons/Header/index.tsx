@@ -54,7 +54,7 @@ const Header: React.FC<Props> = (props) => {
                         <Link to="./about">Thông tin</Link>
                       </li>
                       <li>
-                        <Link to="./#all_service">Dịch vụ</Link>
+                        <Link to="#all_service">Dịch vụ</Link>
                       </li>
                     </ul>
                   </div>
