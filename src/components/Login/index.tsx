@@ -4,6 +4,7 @@ import { Dispatch } from "redux";
 import { login, logout } from "src/app/actions/accountActions";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router"
 
 interface Props {
   login: (username: string, password: string) => void;
@@ -18,9 +19,11 @@ const Login: React.FC<Props> = (props) => {
 
   const recaptchaRef = useRef(null);
 
+  const history = useHistory();
+
   useEffect(() => {
     if (props.isAuthenticated) {
-      window.location.href = "/";
+      history.push("./");
     }
   }, [props.isAuthenticated]);
 

@@ -35,7 +35,6 @@ interface Props {
 }
 
 const App: React.FC<Props> = (props) => {
-  console.log("isLoading!!!!", props.isLoading);
   const [auth, setAuth] = useState(false);
 
   useEffect(() => {
@@ -43,7 +42,7 @@ const App: React.FC<Props> = (props) => {
     if(sessionStorage.getItem("is_authentication") === "true") {
       setAuth(true);
     }
-  }, [])
+  }, [props.isAuthenticated])
 
   return (
     <Router>
