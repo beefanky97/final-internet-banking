@@ -23,9 +23,8 @@ export const login = (username: string, password: string) => {
   };
 };
 
-export const loginSuccsess = (tokkenInfo: any) => ({
-  type: accountActionTypes.LOGIN_SUCCESS,
-  tokkenInfo,
+export const loginSuccsess = () => ({
+  type: accountActionTypes.LOGIN_SUCCESS
 });
 
 export const loginFail = () => ({

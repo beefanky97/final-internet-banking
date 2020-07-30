@@ -13,7 +13,7 @@ function* loginSaga(action: any) {
     return;
   }
   yield call(saveTokenExpire, data);
-  yield put(loginSuccsess(data));
+  yield put(loginSuccsess());
 }
 
 function* logout() {
@@ -36,13 +36,13 @@ function* refreshTokenSaga() {
 }
 
 function* changePasswpordSaga(action: any) {
+  yield put(onLoading());
   const { data } = yield call(accountService.changePassword, action.current_password, action.new_password, action.confirm_password);
+  yield put(offLoading());
   if(!data.is_error) {
     alert("Đổi mật khẩu thành công!");
-    window.location.href = "./";
   } else {
-    alert("Có điều gì đó không đúng, xin thao tác l!");
-    window.location.href = "./login";
+    alert("Có điều gì đó không đúng, xin thao tác lại!");
   }
 }
 
