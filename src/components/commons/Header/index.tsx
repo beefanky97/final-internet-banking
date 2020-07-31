@@ -34,6 +34,12 @@ const Header: React.FC<Props> = (props) => {
                   </span>
                 </div>
 
+                <div className="logo">
+                  <Link to="/">
+                    <img className="logo-img" src="img/core-img/logo.png" alt="" />
+                  </Link>
+                </div>
+
                 {/* <!-- Menu --> */}
                 <div className="classy-menu">
                   {/* <!-- Close Button --> */}
@@ -56,6 +62,48 @@ const Header: React.FC<Props> = (props) => {
                       <li>
                         <Link to="#all_service">Dịch vụ</Link>
                       </li>
+                      <li>
+                        {props.isAuthenticated ? (
+                          <div>
+                            <button
+                              className="dropdown-toggle border-0"
+                              type="button"
+                              id="dropdownMenuButton"
+                              data-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                              style={{
+                                backgroundColor: '#003679',
+                                fontSize: 15,
+                                fontWeight: 'bold',
+                                color: '#fff',
+                                cursor: 'pointer',
+                                marginLeft: 10,
+                              }}
+                            >Tài khoản</button>
+                            <div
+                              className="dropdown-menu"
+                              style={{ zIndex: 1000 }}
+                              tabIndex={0}
+                              aria-labelledby="dropdownMenuButton"
+                            >
+                              <Link className="dropdown-item" style={{color: '#000', fontWeight: 'normal'}} to="./my-profile">
+                                Thông tin cá nhân
+                              </Link>
+                              <Link className="dropdown-item" style={{color: '#000', fontWeight: 'normal'}} to="./change-password">
+                                Đổi mật khẩu
+                              </Link>
+                              <div onClick={handleLogout} className="dropdown-item" style={{cursor: 'pointer'}}>
+                                Đăng xuất
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <Link to="/login">
+                            Đăng nhập
+                          </Link>
+                        )}
+                      </li>
                     </ul>
                   </div>
                   {/* <!-- Nav End --> */}
@@ -72,60 +120,7 @@ const Header: React.FC<Props> = (props) => {
           </div>
         </div>
         {/* <!-- Top Header Area --> */}
-        <div className="top-header-area">
-          <div className="container h-100">
-            <div className="row h-100 align-items-center">
-              <div className="col-12 d-flex justify-content-between">
-                {/* <!-- Logo Area --> */}
-                <div className="logo">
-                  <Link to="./">
-                    <img className="logo-img" src="img/core-img/logo.png" alt="" />
-                  </Link>
-                </div>
-
-                {/* <!-- Top Contact Info --> */}
-                {props.isAuthenticated ? (
-                  <div className="top-contact-info d-flex align-items-center dropdown">
-                    <button
-                      className="dropdown-toggle border-0"
-                      type="button"
-                      id="dropdownMenuButton"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <img
-                        src="img/core-img/user.ico"
-                        style={{ width: "30px", height: "30px" }}
-                        alt=""
-                      />
-                    </button>
-                    <div
-                      className="dropdown-menu"
-                      style={{ zIndex: 1000 }}
-                      tabIndex={0}
-                      aria-labelledby="dropdownMenuButton"
-                    >
-                      <Link className="dropdown-item" to="./my-profile">
-                        Thông tin cá nhân
-                      </Link>
-                      <Link className="dropdown-item" to="./change-password">
-                        Đổi mật khẩu
-                      </Link>
-                      <div onClick={handleLogout} className="dropdown-item">
-                        Đăng xuất
-                      </div>
-                    </div>{" "}
-                  </div>
-                ) : (
-                  <Link to="./login" className="btn credit-btn">
-                    Đăng nhập
-                  </Link>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </header>
       {/* <!-- ##### Header Area End ##### --> */}
     </div>
