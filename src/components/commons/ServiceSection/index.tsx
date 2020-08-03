@@ -11,28 +11,28 @@ const ServiceSection: React.FC<Props> = ({}) => {
       name: "Tài khoản/Thẻ",
       des: "Các dịch vụ liên quan đến thẻ và tài khoản tiết kiệm.",
       icon: "icon-profits",
-      url: "./my-profile",
+      url: "/my-profile",
     },
     {
       id: "2",
       name: "Danh bạ thụ hưởng",
       des: "Quản lý danh sách phụ hưởng, đối tượng giao dịch.",
       icon: "icon-profits",
-      url: "./reciever",
+      url: "/reciever",
     },
     {
       id: "3",
       name: "Chuyển tiền",
       des: "Các dịch vụ liên quan đến chuyển tiền.",
       icon: "icon-money-1",
-      url: "./transfer",
+      url: "/transfer",
     },
     {
       id: "4",
       name: "Quản lý nhắc nợ",
       des: "Các dịch vụ liên quan đến nhắc nợ.",
       icon: "icon-profits",
-      url: "./debt-reminder",
+      url: "/debt-reminder",
     },
     {
       id: "5",
@@ -46,7 +46,7 @@ const ServiceSection: React.FC<Props> = ({}) => {
       name: "Quản lý cài đặt.",
       des: "Các cài đặt về tài khoản ứng dụng.",
       icon: "icon-profits",
-      url: "./setting",
+      url: "/setting",
     },
   ];
 

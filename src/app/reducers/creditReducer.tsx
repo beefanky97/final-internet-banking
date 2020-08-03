@@ -15,6 +15,7 @@ const initialCeditReducer = {
   myDebt: [],
   othersUnpaidDebt: [],
   myUnpaidDebt: [],
+  isAddSuccess: false,
 };
 
 export const creditReducer = (state = initialCeditReducer, action: AnyAction) => {
@@ -56,6 +57,10 @@ export const creditReducer = (state = initialCeditReducer, action: AnyAction) =>
         othersUnpaidDebt: action.debtList.othersUnpaidDebt,
         myUnpaidDebt: action.debtList.myUnpaidDebt,
       };
+    }
+
+    case creditActionTypes.ADD_DEBT_REMINDER_SUCCESS: {
+      return { ...state, isAddSuccess: action.bool }
     }
 
     default:

@@ -13,13 +13,13 @@ function* loginSaga(action: any) {
     return;
   }
   yield call(saveTokenExpire, data);
-  yield put(loginSuccsess());
+  yield put(loginSuccsess(data));
 }
 
 function* logout() {
   yield call(clearTokenInfo);
   yield put(logoutSuccsess());
-  yield window.location.href = "./login";
+  yield window.location.href = "/login";
 }
 
 function* refreshTokenSaga() {

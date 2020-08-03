@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Dispatch } from "redux";
+import { useHistory } from "react-router"
 
 import HeaderBody from "src/components/commons/HeaderBody";
 import { connect } from "react-redux";
 import { actAddCustomer } from "src/app/actions/tellerActions";
-import { addDebtReminder } from "src/app/actions/creditActions";
+import { addDebtReminder, addDebtRiminderStatus } from "src/app/actions/creditActions";
 
 interface Props {
   addDebtReminder: (debtInfo: object) => void;
+  addDebtReminderStatus: (bool: boolean) => void;
   customers: [];
+  isAddSuccess: boolean;
 }
 
 const AddDebtReminder: React.FC<Props> = (props) => {
   const [debtInfo, setDebtInfo] = useState({});
+  const history = useHistory();
+
+  useEffect(() => {
+    if(props.isAddSuccess){
+      props.addDebtReminderStatus(false);
+      history.push('/debt-reminder');
+    }
+  }, [props.isAddSuccess])
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -100,10 +111,12 @@ const AddDebtReminder: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: any) => ({
   customers: state.tellerState.customers,
+  isAddSuccess: state.creditState.isAddSuccess
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   addDebtReminder: (debtInfo: object) => dispatch(addDebtReminder(debtInfo)),
+  addDebtReminderStatus: (bool: boolean) => dispatch(addDebtRiminderStatus(bool)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddDebtReminder);

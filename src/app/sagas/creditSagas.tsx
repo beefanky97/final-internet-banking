@@ -7,6 +7,8 @@ import {
   getSendingTransactionSuccess,
   getRemindingDebtTransactionSuccess,
   getDebtListSuccess,
+  addDebtReminder,
+  addDebtRiminderStatus,
 } from "src/app/actions/creditActions";
 import { accountService } from "src/api/accountService";
 import { saveTokenExpire, clearTokenInfo } from "src/components/utils/functions";
@@ -81,8 +83,10 @@ function* addDebtReminderSaga(action: any) {
   const { data, status } = yield call(creditService.addDebtReminder, action.debtInfo);
   if(status !== 203) {
     console.log("data", data);
-    window.location.href = "/debt-reminder";
+    // window.location.href = "/debt-reminder";
+    yield put(addDebtRiminderStatus(true));
   } else {
+    yield put(addDebtRiminderStatus(false));
     alert(data.msg);
   }
   yield put(offLoading());

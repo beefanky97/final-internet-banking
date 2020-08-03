@@ -8,6 +8,7 @@ export const isValidToken = () => {
 interface IToken {
   access_token: string
   refresh_token: string
+  permission: number
 }
 
 export const saveTokenExpire = (token: IToken) => {
@@ -20,6 +21,7 @@ export const saveTokenExpire = (token: IToken) => {
     sessionStorage.setItem('access_token', token.access_token);
     sessionStorage.setItem('refresh_token', token.refresh_token);
     sessionStorage.setItem('is_authentication', "true");
+    sessionStorage.setItem('permission', token.permission.toString());
   }
 }
 
@@ -28,5 +30,6 @@ export const clearTokenInfo = () => {
     sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("refresh_token");
     sessionStorage.removeItem('is_authentication');
+    sessionStorage.removeItem('permission');
   }
 }

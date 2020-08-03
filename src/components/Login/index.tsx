@@ -23,7 +23,8 @@ const Login: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (props.isAuthenticated) {
-      history.push("./");
+      // history.push("./");
+      window.location.href = '/';
     }
   }, [props.isAuthenticated]);
 

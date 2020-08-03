@@ -74,6 +74,11 @@ export const addDebtReminder = (debtInfo: any) => ({
   debtInfo
 });
 
+export const addDebtRiminderStatus = (bool: boolean) => ({
+  type: creditActionTypes.ADD_DEBT_REMINDER_SUCCESS,
+  bool
+});
+
 // export const addDebtReminderSuccess = (data: any) => ({
 //   type: creditActionTypes.GET_DEBT_LIST_SUCCESS,
 //   debtList: data

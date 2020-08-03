@@ -6,6 +6,7 @@ export const accountService = {
     return await appAxios
       .post("/auth", { username, password })
       .then((res: AxiosResponse) => {
+        console.log('data', res.data);
         return res;
       })
       .catch((err: AxiosError) => {

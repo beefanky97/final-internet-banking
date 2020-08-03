@@ -23,8 +23,9 @@ export const login = (username: string, password: string) => {
   };
 };
 
-export const loginSuccsess = () => ({
-  type: accountActionTypes.LOGIN_SUCCESS
+export const loginSuccsess = (data: any) => ({
+  type: accountActionTypes.LOGIN_SUCCESS,
+  data
 });
 
 export const loginFail = () => ({

@@ -13,6 +13,7 @@ import axios from 'axios';
 interface Props {
   customer: any;
   cards: [];
+  user: any;
   showDetailCustomer: (id: string) => void;
   // showInfoCards: () => void;
 }
@@ -47,7 +48,9 @@ const CustomerDetail: React.FC<Props> = (props) => {
         appAxios.get("/cards/customer")
       ]).then(axios.spread((customerRes: any, cardRes: any) => {
         setProfile({...profile, customerInfo: customerRes.data, cardInfo: cardRes.data});
-      }))
+      })).catch((err) => console.log('error: ', err.response));
+      console.log('id: ', props.user.id);
+      // props.showDetailCustomer(props.user.id);
     } else {
       setIsTeller(true);
       props.showDetailCustomer(parsed.query.id);
@@ -69,6 +72,8 @@ const CustomerDetail: React.FC<Props> = (props) => {
                 <div className="contact-form-area contact-page">
                   <h4 className="mb-50">{path === "/my-profile" ? "THÔNG TIN CÁ NHÂN" : "THÔNG TIN KHÁCH HÀNG"}</h4>
                   <div className="row">
+                    {/* <InfoCustomer customer={props.customer} />
+                    <InfoCard isTeller={isTeller} cards={props.cards} /> */}
                     <InfoCustomer customer={isTeller ? props.customer : profile.customerInfo} />
                     <InfoCard isTeller={isTeller} cards={isTeller ? props.cards : profile.cardInfo} />
                   </div>
@@ -85,6 +90,7 @@ const CustomerDetail: React.FC<Props> = (props) => {
 const mapStateToProps = (state: any) => ({
   customer: state.tellerState.customer,
   cards: state.tellerState.cards,
+  user: state.accountState.userInfo
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

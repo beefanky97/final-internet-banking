@@ -43,7 +43,8 @@ const AddMoney: React.FC<Props> = (props) => {
     setCardNumber(0);
     setMoney(0);
     alert("Success");
-    if(parsed){
+    console.log('par', parsed);
+    if(parsed.query.card_number){
       // window.location.href = '/teller/customer/detail?id=5eeb5d49522755fd2ddb8d3d';
       props.history.goBack();
     }
@@ -107,7 +108,7 @@ const AddMoney: React.FC<Props> = (props) => {
                           type="button"
                           onClick={() => handleOpenModal()}
                         >
-                          Chuyển tiền
+                          Nạp tiền
                         </button>
                       </div>
                     </div>

@@ -5,6 +5,7 @@ const initialAccountState = {
   isAuthenticated: false,
   isCorrectEmail: false,
   isResetPasswordSuccess: false,
+  userInfo: {},
 };
 
 export const accountReducer = (
@@ -16,6 +17,7 @@ export const accountReducer = (
       return {
         ...state,
         isAuthenticated: true,
+        userInfo: action.data
       };
     }
     case accountActionTypes.LOGIN_FAIL: {

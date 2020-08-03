@@ -1,4 +1,5 @@
 import axios from "axios";
+import { config } from "process";
 // import https from 'https';
 
 // const { publicRuntimeConfig = {} } = getConfig() || {}
@@ -53,14 +54,14 @@ instanceAppAxios.interceptors.response.use(
     // Handle when not Auth
     if (error.response && +error.response.status === 401) {
       alert("Tài khoản hết hạn, xin đăng nhập lại!");
-      window.location.href = "./login";
+      window.location.href = "/login";
       return;
     }
 
     // Handle when not Auth
     if (error.response && +error.response.status === 400) {
       alert("Có gì đó sai, hãy thử lại!");
-      window.location.href = "./login";
+      window.location.href = "/login";
       return;
     }
     return Promise.reject(error);
