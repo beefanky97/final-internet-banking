@@ -16,23 +16,29 @@ import { actShowAllCustomers } from "../../actions/tellerActions";
 import { onLoading, offLoading } from "src/app/actions/commonActions";
 
 function* showAllCustomers() {
+  yield put(onLoading());
   const { data }: AxiosResponse = yield call(tellerService.showAllCustomers);
+  yield put(offLoading());
   yield put(actShowAllCustomers(data));
 }
 
 function* addCustomer(action: any) {
   console.log("over saga!", action.entity);
+  yield put(onLoading());
   const { data } = yield call(tellerService.addCustomer, action.entity);
   if (!data.is_error) {
     // window.location.href = "/teller/customers";
+    yield put(offLoading());
     yield put(actAddCustomerSuccess(true));
   } else {
     yield put(actAddCustomerSuccess(false));
+    yield put(offLoading());
     alert(data.msg);
   }
 }
 
 function* showDetailCustomer(action: any) {
+  yield put(onLoading());
   const { data }: AxiosResponse = yield call(
     tellerService.showDetailCustomer,
     action.id
@@ -44,13 +50,16 @@ function* showDetailCustomer(action: any) {
     action.id
   );
   yield put(actShowInfoCards(dataCards.data));
+  yield put(offLoading());
 }
 
 function* showInfoCards(action: any) {
+  yield put(onLoading());
   const { data }: AxiosResponse = yield call(
     tellerService.showInfoCards,
     action.id
   );
+  yield put(offLoading());
   yield put(actShowInfoCards(data));
 }
 
@@ -81,6 +90,7 @@ function* getHistoryTransaction(action: any) {
 
 
 function* addMoneyCustomer(action: any) {
+  yield put(onLoading());
   const { data }: AxiosResponse = yield call(
     tellerService.addMoneyForCustomer,
     action.card_number,
@@ -93,6 +103,7 @@ function* addMoneyCustomer(action: any) {
   } else {
     yield put(actAddMoneyCustomerSuccess(false));
   }
+  yield put(offLoading());
 }
 
 function* watchAllCustomer() {

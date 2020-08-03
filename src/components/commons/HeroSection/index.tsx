@@ -19,15 +19,13 @@ const HeroSection: React.FC<Props> = ({}) => {
                 <div className="col-12 col-lg-9">
                   <div className="welcome-text text-center">
                     <h6 data-animation="fadeInUp" data-delay="100ms">
-                      2 years interest
+                      vấn đáp cuối kì
                     </h6>
                     <h2 data-animation="fadeInUp" data-delay="300ms">
-                      get your <span>loan</span> now
+                      đồ án <span>web nâng cao</span>
                     </h2>
                     <p data-animation="fadeInUp" data-delay="500ms">
-                      Vestibulum eu vehicula elit, nec elementum orci. Praesent
-                      aliquet ves tibulum tempus. Pellentesque posuere pharetra
-                      turpis, eget finibus erat porta placerat.
+                      Dự án Internet Banking được dựng ra với mục đích luyện tập, phát triển kĩ năng xây dựng web.
                     </p>
                     <a
                       href="#"
@@ -35,7 +33,7 @@ const HeroSection: React.FC<Props> = ({}) => {
                       data-animation="fadeInUp"
                       data-delay="700ms"
                     >
-                      Discover
+                      GV: ThS. Ngô Ngọc Đăng Khoa
                     </a>
                   </div>
                 </div>

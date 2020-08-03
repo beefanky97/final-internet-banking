@@ -37,6 +37,8 @@ interface Props {
 const App: React.FC<Props> = (props) => {
   const [auth, setAuth] = useState(false);
 
+
+
   useEffect(() => {
     console.log("over logout", sessionStorage.getItem("is_authentication"));
     if(sessionStorage.getItem("is_authentication") === "true") {
