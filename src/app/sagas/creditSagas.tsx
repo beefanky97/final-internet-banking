@@ -60,10 +60,12 @@ function* getHistoryTransaction(action: any) {
         yield put(offLoading());
         return;
       default:
-        alert("Lấy dữ liệu giao dịch thất bại, xin thử lại!");
+        yield alert("Lấy dữ liệu giao dịch thất bại, xin thử lại!");
+        yield put(onLoading());
         return;
     }
   }
+  yield put(offLoading());
 }
 
 function* getDebtListSaga() {

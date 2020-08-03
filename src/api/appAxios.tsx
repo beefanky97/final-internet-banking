@@ -64,6 +64,13 @@ instanceAppAxios.interceptors.response.use(
       window.location.href = "/login";
       return;
     }
+
+    // Handle server error
+    if (error.response && +error.response.status === 500) {
+      alert("Máy chủ gặp lỗi, vui lòng thử lại sau!");
+      window.location.href = "/";
+      return;
+    }
     return Promise.reject(error);
   }
 );
