@@ -25,7 +25,7 @@ function* transferSaga(action: any) {
     if(!data_2.data.is_error) {
       alert("Chuyển khoản thành công!");
     } else {
-      alert(data.data.msg);
+      alert(data_2.data.msg);
     }
   } 
 }
