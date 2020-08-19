@@ -14,27 +14,30 @@ function* getAllRecieverSaga() {
 function* deleteRecieverSaga(action: any) {
   yield put(onLoading());
   const { data }: AxiosResponse = yield call(receiverService.deleteReciever, action.id_customer);
+  yield put(offLoading());
   if(data) {
-    yield put(offLoading());
+    yield alert("Xoá thành công!");
   }
 }
 
 function* editRecieverSaga(action: any) {
   yield put(onLoading());
   const { data }: AxiosResponse = yield call(receiverService.editReciever, action.id, action.card_number, action.reminiscent_name);
+  yield put(offLoading());
   if(data) {
-    yield put(offLoading());
+    yield alert("Sửa thành công!");
   }
 }
 
 function* addRecieverSaga(action: any) {
   yield put(onLoading());
   const { data }: AxiosResponse = yield call(receiverService.addReciever, action.card_number, action.reminiscent_name);
+  yield put(offLoading());
   if(!data.is_error) {
     // yield put(addRecieverSuccsess(data));
-    yield put(offLoading());
+    yield alert("Lưu thành công!");
   }else{
-    alert(data.msg);
+    yield alert(data.msg);
   }
 }
 

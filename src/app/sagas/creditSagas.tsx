@@ -17,17 +17,22 @@ import { onLoading, offLoading } from "../actions/commonActions";
 import { show } from "redux-modal";
 
 function* transferSaga(action: any) {
-  
+  yield put(onLoading());
+  console.log("over nè");
   const { status, data }: AxiosResponse = yield call(creditService.confirmOTP, action.transferInfo.otp);
-  console.log("otp", action.transferInfo.otp);
+  yield put(offLoading());
   if(!data.is_error) {
     const data_2 = yield call(creditService.transfer, action.transferInfo);
     if(!data_2.data.is_error) {
-      alert("Chuyển khoản thành công!");
+      yield alert("Chuyển khoản thành công!");
+      yield put(show("SAVE_INFOR_MODAL"));
     } else {
-      alert(data_2.data.msg);
+      yield alert(data_2.data.msg);
     }
-  } 
+  } else {
+    yield alert(data.msg);
+  }
+  
 }
 
 function* getCardInfoSaga(action: any) {
@@ -38,7 +43,7 @@ function* getCardInfoSaga(action: any) {
     yield put(getCardInfoSuccess(data));
     yield put(show("CONFIRM_CARD_MODAL"));
   } else {
-    alert(data.msg);
+    yield alert(data.msg);
   }
 }
 
@@ -85,7 +90,6 @@ function* addDebtReminderSaga(action: any) {
   const { data, status } = yield call(creditService.addDebtReminder, action.debtInfo);
   if(status !== 203) {
     console.log("data", data);
-    // window.location.href = "/debt-reminder";
     yield put(addDebtRiminderStatus(true));
   } else {
     yield put(addDebtRiminderStatus(false));

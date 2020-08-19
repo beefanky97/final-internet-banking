@@ -4,8 +4,10 @@ import { Dispatch } from "redux";
 import { show, hide } from "redux-modal";
 
 import ConfirmCardModal from "src/components/Transfer/modals/ConfirmCardModal";
+import SaveInforModal from "src/components/Transfer/modals/SaveInforModal";
 import { getCardInfo, transfer } from "src/app/actions/creditActions";
 import HeaderBody from "../commons/HeaderBody";
+import { addReciever } from "src/app/actions/recieverActions";
 
 interface Props {
   cardInfo: any;
@@ -13,6 +15,8 @@ interface Props {
   getCardInfo: any;
   transfer: (transferInfo: Object) => void;
   closeModal: () => void;
+  saveInfor: (card_number: number, reminiscent_name: string) => void;
+  closeSaveInforModal: () => void;
   isLoading: boolean;
 }
 
@@ -148,13 +152,16 @@ const Transfer: React.FC<Props> = (props) => {
           </div>
         </div>
       </div>
-      {!props.isLoading && (
         <ConfirmCardModal
           closeModal={props.closeModal}
           continuteTransfer={handleSubmit}
           cardInfo={props.cardInfo}
         />
-      )}
+        <SaveInforModal
+          closeModal={props.closeSaveInforModal}
+          handleSaveInfor={(card_number: number, reminiscent_name: string) => props.saveInfor(card_number, reminiscent_name)}
+          cardInfo={props.cardInfo}
+        />
     </div>
   );
 };
@@ -170,7 +177,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCardInfo: (card_number: number, partner_code: number) =>
     dispatch(getCardInfo(card_number, partner_code)),
   transfer: (transferInfo: Object) => dispatch(transfer(transferInfo)),
+  saveInfor: (card_number: number, reminiscent_name: string) => dispatch(addReciever(card_number, reminiscent_name)),
   closeModal: () => dispatch(hide("CONFIRM_CARD_MODAL")),
+  closeSaveInforModal: () => dispatch(hide("SAVE_INFOR_MODAL")),
 });
 
 //connect to the appStore

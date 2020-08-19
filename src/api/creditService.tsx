@@ -9,7 +9,6 @@ export const creditService = {
     console.log("service transfer", transferInfo);
     return await appAxios.post("/transactions/customer/sending/add", transferInfo).then((res: AxiosResponse) => {
       if (res.status === 400) {
-        console.log("stop here!");
         return;
       }
       return res;
