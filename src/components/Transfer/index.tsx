@@ -38,6 +38,11 @@ const Transfer: React.FC<Props> = (props) => {
     };
     console.log("dataaaa", transferInfo);
     props.transfer(transferInfo);
+    setPartnerCode(1);
+    setPaidType(1);
+    setCardNumber(0);
+    setAmount(0);
+    setContent("");
   };
 
   const handleOpenModal = () => {
@@ -55,7 +60,7 @@ const Transfer: React.FC<Props> = (props) => {
         <div className="contact---area">
           <div className="container">
             <div className="row justify-content-center">
-              <div className="col-10 contact-form-area contact-page">
+              <form id="my-form" className="col-10 contact-form-area contact-page">
                 <h4 className="mb-50">CHUYỂN KHOẢN</h4>
                 <div className="row">
                   <div className="col-lg-6 fdr mb-30">
@@ -113,19 +118,6 @@ const Transfer: React.FC<Props> = (props) => {
                       />
                     </div>
                   </div>
-                  {/* <div className="col-lg-6 fdr mb-30">
-                    <div className="keyword">
-                      <span style={{textAlign: 'center'}}>Lời nhắn</span>
-                    </div>
-                    <div className="input-info">
-                      <input
-                        type="text"
-                        className="col-12"
-                        onChange={(e) => setContent(e.target.value)}
-                        placeholder="Nội dung"
-                      />
-                    </div>
-                  </div> */}
                   <div className="col-lg-12">
                     <div className="form-group">
                       <textarea
@@ -140,14 +132,14 @@ const Transfer: React.FC<Props> = (props) => {
                   <div className="col-12">
                     <button
                       className="btn btn-hv mt-30"
-                      type="submit"
+                      type="reset"
                       onClick={handleOpenModal}
                     >
                       Chuyển tiền
                     </button>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

@@ -30,6 +30,7 @@ const ConfirmCardModal: React.FunctionComponent<Props> = (props) => {
       <>
         <span className="info-row"><b>Số tài khoản:</b> {cardInfo && cardInfo.card_number}</span>
         <span className="info-row"><b>Tên người nhận:</b> {cardInfo && cardInfo.full_name}</span>
+        <span className="info-row"><b>Ngân hàng:</b> {cardInfo && cardInfo.bank_name}</span>
       </>
     );
   };

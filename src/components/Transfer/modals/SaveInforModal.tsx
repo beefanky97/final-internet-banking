@@ -9,21 +9,23 @@ interface Props {
 }
 
 const SaveInforModal: React.FunctionComponent<Props> = (props) => {
-  const [reminiscentName, setReminiscentName] = useState(
-    props.cardInfo.full_name
-  )
+  const [reminiscentName, setReminiscentName] = useState(props.cardInfo.full_name);
 
   console.log("props", props.cardInfo);
-
 
   const handleSaveInfor = (e: any) => {
     e.preventDefault();
-    props.handleSaveInfor(props.cardInfo.card_number, reminiscentName);
+    console.log("over333", reminiscentName);
+    if(reminiscentName === "") {
+      props.handleSaveInfor(props.cardInfo.card_number, props.cardInfo.full_name);
+    } else {
+      props.handleSaveInfor(props.cardInfo.card_number, reminiscentName);
+    }
     props.closeModal();
   };
 
-  console.log("props", props.cardInfo);
-  
+  console.log("props", reminiscentName === "");
+
   return (
     <div className="modal-center">
       <div className="modal-dialog modal-dialog-centered">
@@ -41,8 +43,17 @@ const SaveInforModal: React.FunctionComponent<Props> = (props) => {
             </button>
           </div>
           <div className="modal-body">
-            <span className="info-row"><b>Số tài khoản:</b> {props.cardInfo && props.cardInfo.card_number}</span>
-            <span className="info-row"><b>Tên người nhận:</b><input placeholder={props.cardInfo && props.cardInfo.full_name} type="text"/> </span>
+            <span className="info-row">
+              <b>Số tài khoản:</b> {props.cardInfo && props.cardInfo.card_number}
+            </span>
+            <span className="info-row">
+              <b>Tên người nhận:</b>
+              <input
+                onChange={(e) => setReminiscentName(e.target.value)}
+                placeholder={props.cardInfo && props.cardInfo.full_name}
+                type="text"
+              />
+            </span>
           </div>
           <div className="modal-footer">
             <button
@@ -53,13 +64,9 @@ const SaveInforModal: React.FunctionComponent<Props> = (props) => {
             >
               Huỷ
             </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleSaveInfor}
-              >
-                Lưu
-              </button>
+            <button type="button" className="btn btn-primary" onClick={handleSaveInfor}>
+              Lưu
+            </button>
           </div>
         </div>
       </div>
